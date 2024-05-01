@@ -7,25 +7,20 @@ import { commentsData } from "../../widgets/widgetData";
 import { usePostsStore } from "../../entities";
 import { postDataTypes } from "./dataPostShow.interface";
 const PostShow: FC<{ posts: any }> = ({ posts }) => {
-
-
   return (
     <>
       <Grid container>
         <Grid sm={8}>
-        {posts &&
-          posts.map((item: postDataTypes) => {
-          return <Post dataObject={item}></Post>
-        })}
+          {posts &&
+            posts.map((item: postDataTypes) => {
+              return <Post dataObject={item}></Post>;
+            })}
         </Grid>
       </Grid>
     </>
   );
 };
 export default PostShow;
-
-
-
 
 // import { FC } from "react";
 // import { Grid } from "@mui/material";

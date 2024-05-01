@@ -1,0 +1,36 @@
+.div {
+  position: relative;
+  height: 82vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 2rem;
+  .subdiv_up {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .subdiv_up_left {
+      display: flex;
+      align-items: center;
+      > img {
+        margin-right: 1rem;
+      }
+      > div {
+        > h5 {
+          > span {
+            font-size: 0.6rem;
+            opacity: 0.7;
+          }
+        }
+      }
+    }
+    .subdiv_up_right {
+      display: flex;
+      > div {
+        margin-left: 1rem;
+      }
+    }
+  }
+  .subdiv_down {
+  }
+}

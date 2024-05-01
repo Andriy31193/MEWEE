@@ -1,0 +1,14 @@
+// .div {
+//   width: 100%;
+//   display: flex; // Flex для гибкости
+//   align-items: center; // Выравнивание элементов по вертикали
+//   justify-content: space-between; // Равномерное распределение по горизонтали
+//   background-color: red;
+//   > p {
+//     color: green;
+//     white-space: nowrap; // Текст остается в одной строке
+//     overflow: hidden; // Обрезает текст, который выходит за границы
+//     text-overflow: ellipsis; // Добавляет многоточие, если текст обрезается
+//     width: 100%; // Гарантирует, что текст не выходит за границы контейнера
+//   }
+// }

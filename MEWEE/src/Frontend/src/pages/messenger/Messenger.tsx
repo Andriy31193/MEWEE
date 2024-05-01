@@ -1,12 +1,23 @@
 import { FC } from "react";
+import { Grid } from "@mui/material";
 import DialogModal from "./dialog-modal/DialogModal";
 import Dialog from "./dialogs/Dialogs";
 import { dialogData, modalChatsDataLink } from "./messengerData";
 const Messenger: FC = () => {
   return (
     <div style={{ padding: "1rem" }}>
-      <DialogModal />
-      <Dialog dialogData={dialogData} modalDialogsData={modalChatsDataLink} />
+      <Grid container>
+        <Grid md={12}>
+          <DialogModal />
+        </Grid>
+        <Grid md={12}>
+          <Dialog
+            dialogData={dialogData}
+            modalDialogsData={modalChatsDataLink}
+            sideBarType={false}
+          />
+        </Grid>
+      </Grid>
     </div>
   );
 };

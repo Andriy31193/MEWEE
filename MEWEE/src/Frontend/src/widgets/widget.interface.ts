@@ -13,7 +13,7 @@ export interface modalPostDataLinkTypes {
 
 export interface CustomModalIconPropsTypes {
   id: number;
-  links: modalPostDataLinkTypes[];
+  links?: modalPostDataLinkTypes[];
 }
 
 export interface commentDataTypes {
