@@ -1,1 +1,7 @@
-export const gog = "";
+export interface chatDataTypes {
+  id: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  userType: string;
+}

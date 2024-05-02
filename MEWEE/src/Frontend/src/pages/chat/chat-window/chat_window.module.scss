@@ -1,3 +1,5 @@
+@import "src/mixins.scss";
+
 .div {
   position: relative;
   height: 82vh;
@@ -32,5 +34,89 @@
     }
   }
   .subdiv_down {
+    > div {
+      max-height: 60vh;
+      overflow-y: auto;
+      .subdiv_message {
+        padding: 1rem 0;
+        .incoming_message {
+          display: flex;
+          justify-content: flex-start;
+          > div {
+            max-width: 17.5rem;
+            background-color: white;
+            border-radius: 0 10px 10px 10px;
+            padding: 1rem;
+          }
+        }
+        .outgoing_message {
+          display: flex;
+          justify-content: flex-end;
+          > div {
+            max-width: 17.5rem;
+            background-color: #e9e4ff;
+            border-radius: 10px 10px 0 10px;
+            padding: 1rem;
+          }
+        }
+      }
+    }
+    .input_message {
+      position: relative;
+      display: flex;
+      border: 2px solid #25005c;
+      border-radius: 10px;
+      padding: 0.5rem;
+      background-color: var(--mainPage_post_comments_inputBackground);
+      .smile_icon {
+        position: absolute;
+        right: 0px;
+        bottom: 3.125rem;
+        max-width: 16.56rem;
+        max-height: 9.625rem;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 8px 10px 5px rgba(0, 0, 0, 0.2);
+        overflow: auto;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+        display: none;
+        padding: 0.5rem;
+        > ul {
+          display: flex;
+          flex-wrap: wrap;
+        }
+      }
+      ._smile_icon_visible {
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 0s;
+        display: block;
+      }
+      > button {
+        background-color: #fba500;
+        color: white;
+        border: none;
+        font-size: 0.7rem;
+        border-radius: 15px;
+        padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+        //@include hover-scale;
+      }
+      > input {
+        margin-left: 1rem;
+        width: 100%;
+        border: none;
+        outline: none;
+        background-color: var(--mainPage_post_comments_inputBackground);
+        color: var(--mainPage_post_comments_colorText);
+      }
+      > div {
+        display: flex;
+        > img {
+          @include hover-scale;
+        }
+      }
+    }
   }
 }

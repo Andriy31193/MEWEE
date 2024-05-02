@@ -46,7 +46,6 @@ const CustomInput: FC<CustomInputProps> = ({
       }
     },
   });
-
   return (
     <>
       <div className={styles.div}>
