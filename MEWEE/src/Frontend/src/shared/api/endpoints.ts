@@ -10,7 +10,7 @@ export const ENDPOINTS = {
     USER :{
         REGISTER: `${API_URL}/user/register`,
         GET_PROFILE_DATA: `${API_URL}/user/profile`,
-        UPDATE_PROFILE_DATA: `${API_URL}/user/update-profile`,
+        UPDATE_PROFILE_DATA: `${API_URL}/user/profile`,
         CONFIRM_EMAIL: `${API_URL}/user/confirm-email`,
         GET_POSTS: `${API_URL}/posts`,
         POST: `${API_URL}/post`,

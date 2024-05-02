@@ -192,7 +192,7 @@ export const useAuthStore = create<IAuthStore>()(
         profileAvatarData: string
       ) => {
         try {
-          const response = await $api.post<any>(
+          const response = await $api.put<any>(
             ENDPOINTS.USER.UPDATE_PROFILE_DATA,
             { ProfileAvatar: profileAvatarData },
             { withCredentials: true }

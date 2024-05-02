@@ -76,8 +76,10 @@ export const FeedPostItem: FC<{ item: postDataTypes }> = ({ item }) => {
     if (!isLiked)
       likePost(onLikePostResponse, item.id)
     else
+    {
+     console.log("unlike");
       unLikePost(onLikePostResponse, item.id)
-
+    }
   };
   const handleAvatarDecrypt = (data: any) => {
 

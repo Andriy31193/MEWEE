@@ -30,7 +30,7 @@ export const usePostsStore = create<IPoststore>((set) => ({
   posts: null,
 
   createPost: async (callback: ResponseCallback, request: ICreatePostRequest) => {
-
+console.log(request.category);
     set({ isLoading: true });
     try {
       const response = await $api.post<any>(ENDPOINTS.USER.POST, request);
@@ -98,6 +98,7 @@ export const usePostsStore = create<IPoststore>((set) => ({
     set({ isLoading: false });
   },
   likePost: async (callback: ResponseCallback, postId: string) => {
+    console.log("like-post");
     set({ isLoading: true });
 
     try {
@@ -127,7 +128,7 @@ export const usePostsStore = create<IPoststore>((set) => ({
 
 
       if (response?.status == 200) {
-        console.log(response.data);
+        console.log("unlike-post response:", response.data);
         callback([]);
       } else {
         callback(pErrors(response.data.errors));
