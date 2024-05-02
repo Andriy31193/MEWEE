@@ -18,5 +18,4 @@ const Chat: FC = () => {
     </>
   );
 };
-
 export default Chat;

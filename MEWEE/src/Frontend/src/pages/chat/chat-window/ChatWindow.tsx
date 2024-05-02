@@ -26,12 +26,20 @@ const ChatWindow: FC = () => {
         </div>
       </div>
       <div className={styles.subdiv_down}>
-        <ul>
-          <li></li>
-        </ul>
-        <ul>
-          <li></li>
-        </ul>
+        <div className={styles.subdiv_message}>
+          <ul>
+            <li>
+              Доброго ранку Можеш сказати де ти купляла матеріали для нового
+              намиста? Бачила у тебе в останьому пості.
+            </li>
+          </ul>
+          <ul>
+            <li>
+              Доброго! Звичайно, я тобі трошки згодом скину посилання. Зараз
+              зайнята.
+            </li>
+          </ul>
+        </div>
         <CustomInput inputTypes="chat" placeHolder="" />
       </div>
     </div>
