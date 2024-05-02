@@ -2,24 +2,29 @@
   width: 100%;
   z-index: 1;
   .chat_div {
+    width: 100%;
     position: relative;
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    max-width: 100%;
+    background-color: white;
+    border-radius: 15px;
+    padding: 1rem 2rem;
     margin-bottom: 1rem;
     > img {
       margin-right: 1rem;
     }
-    position: relative;
-    display: flex;
-    background-color: white;
-    border-radius: 15px;
-    padding: 1rem 2rem;
     .chat_div_item {
+      width: 100%;
       display: flex;
       .chat_div_item1 {
-        margin-right: 1rem;
+        max-width: 60.3rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         margin-right: 1rem;
+        z-index: 1;
       }
       .chat_div_item2 {
         margin-right: 1rem;

@@ -18,5 +18,6 @@ export interface modalDialogsDataLinkTypes {
 
 export interface dialogsDataPropTypes {
   dialogData: dialogDataTypes[];
-  modalDialogsData: modalDialogsDataLinkTypes[];
+  modalDialogsData?: modalDialogsDataLinkTypes[];
+  sideBarType: boolean;
 }
