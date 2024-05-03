@@ -71,3 +71,13 @@ p {
 /* * {
   outline: 1px solid green;
 } */
+
+/*ЭТО ПЕРЕОПРЕДЕЛЕНИЕ СТИЛЕЙ MUI ДЛЯ SWITCH ПЕРЕКЛЮЧАТЕЛЕЙ SETTING PAGE*/
+.css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked {
+  color: #25005c !important;
+}
+
+.css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked
+  + .MuiSwitch-track {
+  background-color: #d7b9fb !important;
+}

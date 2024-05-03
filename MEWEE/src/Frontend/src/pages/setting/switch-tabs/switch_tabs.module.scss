@@ -1,0 +1,14 @@
+.div {
+  padding: 1rem;
+  color: #25005c;
+  > ul {
+    > li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: white;
+      border-radius: 10px;
+      padding: 1rem;
+    }
+  }
+}

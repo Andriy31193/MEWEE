@@ -1,8 +1,26 @@
 import { FC } from "react";
-const SwitchTabs: FC = () => {
+import Switch from '@mui/material/Switch';
+import { switchTabsPropsTypes, switchTabsDataTypes } from "../settingData.interface";
+import styles from "./switch_tabs.module.scss"
+const SwitchTabs: FC<switchTabsPropsTypes> = ({ switchTabsData }) => {
     return (
-        <div>
+        <div className={styles.div}>
+            <ul>
+                {switchTabsData && (
+                    switchTabsData.map((item: switchTabsDataTypes) => {
+                        return (
+                            <li key={item.id}>
+                                <div>
+                                    <h2>{item.title}</h2>
+                                    {item.description != undefined && (<p>{item.description}</p>)}
+                                </div>
+                                <Switch defaultChecked={item.switchActive === true} />
+                            </li>
+                        )
+                    })
+                )}
 
+            </ul>
         </div>
     )
 }
