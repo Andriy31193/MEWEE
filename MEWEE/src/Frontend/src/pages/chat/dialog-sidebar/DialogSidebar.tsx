@@ -2,7 +2,12 @@ import { FC } from "react";
 import { dialogData } from "../../messenger/messengerData";
 import Dialog from "../../messenger/dialogs/Dialogs";
 import styles from "./dialog_sidebar.module.scss";
+import { useAuthStore } from "../../../entities";
 const DialogSidebar: FC = () => {
+
+  const { id } = useAuthStore();
+
+
   return (
     <>
       <div>

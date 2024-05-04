@@ -54,7 +54,8 @@ export const RegisterForm: React.FC<{ onNext: () => void }> = ({ onNext }) => {
     validationSchema: REGISTER_SCHEMA,
     onSubmit: () => {
       register(onResponse, {
-        username: formik.values.username + " " + formik.values.surname,
+        firstName: formik.values.username,
+        secondName: formik.values.surname,
         email: formik.values.email,
         password: formik.values.password,
       });

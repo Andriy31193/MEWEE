@@ -3,6 +3,7 @@ import { Grid } from "@mui/material";
 import DialogSidebar from "./dialog-sidebar/DialogSidebar";
 import ChatWindow from "./chat-window/ChatWindow";
 const Chat: FC = () => {
+  
   return (
     <>
       <div style={{ padding: "1rem" }}>

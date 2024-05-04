@@ -33,6 +33,7 @@ export type { IUserData } from './responses/shared/IUserData'
 ////////////////////////////////////
 
 export { useErrors } from './sharedStores/useErrors';
+export { useUserStore } from './sharedStores/useUserStore';
 export { useChatStore } from './sharedStores/useChatStore';
 export { usePostsStore } from './sharedStores/usePostsStore';
 export { useRecoveryStore } from './sharedStores/useRecoveryStore';

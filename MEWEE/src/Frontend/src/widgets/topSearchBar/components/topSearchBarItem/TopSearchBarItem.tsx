@@ -3,10 +3,11 @@ import { useThemeStore } from "../../../../entities";
 import "./top_search_bar_item.css";
 
 interface TopSearchBarItemProps {
+  onClick: () => void;
   icon: React.ReactNode;
 }
 
-export const TopSearchBarItem: React.FC<TopSearchBarItemProps> = ({ icon }) => {
+export const TopSearchBarItem: React.FC<TopSearchBarItemProps> = ({ onClick, icon }) => {
   const { currentTheme } = useThemeStore();
   const [hoverIconColor, setHoverIconColor] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -29,6 +30,7 @@ export const TopSearchBarItem: React.FC<TopSearchBarItemProps> = ({ icon }) => {
       }}
       onMouseDown={() => setIsActive(true)}
       onMouseUp={() => setIsActive(false)}
+      onClick={onClick}
     >
       {icon}
     </div>

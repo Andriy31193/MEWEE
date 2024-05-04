@@ -1,13 +1,13 @@
 import { FC } from "react";
 import { friendDataPropsTypes } from "../../profileData.interface";
 import styles from "./friends.module.scss";
-const Friends: FC<friendDataPropsTypes> = ({ friendData }) => {
+const Friends: FC<{friendsData:any}> = ({ friendsData }) => {
   return (
     <>
       <div className={styles.div}>
         <ul>
-          {friendData &&
-            friendData.map((item) => {
+          {friendsData &&
+            friendsData.map((item:any) => {
               return (
                 <li key={item.id}>
                   {item.online ? (

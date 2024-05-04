@@ -13,8 +13,15 @@ import Friends from "./friends/Friends";
 import PhotoVideoSliders from "../../../widgets/photo-video-sliders/PhotoVideoSliders";
 import ProfileItemFilter from "../../../assets/image/icons/ProfileItemFilter.svg";
 import styles from "./profile_item.module.scss";
-const ProfileItem: FC = () => {
+const ProfileItem: FC<{ profileData: any }> = ({ profileData }) => {
   const [activeItemId, setActiveItemId] = useState<number | null>(null);
+  const [followers, setFollowers] = useState<any>(null);
+
+  useEffect(() => {
+    
+  });
+
+
   useEffect(() => {
     if (profileButtonsData.length > 0 && activeItemId === null) {
       setActiveItemId(profileButtonsData[0].id);
@@ -27,6 +34,7 @@ const ProfileItem: FC = () => {
 
   return (
     <>
+      {profileData && (
       <div className={styles.div}>
         <ul>
           {profileButtonsData &&
@@ -44,7 +52,7 @@ const ProfileItem: FC = () => {
               );
             })}
         </ul>
-        {activeItemId === 1 && <ProfilePost />}
+        {activeItemId === 1 && <ProfilePost id={profileData.id} />}
 
         {activeItemId === 2 && (
           <Portfilio
@@ -53,7 +61,7 @@ const ProfileItem: FC = () => {
           />
         )}
 
-        {activeItemId === 3 && <Friends friendData={friendData} />}
+        {activeItemId === 3 && <Friends friendsData={friendData} />}
         {activeItemId === 5 && (
           <div className={styles.sliders_div}>
             <div className={styles.div_title}>
@@ -75,6 +83,7 @@ const ProfileItem: FC = () => {
           </div>
         )}
       </div>
+    )};
     </>
   );
 };

@@ -9,8 +9,10 @@ import { TopSearchBarItem } from "./components/topSearchBarItem/TopSearchBarItem
 import AddPost from "./components/add-post/AddPost";
 import "./index.css";
 import { CircularProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export const TopSearchBar = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   // const { username, email, isLoggedIn, role, isEmailConfirmed } = useAuthStore();
   const [errors, setErrors, setAutoClearErrors] = useErrors();
@@ -65,9 +67,9 @@ export const TopSearchBar = () => {
           {isLoading && <CircularProgress size={"1rem"}></CircularProgress>}
       <div className="top-search-bar-tools-container">
         <AddPost />
-        <TopSearchBarItem icon={<IconFilter />} />
-        <TopSearchBarItem icon={<IconNothification />} />
-        <TopSearchBarItem icon={<IconMessages />} />
+        <TopSearchBarItem onClick={() => navigate('/')}icon={<IconFilter />} />
+        <TopSearchBarItem onClick={() => navigate('/')}icon={<IconNothification />} />
+        <TopSearchBarItem onClick={() => navigate('/chat')} icon={<IconMessages />} />
       </div>
     </div>
   );

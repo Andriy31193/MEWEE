@@ -5,7 +5,7 @@ import LikePostIcon from "../../../assets/image/icons/LikePostIcon.svg";
 import SentIcon from "../../../assets/image/icons/SentIcon.svg";
 import CommentPostIcon from "../../../assets/image/icons/CommentPostIcon.svg";
 import styles from "./feed_post_item.module.scss";
-import { useAuthStore, usePostsStore, useThemeStore } from "../../../entities";
+import { useAuthStore, usePostsStore, useThemeStore, useUserStore } from "../../../entities";
 import CustomModalIcon from "../../сommon/custom-modal-icon/CustomModalIcon";
 import CommentBarComponents from "../../comment-bar-components/CommentBarComponents";
 import { useCommentStore } from "../../../entities/sharedStores/useCommentStore";
@@ -22,10 +22,10 @@ export const FeedPostItem: FC<{ item: postDataTypes }> = ({ item }) => {
   const [avatar, setAvatar] = useState<any>(null);
 
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { getProfile } = useAuthStore();
+  const { getProfile } = useUserStore();
   const { currentTheme } = useThemeStore();
   const [isLiked, setIsLiked] = useState<boolean>(false);
-  const { likePost, unLikePost } = usePostsStore();
+  const { isLoading, likePost, unLikePost } = usePostsStore();
   const { getComments } = useCommentStore();
   const { getPostLikes } = usePostsStore();
   const [comments, setComments] = useState<any>(null);
@@ -58,7 +58,7 @@ export const FeedPostItem: FC<{ item: postDataTypes }> = ({ item }) => {
 
     if (errors.length == 0 && data !== null) {
       setAuthor(data);
-      handleAvatarDecrypt(data);
+      data.profileAvatar && decryptImage(data.profileAvatar).then(setAvatar).catch(console.error);
     }
   };
 
@@ -73,42 +73,22 @@ export const FeedPostItem: FC<{ item: postDataTypes }> = ({ item }) => {
 
     item.likesCount += !isLiked ? 1 : -1;
 
-    if (!isLiked)
-      likePost(onLikePostResponse, item.id)
-    else
-    {
-     console.log("unlike");
-      unLikePost(onLikePostResponse, item.id)
-    }
+    (!isLiked) ? likePost(onLikePostResponse, item.id) : unLikePost(onLikePostResponse, item.id)
+    
   };
-  const handleAvatarDecrypt = (data: any) => {
-
-    if (data.author !== null) {
-      const at = data.profileAvatar ?? "";
-      if (at != "")
-        decryptImage(at)
-          .then(decryptedData => {
-            setAvatar(decryptedData);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-    }
-  }
 
   const updatePost = () => {
     getComments(onResponse, item.id, 1, 0);
     getPostLikes(onGetPostLikesResponse, item.id);
     getProfile(onProfileResponse, item.userId);
-    const at = item.attachment ?? "";
-    if (at != "")
-      decryptImage(at)
-        .then(decryptedData => {
-          setImageSrc(decryptedData);
-        })
-        .catch(error => {
-          console.error(error);
-        });
+    item.attachment && decryptImage(item.attachment).then(setImageSrc).catch(console.error);
+
+  }
+  const handleCommentClick = (postId: string) => {
+    setCommentsHiden(commentsHiden === postId ? null : postId);
+  };
+  const onCommentsUpdated = () => {
+    getComments(onResponse, item.id, 1, 0);
   }
   useEffect(() => {
 
@@ -116,30 +96,7 @@ export const FeedPostItem: FC<{ item: postDataTypes }> = ({ item }) => {
 
   }, []);
 
-  // useEffect(() => {
-  //   if (videoRef.current) {
-  //     videoRef.current.addEventListener("ended", handleVideoEnded);
-  //   }
 
-  //   return () => {
-  //     if (videoRef.current) {
-  //       videoRef.current.removeEventListener("ended", handleVideoEnded);
-  //     }
-  //   };
-  // }, []);
-
-  // const handleVideoEnded = () => {
-  //   if (videoRef.current) {
-  //     videoRef.current.currentTime = 0;
-  //     videoRef.current.play();
-  //   }
-  // };
-  const handleCommentClick = (postId: string) => {
-    setCommentsHiden(commentsHiden === postId ? null : postId);
-  };
-  const onUpdated = () => {
-    getComments(onResponse, item.id, 1, 0);
-  }
   // Check if currentTheme exists before accessing custom values
   const CustomBox = currentTheme?.components?.MuiIcon;
   // const fio = username?.split(' ');
@@ -216,7 +173,7 @@ export const FeedPostItem: FC<{ item: postDataTypes }> = ({ item }) => {
             <div>
               <div>
                 <img onClick={handleLikePost} style={{ filter: isLiked ? "saturate(3)" : "" }} src={LikePostIcon} />
-                <span>{item.likesCount}</span>
+                { !isLoading && <span>{item.likesCount}</span>}
               </div>
               <div>
                 <img src={SentIcon} />
@@ -239,7 +196,7 @@ export const FeedPostItem: FC<{ item: postDataTypes }> = ({ item }) => {
         appearance={true}
         hiden={commentsHiden}
         commentDataRender={comments}
-        onUpdated={onUpdated}
+        onUpdated={onCommentsUpdated}
       />
     </div>
   );

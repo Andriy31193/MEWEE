@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 import { encryptImage } from "../../entities/sharedStores/post-utils";
-import { useAuthStore } from "../../entities";
+import { useAuthStore, useUserStore } from "../../entities";
 
 const ProfilePictureUploader = () => {
   const [image, setImage] = useState<string | null>(null);
-const {updateProfile} = useAuthStore();
+const {updateProfile} = useUserStore();
   const handleDrop = async (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
     if (rejectedFiles.length > 0) {
       // Handle rejected files if needed

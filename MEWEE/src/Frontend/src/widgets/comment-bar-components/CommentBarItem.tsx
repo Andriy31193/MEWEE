@@ -3,7 +3,7 @@ import LikeComentIcon from "../../assets/image/icons/LikeComentIcon.svg";
 import { CommentBarPropsTypes, commentDataTypes } from "../widget.interface";
 import CustomInput from "../сommon/custom-input/CustomInput";
 import styles from "./comment_bar_item.module.scss";
-import { useAuthStore } from "../../entities";
+import { useAuthStore, useUserStore } from "../../entities";
 import { decryptImage } from "../../entities/sharedStores/post-utils";
 import { useTranslation } from "react-i18next";
 
@@ -14,7 +14,7 @@ const CommentBarItem: FC<{
   onReply: (id: string, user: any) => void;
 }> = ({ parent, item, replies, onReply }) => {
   const { t } = useTranslation();
-  const { getProfile } = useAuthStore();
+  const { getProfile } = useUserStore();
   const [isLoading, setIsLoading] = useState(true);
   const [author, setAuthor] = useState<any>(null);
   const [avatar, setAvatar] = useState<any>(null);

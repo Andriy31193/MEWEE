@@ -17,6 +17,8 @@ interface IAuthStore {
   isLoggedIn: boolean;
 
   id: string | null;
+  firstName: string | null;
+  secondName: string | null;
   username: string | null;
   email: string | null;
   profileAvatar: string | null;
@@ -45,6 +47,11 @@ interface IAuthStore {
     profileAvatarData: string
   ) => Promise<void>;
 
+
+  // getFollowers: (callback: ResponseCallback,
+  //   profileAvatarData: string
+  // ) => Promise<void>;
+
   clearAuth: () => void;
 }
 
@@ -53,6 +60,8 @@ export const useAuthStore = create<IAuthStore>()(
     (set, get) => ({
       isLoading: false,
       id: null,
+      firstName: null,
+      secondName: null,
       username: null,
       email: null,
       profileAvatar: null,
@@ -121,6 +130,8 @@ export const useAuthStore = create<IAuthStore>()(
             callback([]);
             set({
               id: userData?.id,
+              firstName: userData?.firstName,
+              secondName: userData?.secondName,
               username: userData?.username,
               email: userData?.email,
               role: userData?.role,
@@ -164,6 +175,7 @@ export const useAuthStore = create<IAuthStore>()(
       getProfile: async (callback: ResponseDataCallback, userId: string) => {
 
         try {
+          set({ isLoading: true });
           const response = await $api.get<any>(ENDPOINTS.USER.GET_PROFILE_DATA + `/${userId}`);
 
           if (response?.status === 200) {
@@ -179,7 +191,6 @@ export const useAuthStore = create<IAuthStore>()(
       },
 
       logout: async () => {
-        console.log("oki");
         await $api.delete<any>(ENDPOINTS.AUTH.LOGOUT, {
           method: "DELETE",
         });

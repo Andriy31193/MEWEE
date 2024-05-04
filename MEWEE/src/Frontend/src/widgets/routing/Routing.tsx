@@ -24,17 +24,17 @@ export const Routing = () => {
         <Grid item md={3}>
           <SideToolbar />
         </Grid>
-        <div>
+        <div style={{width:'100%'}}>
           <Grid item md={12}>
             <TopSearchBar />
             <Routes>
               <Route path="/feed" element={<HomePage />} />
               {/* <Route path="/post-show" element={<PostShow />} /> */}
               <Route path="/groups" element={<Groups />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/:username" element={<Profile />} />
               <Route path="/messenger" element={<Messenger />} />
               <Route path="/chat" element={<Chat />} />
-              <Route path="/setting" element={<Setting />} />
+              <Route path="/settings" element={<Setting />} />
               <Route
                 path="plans"
                 element={

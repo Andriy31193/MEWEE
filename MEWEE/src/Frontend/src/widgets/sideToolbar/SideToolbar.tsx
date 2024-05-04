@@ -28,7 +28,6 @@ export const SideToolbar = () => {
   const [avatar, setAvatar] = useState<any>(null);
   const { currentTheme, currentThemeIndex, cycleThemes, getCurrentTheme } =
     useThemeStore();
-  const fio = username?.split(" ");
 
   const [isVisible, setIsVisible] = useState(true);
 
@@ -86,7 +85,7 @@ export const SideToolbar = () => {
         </div>
         <div
           className="toolbar-prof-block-container"
-          onClick={() => navigate('/profile')}
+          onClick={() => navigate('/profile/'+username)}
           style={{
             backgroundColor: currentTheme?.mainPage?.sideBar?.background,
             cursor:"pointer"
@@ -106,11 +105,11 @@ export const SideToolbar = () => {
                 }}
               >
                 <span className="toolbar-fio-title">
-                  {fio ? fio[0] : "Unknown"}
+                  {username ?? "Unknown"}
                 </span>
-                <span className="toolbar-fio-second">
-                  {fio ? fio[1] : "Unknown"}
-                </span>
+                {/* <span className="toolbar-fio-second">
+                  {username : "Unknown"}
+                </span> */}
               </div>
             )}
           </div>
@@ -156,7 +155,7 @@ export const SideToolbar = () => {
               isVisible={isVisible}
               icon={<IconSettings />}
               title={t("settings")}
-              onNavigate={() => navigate('/groups')}
+              onNavigate={() => navigate('/settings')}
               />
           </div>
           <div
