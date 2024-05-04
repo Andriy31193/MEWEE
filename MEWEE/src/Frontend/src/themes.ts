@@ -74,6 +74,16 @@ declare module '@mui/material/styles' {
           answerColorText: string;
           inputBackground: string;
         },
+        addPost: {
+          icon: string;
+          hoverIcon: string;
+          activeIcon: string;
+          colorText: string;
+          colorTextOther: string;
+          background: string;
+          inputBackground: string;
+          inputPlaceholder: string;
+        },
       },
 
     },
@@ -151,6 +161,16 @@ declare module '@mui/material/styles' {
           answerColorText?: string;
           inputBackground?: string;
         },
+        addPost?: {
+          icon?: string;
+          hoverIcon?: string;
+          activeIcon?: string;
+          colorText?: string;
+          colorTextOther?: string;
+          background?: string;
+          inputBackground?: string;
+          inputPlaceholder?: string;
+        },
       },
     },
   }
@@ -227,6 +247,16 @@ export const themes: Theme[] = [
           shAnswerColorText: '#FBA500',
           answerColorText: '#B67AFE',
           inputBackground: 'white',
+        },
+        addPost: {
+          icon: 'black',
+          hoverIcon: '0.75',
+          activeIcon: '#FBA500',
+          colorText: '#25005C',
+          colorTextOther: '#25005C',
+          background: '#D6CEFFBF',
+          inputBackground: 'white',
+          inputPlaceholder: 'black',
         },
       },
     },
@@ -307,6 +337,16 @@ export const themes: Theme[] = [
           shAnswerColorText: '#FBA500',
           answerColorText: '#B67AFE',
           inputBackground: '#4e4955',
+        },
+        addPost: {
+          icon: 'white',
+          hoverIcon: '0.75',
+          activeIcon: '#FBA500',
+          colorText: '#FBA500',
+          colorTextOther: 'white',
+          background: '#5d3985',
+          inputBackground: '#735694',
+          inputPlaceholder: 'white',
         },
       },
     },
