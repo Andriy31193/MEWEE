@@ -1,11 +1,13 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { dialogData } from "../../messenger/messengerData";
 import Dialog from "../../messenger/dialogs/Dialogs";
 import styles from "./dialog_sidebar.module.scss";
-import { useAuthStore } from "../../../entities";
-const DialogSidebar: FC = () => {
+import { useAuthStore, useChatStore } from "../../../entities";
+const DialogSidebar: FC<{chats: any, onOpenChat: (chatId: string) => void}> = ({
+  chats,
+  onOpenChat,
+}) => {
 
-  const { id } = useAuthStore();
 
 
   return (
@@ -17,7 +19,7 @@ const DialogSidebar: FC = () => {
             goggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggog
           </p>
         </div> */}
-        <Dialog dialogData={dialogData} sideBarType={true} />
+        <Dialog onOpenChat={onOpenChat} dialogData={chats} sideBarType={true} />
       </div>
     </>
   );

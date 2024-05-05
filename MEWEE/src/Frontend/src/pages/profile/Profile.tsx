@@ -8,13 +8,21 @@ import { useAuthStore, useUserStore } from "../../entities";
 
 const Profile: FC = () => {
   const [profileData, setProfileData] = useState<any>(null);
-  const { isLoading, getProfile } = useUserStore();
+  const [friends, setFriendsData] = useState<any>(null);
+  const { getProfile, getFriends } = useUserStore();
   const { username } = useParams<{ username: string }>();
 
   const onProfileResponse = (data: any, errors: string[]) => {
 
     if (errors.length == 0 && data !== null) {
       setProfileData(data);
+      getFriends(onFriendsResponse, data.id ?? "#");
+    }
+  };
+  const onFriendsResponse = (data: any, errors: string[]) => {
+
+    if (errors.length == 0 && data !== null) {
+      setFriendsData(data);
     }
   };
   
@@ -27,12 +35,12 @@ const Profile: FC = () => {
   return (
     <>
       {profileData && (
-        <Grid style={{ marginTop: "8rem" }} container>
-          <Grid md={4}>
+        <Grid container >
+          <Grid md={3}>
             <UserInfo userData={profileData} />
           </Grid>
           <Grid md={8}>
-            <ProfileItem profileData={profileData} />
+            <ProfileItem profileData={profileData} friends={friends} />
           </Grid>
         </Grid>
       )}

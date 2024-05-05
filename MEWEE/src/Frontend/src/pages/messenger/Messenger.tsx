@@ -12,6 +12,7 @@ const Messenger: FC = () => {
         </Grid>
         <Grid md={12}>
           <Dialog
+            onOpenChat={() =>{}}
             dialogData={dialogData}
             modalDialogsData={modalChatsDataLink}
             sideBarType={false}

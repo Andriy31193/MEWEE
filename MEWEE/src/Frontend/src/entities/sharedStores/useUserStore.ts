@@ -33,8 +33,11 @@ interface IUserStore {
       userId: string
     ) => Promise<void>;
 
-}
+    getFriends: (callback: ResponseDataCallback,
+        userId: string
+      ) => Promise<void>;
 
+}
 export const useUserStore = create<IUserStore>()(
     persist(
         (set, get) => ({
@@ -93,7 +96,27 @@ export const useUserStore = create<IUserStore>()(
 
                 try {
                     set({ isLoading: true });
-                    const response = await $api.get<any>(ENDPOINTS.USER.GET_PROFILE_DATA + `/${userId}`);
+                    const response = await $api.get<any>(ENDPOINTS.USER.GET_FOLLOWERS + `/${userId}`);
+
+                    if (response?.status === 200) {
+                        callback(response.data, []);
+                    } else {
+                        callback(null, pErrors(response.data.errors));
+                    }
+                } catch (error: any) {
+                    callback(null, pErrors(['unknown_error']));
+
+                }
+                set((state) => ({ ...state, isLoading: false }));
+            },
+
+
+
+            getFriends: async (callback: ResponseDataCallback, userId: string) => {
+
+                try {
+                    set({ isLoading: true });
+                    const response = await $api.get<any>(ENDPOINTS.USER.GET_FRIENDS + `/${userId}`);
 
                     if (response?.status === 200) {
                         callback(response.data, []);

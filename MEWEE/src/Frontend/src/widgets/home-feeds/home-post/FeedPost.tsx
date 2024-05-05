@@ -6,9 +6,6 @@ import { FeedPostPropsTypes } from "../../../pages/home/home.interface";
 
 export const FeedPost: FC<FeedPostPropsTypes> = ({ posts }) => {
   
-console.log("POSTS:", posts);
-
-  // const fio = username?.split(' ');
   return (
     <div>
       {posts &&

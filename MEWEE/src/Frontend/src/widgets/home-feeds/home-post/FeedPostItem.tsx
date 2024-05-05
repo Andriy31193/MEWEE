@@ -103,7 +103,7 @@ export const FeedPostItem: FC<{ item: postDataTypes }> = ({ item }) => {
   return (
     <div className={styles.div}>
       <div
-        className={styles.sub_div}
+        className={commentsHiden === null ? styles.sub_div : `${styles.sub_div} ${styles._sub_div_box_shadow}`}
         style={{
           backgroundColor: currentTheme?.mainPage.post.background,
         }}

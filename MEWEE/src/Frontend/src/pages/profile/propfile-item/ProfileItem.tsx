@@ -13,14 +13,10 @@ import Friends from "./friends/Friends";
 import PhotoVideoSliders from "../../../widgets/photo-video-sliders/PhotoVideoSliders";
 import ProfileItemFilter from "../../../assets/image/icons/ProfileItemFilter.svg";
 import styles from "./profile_item.module.scss";
-const ProfileItem: FC<{ profileData: any }> = ({ profileData }) => {
+import { useUserStore } from "../../../entities";
+const ProfileItem: FC<{ profileData: any, friends: any }> = ({ profileData, friends }) => {
   const [activeItemId, setActiveItemId] = useState<number | null>(null);
-  const [followers, setFollowers] = useState<any>(null);
-
-  useEffect(() => {
-    
-  });
-
+  const { getFriends } = useUserStore();
 
   useEffect(() => {
     if (profileButtonsData.length > 0 && activeItemId === null) {
@@ -61,7 +57,7 @@ const ProfileItem: FC<{ profileData: any }> = ({ profileData }) => {
           />
         )}
 
-        {activeItemId === 3 && <Friends friendsData={friendData} />}
+        {activeItemId === 3 && <Friends friendsData={friends} />}
         {activeItemId === 5 && (
           <div className={styles.sliders_div}>
             <div className={styles.div_title}>
