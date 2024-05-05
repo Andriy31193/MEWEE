@@ -29,29 +29,23 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
   const fileInputRef = useRef<HTMLInputElement>(null); // Создание рефа для элемента
   const [visibleSmile, setVisibleSmile] = useState<boolean>(true);
   const [massageArray, setMassageArray] = useState<chatDataTypes[]>([]);
-  const [inputData, setInputData] = useState<string>("")
-  const [incomingMessage, setIncomingMessage] = useState<chatDataTypes>(
-    {
-      id: "",
-      content: "",
-      createdAt: "",
-      updatedAt: "",
-      userType: ""
-    }
-  );
-  const [outgoingMessage, setOutgoingMessage] = useState<chatDataTypes>(
-    {
-      id: "",
-      content: "",
-      createdAt: "",
-      updatedAt: "",
-      userType: ""
-    }
-  );
-
+  const [inputData, setInputData] = useState<string>("");
+  const [incomingMessage, setIncomingMessage] = useState<chatDataTypes>({
+    id: "",
+    content: "",
+    createdAt: "",
+    updatedAt: "",
+    userType: "",
+  });
+  const [outgoingMessage, setOutgoingMessage] = useState<chatDataTypes>({
+    id: "",
+    content: "",
+    createdAt: "",
+    updatedAt: "",
+    userType: "",
+  });
 
   const onResponse = (data: any, errors: string[]) => {
-
     if (errors.length == 0 && data !== null) {
       console.log("NEW CHAT DATA: ", data);
       setChatData(data);
@@ -61,12 +55,12 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
   useEffect(() => {
     if (connection) {
       // Attach event listener for receiving messages
-      connection.on('receiveMessage', (message: any, chatId: any) => {
+      connection.on("receiveMessage", (message: any, chatId: any) => {
         console.log("ON_RECEIVED", message);
-        
-          //setChatData(updatedChatData);
+
+        //setChatData(updatedChatData);
       });
-      connection.on('onJoined', (messages: any, chatId: any) => {
+      connection.on("onJoined", (messages: any, chatId: any) => {
         console.log("ON_JOINED");
         setChatData(messages);
       });
@@ -83,14 +77,12 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
 
   //return null; // You can return JSX here if needed
 
-
   useEffect(() => {
-    setIncomingMessage(incomingMessageData)
+    setIncomingMessage(incomingMessageData);
     if (incomingMessage) {
-      setMassageArray([...massageArray, incomingMessage])
+      setMassageArray([...massageArray, incomingMessage]);
     }
   }, [incomingMessage]);
-
 
   const handleClickSmileVisible = () => {
     setVisibleSmile(!visibleSmile);
@@ -103,8 +95,8 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
   };
 
   const handlerDataInput = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputData(event.target.value)
-  }
+    setInputData(event.target.value);
+  };
 
   const handleMessageClick = () => {
     // const randomNum = Math.floor(Math.random() * 900) + 100;
@@ -118,24 +110,20 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
     //     userType: "me"
     //   }
     // )
-    if(chatData == null)
-      {
-        console.warn("chat data is null")
+    if (chatData == null) {
+      console.warn("chat data is null");
       return;
-      }
+    }
 
     console.log(chatId, inputData, "2024-05-03 00:00:00");
     sendMessage(chatId, inputData, "2024-05-03 00:00:00");
-    setInputData("")
-  }
+    setInputData("");
+  };
   useEffect(() => {
     if (outgoingMessage) {
-      setMassageArray([...massageArray, outgoingMessage])
+      setMassageArray([...massageArray, outgoingMessage]);
     }
-
   }, [outgoingMessage]);
-
-
 
   return (
     <div className={styles.div}>
@@ -158,32 +146,27 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
       </div>
       <div className={styles.subdiv_down}>
         <div>
-          {chatData && (
+          {chatData &&
             chatData.map((item: any) => {
               return (
                 <div key={item.id} className={styles.subdiv_message}>
                   {item.userId === id && (
                     <div className={styles.outgoing_message}>
                       <div>
-                        <h5>
-                          {item.content}
-                        </h5>
+                        <h5>{item.content}</h5>
                       </div>
                     </div>
                   )}
                   {item.userId !== id && (
                     <div className={styles.incoming_message}>
                       <div>
-                        <h5>
-                          {item.content}
-                        </h5>
+                        <h5>{item.content}</h5>
                       </div>
                     </div>
                   )}
                 </div>
-              )
-            })
-          )}
+              );
+            })}
         </div>
 
         <form className={styles.input_message}>
@@ -196,15 +179,11 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
             style={{ display: "none" }}
           />
           <img src={AddCircle} onClick={handleAddCircleClick} />{" "}
-          <input
-            type="text"
-            value={inputData}
-            onChange={handlerDataInput} />
+          <input type="text" value={inputData} onChange={handlerDataInput} />
           <div>
             <img onClick={handleClickSmileVisible} src={EmojiIcon} />
             <img src={SentIcon} onClick={handleMessageClick} />
           </div>
-
           <div
             className={
               visibleSmile

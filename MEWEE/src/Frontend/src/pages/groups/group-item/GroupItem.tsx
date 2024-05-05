@@ -9,21 +9,21 @@ import {
   dataGroupItemTypes,
 } from "../groupData.interface";
 import styles from "./group_item.module.scss";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 const GroupItem: FC<dataGroupItemPropTypes> = ({ data }) => {
   const { t } = useTranslation();
   return (
     <Grid container>
-      <Grid md={12}>
+      <Grid item md={12}>
         <header className={styles.header}>
-          <h2>{t('might_like_it')}</h2>
+          <h2>{t("might_like_it")}</h2>
           <img src={KubsGroupPage} />
         </header>
       </Grid>
       {data &&
         data.map((item: dataGroupItemTypes, index: number) => {
           return (
-            <Grid key={item.id} md={index < 6 ? 4 : 6}>
+            <Grid item key={item.id} md={index < 6 ? 4 : 6}>
               <div
                 className={` ${index < 6 ? styles.div : styles._div_horizont}`}
               >
@@ -31,10 +31,12 @@ const GroupItem: FC<dataGroupItemPropTypes> = ({ data }) => {
                 <div>
                   <div>
                     <h4>{item.title}</h4>
-                    <p>{item.participants} {t('participants')}</p>
+                    <p>
+                      {item.participants} {t("participants")}
+                    </p>
                   </div>
                   <div>
-                    <CustomButton text={t('join')} />
+                    <CustomButton text={t("join")} />
                   </div>
                 </div>
                 <div className={styles.modal_button}>

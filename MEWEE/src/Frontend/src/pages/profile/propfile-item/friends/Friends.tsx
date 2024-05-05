@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Friends: FC<{ friendsData: any }> = ({ friendsData }) => {
   const [avatarImages, setAvatarImages] = useState<string[]>([]);
   const navigate = useNavigate();
-console.log(friendsData);
+  console.log(friendsData);
 
   useEffect(() => {
     const fetchAvatars = async () => {
@@ -33,31 +33,34 @@ console.log(friendsData);
 
   return (
     <>
-    { friendsData && (
-      <div className={styles.div}>
-        <ul>
-          {friendsData &&
-            friendsData.map((item: any, index: number) => {
-              return (
-                <li key={item.id} onClick={() =>{navigate('/profile/' + item.username, { replace: false}); navigate(0);} }>
-                  {item.online ? (
-                    <img className={styles.switch} src={item.onlineSwitch} />
-                  ) : (
-                    ""
-                  )}
-                  {avatarImages[index] && (
-                    <img
-                      src={avatarImages[index]}
-                      alt="Decrypted Avatar"
-                    />
-                  )}
-                  <h2>{item.username}</h2>
-                </li>
-              );
-            })}
-        </ul>
-      </div>
-    )}
+      {friendsData && (
+        <div className={styles.div}>
+          <ul>
+            {friendsData &&
+              friendsData.map((item: any, index: number) => {
+                return (
+                  <li
+                    key={item.id}
+                    onClick={() => {
+                      navigate("/profile/" + item.username, { replace: false });
+                      navigate(0);
+                    }}
+                  >
+                    {item.online ? (
+                      <img className={styles.switch} src={item.onlineSwitch} />
+                    ) : (
+                      ""
+                    )}
+                    {avatarImages[index] && (
+                      <img src={avatarImages[index]} alt="Decrypted Avatar" />
+                    )}
+                    <h2>{item.username}</h2>
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
+      )}
     </>
   );
 };

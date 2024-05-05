@@ -1,28 +1,35 @@
 import { FC } from "react";
-import Switch from '@mui/material/Switch';
-import { switchTabsPropsTypes, switchTabsDataTypes } from "../settingData.interface";
-import styles from "./switch_tabs.module.scss"
+import Switch from "@mui/material/Switch";
+import {
+  switchTabsPropsTypes,
+  switchTabsDataTypes,
+} from "../settingData.interface";
+import styles from "./switch_tabs.module.scss";
 const SwitchTabs: FC<switchTabsPropsTypes> = ({ switchTabsData }) => {
-    return (
-        <div className={styles.div}>
-            <ul>
-                {switchTabsData && (
-                    switchTabsData.map((item: switchTabsDataTypes) => {
-                        return (
-                            <li key={item.id}>
-                                <div>
-                                    <h2>{item.title}</h2>
-                                    {item.description != undefined && (<p>{item.description}</p>)}
-                                </div>
-                                <Switch defaultChecked={item.switchActive === true} />
-                            </li>
-                        )
-                    })
-                )}
-
-            </ul>
-        </div>
-    )
-}
+  const handleChcket = () => {
+    const gog = "";
+  };
+  return (
+    <div className={styles.div}>
+      <ul>
+        {switchTabsData &&
+          switchTabsData.map((item: switchTabsDataTypes) => {
+            return (
+              <li key={item.id}>
+                <div>
+                  <h2>{item.title}</h2>
+                  {item.description != undefined && <p>{item.description}</p>}
+                </div>
+                <Switch
+                  onChange={handleChcket}
+                  defaultChecked={item.switchActive === true}
+                />
+              </li>
+            );
+          })}
+      </ul>
+    </div>
+  );
+};
 
 export default SwitchTabs;

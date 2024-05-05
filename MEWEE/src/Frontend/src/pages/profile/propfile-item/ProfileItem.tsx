@@ -14,7 +14,10 @@ import PhotoVideoSliders from "../../../widgets/photo-video-sliders/PhotoVideoSl
 import ProfileItemFilter from "../../../assets/image/icons/ProfileItemFilter.svg";
 import styles from "./profile_item.module.scss";
 import { useUserStore } from "../../../entities";
-const ProfileItem: FC<{ profileData: any, friends: any }> = ({ profileData, friends }) => {
+const ProfileItem: FC<{ profileData: any; friends: any }> = ({
+  profileData,
+  friends,
+}) => {
   const [activeItemId, setActiveItemId] = useState<number | null>(null);
   const { getFriends } = useUserStore();
 
@@ -31,55 +34,56 @@ const ProfileItem: FC<{ profileData: any, friends: any }> = ({ profileData, frie
   return (
     <>
       {profileData && (
-      <div className={styles.div}>
-        <ul>
-          {profileButtonsData &&
-            profileButtonsData.map((item: profileButtonsDataTypes) => {
-              return (
-                <li
-                  className={`${styles.li} ${
-                    item.id === activeItemId ? styles._li_active : ""
-                  }`}
-                  key={item.id}
-                  onClick={() => handleLiClick(item.id)}
-                >
-                  <h5>{item.text}</h5>
-                </li>
-              );
-            })}
-        </ul>
-        {activeItemId === 1 && <ProfilePost id={profileData.id} />}
+        <div className={styles.div}>
+          <ul>
+            {profileButtonsData &&
+              profileButtonsData.map((item: profileButtonsDataTypes) => {
+                return (
+                  <li
+                    className={`${styles.li} ${
+                      item.id === activeItemId ? styles._li_active : ""
+                    }`}
+                    key={item.id}
+                    onClick={() => handleLiClick(item.id)}
+                  >
+                    <h5>{item.text}</h5>
+                  </li>
+                );
+              })}
+          </ul>
+          {activeItemId === 1 && <ProfilePost id={profileData.id} />}
 
-        {activeItemId === 2 && (
-          <Portfilio
-            portfilioData={portfilioData}
-            setificateData={setificateData}
-          />
-        )}
+          {activeItemId === 2 && (
+            <Portfilio
+              portfilioData={portfilioData}
+              setificateData={setificateData}
+            />
+          )}
 
-        {activeItemId === 3 && <Friends friendsData={friends} />}
-        {activeItemId === 5 && (
-          <div className={styles.sliders_div}>
-            <div className={styles.div_title}>
-              <h1>Недавні</h1>
-              <img src={ProfileItemFilter} />
+          {activeItemId === 3 && <Friends friendsData={friends} />}
+          {activeItemId === 5 && (
+            <div className={styles.sliders_div}>
+              <div className={styles.div_title}>
+                <h1>Недавні</h1>
+                <img src={ProfileItemFilter} />
+              </div>
+              <PhotoVideoSliders sliderData={imageData} />
+              <PhotoVideoSliders title={"Ретуш"} sliderData={imageData} />
             </div>
-            <PhotoVideoSliders sliderData={imageData} />
-            <PhotoVideoSliders title={"Ретуш"} sliderData={imageData} />
-          </div>
-        )}
-        {activeItemId === 6 && (
-          <div className={styles.sliders_div}>
-            <div className={styles.div_title}>
-              <h1>Недавні</h1>
-              <img src={ProfileItemFilter} />
+          )}
+          {activeItemId === 6 && (
+            <div className={styles.sliders_div}>
+              <div className={styles.div_title}>
+                <h1>Недавні</h1>
+                <img src={ProfileItemFilter} />
+              </div>
+              <PhotoVideoSliders sliderData={imageData} />
+              <PhotoVideoSliders title={"Ретуш"} sliderData={imageData} />
             </div>
-            <PhotoVideoSliders sliderData={imageData} />
-            <PhotoVideoSliders title={"Ретуш"} sliderData={imageData} />
-          </div>
-        )}
-      </div>
-    )};
+          )}
+        </div>
+      )}
+      ;
     </>
   );
 };

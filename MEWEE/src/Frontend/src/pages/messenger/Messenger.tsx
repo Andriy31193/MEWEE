@@ -7,12 +7,12 @@ const Messenger: FC = () => {
   return (
     <div style={{ padding: "1rem" }}>
       <Grid container>
-        <Grid md={12}>
+        <Grid item md={12}>
           <DialogModal />
         </Grid>
-        <Grid md={12}>
+        <Grid item md={12}>
           <Dialog
-            onOpenChat={() =>{}}
+            onOpenChat={() => {}}
             dialogData={dialogData}
             modalDialogsData={modalChatsDataLink}
             sideBarType={false}

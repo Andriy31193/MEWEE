@@ -3,6 +3,9 @@ import "./index.css";
 import { useThemeStore } from "../../../../entities";
 
 export const SwitchComponent = () => {
+  const handleGog = () => {
+    const gog = "";
+  };
   const { currentTheme, currentThemeIndex, cycleThemes, getCurrentTheme } =
     useThemeStore();
 
@@ -11,6 +14,7 @@ export const SwitchComponent = () => {
       <input
         type="checkbox"
         className="switch_input"
+        onChange={handleGog}
         checked={currentThemeIndex === 1}
         onClick={cycleThemes}
       />

@@ -10,10 +10,10 @@ const PostShow: FC<{ posts: any }> = ({ posts }) => {
   return (
     <>
       <Grid container>
-        <Grid sm={8}>
+        <Grid item sm={8}>
           {posts &&
             posts.map((item: postDataTypes) => {
-              return <Post dataObject={item}></Post>;
+              return <Post key={item.id} dataObject={item}></Post>;
             })}
         </Grid>
       </Grid>
@@ -36,11 +36,11 @@ export default PostShow;
 //   return (
 //     <>
 //       <Grid container>
-//         <Grid sm={8}>
+//         <Grid item sm={8}>
 //           {/* <Post dataObject={postData} /> */}
 //           <Post dataObject={posts} />
 //         </Grid>
-//         <Grid sm={4}>
+//         <Grid item sm={4}>
 //           <CommentBarComponents
 //             commentDataRender={commentsData}
 //             appearance={false}

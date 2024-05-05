@@ -50,7 +50,7 @@ const News: FC<FeedPostPropsTypes> = ({ posts }) => {
       {posts &&
         posts.map((item: postDataTypes) => {
           return (
-            <div className={styles.div}>
+            <div key={item.id} className={styles.div}>
               <div
                 className={styles.sub_div}
                 style={{
