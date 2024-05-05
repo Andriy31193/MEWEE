@@ -10,11 +10,13 @@ import CommentWriterAvatar from "../../../assets/image/CommentWriterAvatar.png";
 import { chatDataTypes } from "../chatData.interface";
 import { incomingMessageData } from "../chatData";
 import styles from "./chat_window.module.scss";
+import {useTranslation} from "react-i18next";
 const ChatWindow: FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null); // Создание рефа для элемента
   const [visibleSmile, setVisibleSmile] = useState<boolean>(true);
   const [massageArray, setMassageArray] = useState<chatDataTypes[]>([]);
-  const [inputData, setInputData] = useState<string>("")
+  const [inputData, setInputData] = useState<string>("");
+  const { t } = useTranslation();
   const [incomingMessage, setIncomingMessage] = useState<chatDataTypes>(
     {
       id: "",
@@ -85,7 +87,7 @@ const ChatWindow: FC = () => {
             <h5>
               Realylong namedguy <span>@username</span>
             </h5>
-            <p>в мережі 12 хв тому</p>
+            <p>{t('online')} 12 хв тому</p>
           </div>
         </div>
         <div className={styles.subdiv_up_right}>

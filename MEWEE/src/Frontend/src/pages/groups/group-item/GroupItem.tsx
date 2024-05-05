@@ -9,12 +9,14 @@ import {
   dataGroupItemTypes,
 } from "../groupData.interface";
 import styles from "./group_item.module.scss";
+import {useTranslation} from "react-i18next";
 const GroupItem: FC<dataGroupItemPropTypes> = ({ data }) => {
+  const { t } = useTranslation();
   return (
     <Grid container>
       <Grid md={12}>
         <header className={styles.header}>
-          <h2>Вам може сподобатись</h2>
+          <h2>{t('might_like_it')}</h2>
           <img src={KubsGroupPage} />
         </header>
       </Grid>
@@ -29,10 +31,10 @@ const GroupItem: FC<dataGroupItemPropTypes> = ({ data }) => {
                 <div>
                   <div>
                     <h4>{item.title}</h4>
-                    <p>{item.participants}</p>
+                    <p>{item.participants} {t('participants')}</p>
                   </div>
                   <div>
-                    <CustomButton text="Приєднатись" />
+                    <CustomButton text={t('join')} />
                   </div>
                 </div>
                 <div className={styles.modal_button}>

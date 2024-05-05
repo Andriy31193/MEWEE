@@ -3,12 +3,14 @@ import { Grid } from "@mui/material";
 import { dataSideBar, dataGroupItem } from "./groupData";
 import GroupItem from "./group-item/GroupItem";
 import Sidebar from "./sidebar/Sidebar";
+import {switchTabsData} from "../setting/settingData";
 
 const Groups: FC = () => {
+    const sideBarData = dataSideBar();
     return (
         <Grid container sx={{ paddingRight: "1rem", paddingLeft: "1rem" }}>
             <Grid md={3}>
-                <Sidebar data={dataSideBar} />
+                <Sidebar data={sideBarData} />
             </Grid>
             <Grid md={9}>
                 <GroupItem data={dataGroupItem} />
