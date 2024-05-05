@@ -1,14 +1,15 @@
 import React, { FC, useState } from "react";
 import { Grid, Button, TextField } from "@mui/material";
 import CryptoJS from "crypto-js";
-import { useChatStore } from "../../entities";
+import { useAuthStore, useChatStore } from "../../entities";
 
 const CreateChatTest: FC = () => {
   
+  const {id} = useAuthStore();
     const { createChat } = useChatStore();
 
   const handleSubmit = () => {
-    createChat(onResponse, "d3c26a7f-399d-4bf5-a1ec-6482a27840ad");
+    createChat(onResponse, id??"");
   };
 
   const onResponse = (errors: string[]) => {

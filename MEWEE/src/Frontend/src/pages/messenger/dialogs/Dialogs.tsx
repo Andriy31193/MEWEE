@@ -4,7 +4,7 @@ import {
 } from "../messengerData.interface";
 import styles from "./dialogs.module.scss";
 import { useAuthStore, useUserStore } from "../../../entities";
-import DialogItem from "./DialogItem"; 
+import DialogItem from "./DialogItem";
 
 const Dialog: FC<dialogsDataPropTypes> = ({
   onOpenChat,
@@ -13,19 +13,23 @@ const Dialog: FC<dialogsDataPropTypes> = ({
   sideBarType,
 }) => {
   const { id } = useAuthStore();
-
+  console.log(dialogData);
   return (
     <div className={styles.div}>
       {dialogData &&
         dialogData.map((item: any) => {
-          console.log("item:", item);
-          const title = item.chatUsers ? item.chatUsers.map((user: any) => user.userId).filter((userId: string) => userId !== id).join(',') : '';
+          
+          const chatUserIds = item.chatUsers
+            ? item.chatUsers
+              .map((user: any) => user.userId)
+              .filter((userId: string) => userId !== id)
+            : [];
 
           return (
             <DialogItem
               onClick={() => onOpenChat(item.id)}
               key={item.id}
-              userId={title}
+              userIds={chatUserIds}
               sideBarType={sideBarType}
               modalDialogsData={modalDialogsData}
             />

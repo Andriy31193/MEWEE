@@ -8,9 +8,9 @@ import {
 import styles from "./dialog_item.module.scss";
 import { useAuthStore, useUserStore } from "../../../entities";
 import { decryptImage } from "../../../entities/sharedStores/post-utils";
-const DialogItem: FC<{ onClick: ()=>void, userId: string, sideBarType: boolean, modalDialogsData:any }> = ({
+const DialogItem: FC<{ onClick: ()=>void, userIds: any, sideBarType: boolean, modalDialogsData:any }> = ({
     onClick,
-    userId,
+    userIds,
     sideBarType,
     modalDialogsData
 }) => {
@@ -28,7 +28,7 @@ const DialogItem: FC<{ onClick: ()=>void, userId: string, sideBarType: boolean, 
     };
 
     useEffect(() => {
-        getProfile(onProfileResponse, userId);
+        getProfile(onProfileResponse, userIds[0]);
     }, [])
 
     return (

@@ -48,7 +48,6 @@ const Chat: FC = () => {
     joinChat(chatId);
   };
 
-
   return (
     <>
       <div style={{ padding: "1rem" }}>
@@ -57,11 +56,12 @@ const Chat: FC = () => {
             <DialogSidebar chats={chatsData} onOpenChat={loadMessagesData} />
           </Grid>
           <Grid md={9}>
-            <ChatWindow chatId={currentChatId} />
+            <ChatWindow  chatId={currentChatId} />
           </Grid>
         </Grid>
       </div>
     </>
   );
 };
+//participants={}
 export default Chat;

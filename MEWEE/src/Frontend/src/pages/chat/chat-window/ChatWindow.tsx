@@ -23,6 +23,7 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
 
   const { connection, sendMessage } = useSignalRStore();
 
+
   const { getConversation } = useChatStore();
   const [chatData, setChatData] = useState<any>(null);
   const { id } = useAuthStore();
@@ -58,30 +59,37 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
     }
   };
 
+  const handleMessageReceived = (message: any) => {
+    console.log("ON_RECEIVED", message);
+    const newMessage = {
+      content: message.content,
+      createdAt: message.createdAt,
+      userId: message.userId
+    };
+
+    // Update the state with a new array that includes the new message
+    setChatData((prevChatData: any) => prevChatData.concat(newMessage));
+  }
+  const handleJoinedReceived = (messages: any) => {
+    console.log("ON_JOINED");
+    setChatData(messages);
+    console.log(messages)
+  }
   useEffect(() => {
     if (connection) {
       // Attach event listener for receiving messages
-      connection.on('receiveMessage', (message: any, chatId: any) => {
-        console.log("ON_RECEIVED", message);
-        
-          //setChatData(updatedChatData);
-      });
-      connection.on('onJoined', (messages: any, chatId: any) => {
-        console.log("ON_JOINED");
-        setChatData(messages);
-      });
+      connection.on('receiveMessage', handleMessageReceived)
+      connection.on('onJoined', handleJoinedReceived);
     }
 
-    // Cleanup function
-    // return () => {
-    //     if (connection) {
-    //         // Remove event listener when component unmounts
-    //         connection.off('receiveMessage', handleMessageReceived);
-    //     }
-    // };
-  }, [connection]); // Re-run effect when connection changes
-
-  //return null; // You can return JSX here if needed
+    // Cleanup function to unsubscribe when the component is unmounted
+    return () => {
+      if (connection) {
+        connection.off('receiveMessage', handleMessageReceived);
+        connection.off('onJoined', handleJoinedReceived);
+      }
+    };
+  }, []);
 
 
   useEffect(() => {
@@ -118,14 +126,15 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
     //     userType: "me"
     //   }
     // )
-    if(chatData == null)
-      {
-        console.warn("chat data is null")
+    if (chatData == null) {
+      console.warn("chat data is null")
       return;
-      }
+    }
 
-    console.log(chatId, inputData, "2024-05-03 00:00:00");
-    sendMessage(chatId, inputData, "2024-05-03 00:00:00");
+    const now = new Date();
+    const formattedDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+
+    sendMessage(chatId, inputData, formattedDate);
     setInputData("")
   }
   useEffect(() => {
