@@ -3,28 +3,23 @@ import { FeedPost } from "../../../../features/exportFeaturesComponents";
 import { usePostsStore } from "../../../../entities";
 
 const ProfilePost: FC<{ id: string }> = ({ id }) => {
+  const { posts, getPosts } = usePostsStore();
 
-    const { posts, getPosts } = usePostsStore();
+  const onResponse = (errors: string[]) => {
+    if (errors.length == 0) {
+      console.log("POSTS FOR " + id + " loaded.");
+    }
+  };
 
-    const onResponse = (errors: string[]) => {
+  useEffect(() => {
+    getPosts(onResponse, id);
+  }, []);
 
-
-        if (errors.length == 0) {
-            console.log("POSTS FOR " + id + " loaded.")
-        }
-    };
-
-    useEffect(() => {
-        getPosts(onResponse, id);
-
-    }, []);
-
-
-    return (
-        <>
-            <FeedPost posts={posts} />
-        </>
-    )
-}
+  return (
+    <>
+      <FeedPost posts={posts} />
+    </>
+  );
+};
 
 export default ProfilePost;

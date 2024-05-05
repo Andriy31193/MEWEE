@@ -18,7 +18,15 @@ export const ENDPOINTS = {
         GET_CHATS: `${API_URL}/get-chats`,
         GET_CONVERSATION: `${API_URL}/get-conversation`,
         GET_FOLLOWERS: `${API_URL}/followers`,
+        GET_FOLLOWINGS: `${API_URL}/followings`,
         GET_FRIENDS: `${API_URL}/friends`,
+        
+        
+        FOLLOW_USER: `${API_URL}/follow-user`,
+        UNFOLLOW_USER: `${API_URL}/unfollow-user`,
+
+        UPLOAD_PHOTO_TO_PROFILE: `${API_URL}/user/photo`,
+        GET_PROFILE_GALLERY: `${API_URL}/user/photos`,
     },
     POST:
     {

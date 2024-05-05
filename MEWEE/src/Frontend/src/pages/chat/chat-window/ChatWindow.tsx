@@ -10,7 +10,9 @@ import CommentWriterAvatar from "../../../assets/image/CommentWriterAvatar.png";
 import { chatDataTypes } from "../chatData.interface";
 import { incomingMessageData } from "../chatData";
 import styles from "./chat_window.module.scss";
-import { useAuthStore, useChatStore, useSignalRStore } from "../../../entities";
+import { useAuthStore, useChatStore, useSignalRStore, useUserStore } from "../../../entities";
+import { decryptImage } from "../../../entities/sharedStores/post-utils";
+import { useTranslation } from "react-i18next";
 interface ChatWindowProps {
   chatId: string | undefined;
 }
@@ -20,42 +22,37 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
   if (!chatId) {
     return null; // or any fallback UI if needed
   }
-
+  const {t} = useTranslation();
   const { connection, sendMessage } = useSignalRStore();
-
-
-  const { getConversation } = useChatStore();
+  const [speaker, setSpeaker] = useState<any>(null);
+  const [avatar, setAvatar] = useState<any>(null);
+  const { getProfile } = useUserStore();
+  const { currentChat } = useChatStore();
   const [chatData, setChatData] = useState<any>(null);
   const { id } = useAuthStore();
   const fileInputRef = useRef<HTMLInputElement>(null); // Создание рефа для элемента
   const [visibleSmile, setVisibleSmile] = useState<boolean>(true);
   const [massageArray, setMassageArray] = useState<chatDataTypes[]>([]);
-  const [inputData, setInputData] = useState<string>("")
-  const [incomingMessage, setIncomingMessage] = useState<chatDataTypes>(
-    {
-      id: "",
-      content: "",
-      createdAt: "",
-      updatedAt: "",
-      userType: ""
-    }
-  );
-  const [outgoingMessage, setOutgoingMessage] = useState<chatDataTypes>(
-    {
-      id: "",
-      content: "",
-      createdAt: "",
-      updatedAt: "",
-      userType: ""
-    }
-  );
+  const [inputData, setInputData] = useState<string>("");
+  const [incomingMessage, setIncomingMessage] = useState<chatDataTypes>({
+    id: "",
+    content: "",
+    createdAt: "",
+    updatedAt: "",
+    userType: "",
+  });
+  const [outgoingMessage, setOutgoingMessage] = useState<chatDataTypes>({
+    id: "",
+    content: "",
+    createdAt: "",
+    updatedAt: "",
+    userType: "",
+  });
 
-
-  const onResponse = (data: any, errors: string[]) => {
-
+  const onProfileResponse = (data: any, errors: string[]) => {
     if (errors.length == 0 && data !== null) {
-      console.log("NEW CHAT DATA: ", data);
-      setChatData(data);
+      setSpeaker(data);
+      data.profileAvatar && decryptImage(data.profileAvatar).then(setAvatar).catch(console.error);
     }
   };
 
@@ -67,7 +64,6 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
       userId: message.userId
     };
 
-    // Update the state with a new array that includes the new message
     setChatData((prevChatData: any) => prevChatData.concat(newMessage));
   }
   const handleJoinedReceived = (messages: any) => {
@@ -75,6 +71,21 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
     setChatData(messages);
     console.log(messages)
   }
+  useEffect(() => {
+    if (currentChat) {
+
+      const chatUserIds = currentChat.chatUsers
+        ? currentChat.chatUsers
+          .map((user: any) => user.userId)
+          .filter((userId: string) => userId !== id)
+        : [];
+
+      if (chatUserIds.length > 0) {
+        getProfile(onProfileResponse, chatUserIds[0]);
+      }
+
+    }
+  }, []);
   useEffect(() => {
     if (connection) {
       // Attach event listener for receiving messages
@@ -91,14 +102,12 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
     };
   }, []);
 
-
   useEffect(() => {
-    setIncomingMessage(incomingMessageData)
+    setIncomingMessage(incomingMessageData);
     if (incomingMessage) {
-      setMassageArray([...massageArray, incomingMessage])
+      setMassageArray([...massageArray, incomingMessage]);
     }
   }, [incomingMessage]);
-
 
   const handleClickSmileVisible = () => {
     setVisibleSmile(!visibleSmile);
@@ -111,8 +120,8 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
   };
 
   const handlerDataInput = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputData(event.target.value)
-  }
+    setInputData(event.target.value);
+  };
 
   const handleMessageClick = () => {
     // const randomNum = Math.floor(Math.random() * 900) + 100;
@@ -139,99 +148,102 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
   }
   useEffect(() => {
     if (outgoingMessage) {
-      setMassageArray([...massageArray, outgoingMessage])
+      setMassageArray([...massageArray, outgoingMessage]);
     }
-
   }, [outgoingMessage]);
 
-
-
   return (
-    <div className={styles.div}>
-      <div className={styles.subdiv_up}>
-        <div className={styles.subdiv_up_left}>
-          <img src={CommentWriterAvatar} />
-          <div>
-            <h5>
-              Realylong namedguy <span>@username</span>
-            </h5>
-            <p>в мережі 12 хв тому</p>
+    <>
+      {speaker && (
+      <div className={styles.div}>
+        <div className={styles.subdiv_up}>
+          <div className={styles.subdiv_up_left}>
+            <img src={avatar} />
+            <div>
+              <h5>
+                {speaker.firstName} {speaker.secondName} <span>@{speaker.username}</span>
+              </h5>
+              <p>{t('last_online_recently')}</p>
+            </div>
+          </div>
+          <div className={styles.subdiv_up_right}>
+            <img src={VolumeHigh} />
+            <div>
+              <CustomModalIcon id={1} links={modalPostDataLink} />
+            </div>
           </div>
         </div>
-        <div className={styles.subdiv_up_right}>
-          <img src={VolumeHigh} />
+        <div className={styles.subdiv_down}>
           <div>
-            <CustomModalIcon id={1} links={modalPostDataLink} />
-          </div>
-        </div>
-      </div>
-      <div className={styles.subdiv_down}>
-        <div>
-          {chatData && (
-            chatData.map((item: any) => {
-              return (
-                <div key={item.id} className={styles.subdiv_message}>
-                  {item.userId === id && (
-                    <div className={styles.outgoing_message}>
-                      <div>
-                        <h5>
-                          {item.content}
-                        </h5>
-                      </div>
-                    </div>
-                  )}
-                  {item.userId !== id && (
-                    <div className={styles.incoming_message}>
-                      <div>
-                        <h5>
-                          {item.content}
-                        </h5>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )
-            })
-          )}
-        </div>
+            {chatData &&
+              chatData.map((item: any) => {
+                const dateString = item.createdAt;
+                const date = new Date(dateString);
 
-        <form className={styles.input_message}>
-          <input
-            type="file"
-            id="fileInput"
-            ref={fileInputRef}
-            className="hidden-input"
-            name="uploadedFile"
-            style={{ display: "none" }}
-          />
-          <img src={AddCircle} onClick={handleAddCircleClick} />{" "}
-          <input
-            type="text"
-            value={inputData}
-            onChange={handlerDataInput} />
-          <div>
-            <img onClick={handleClickSmileVisible} src={EmojiIcon} />
-            <img src={SentIcon} onClick={handleMessageClick} />
+                const hours = date.getHours();
+                const minutes = date.getMinutes();
+
+                const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+                return (
+                  <div key={item.id} className={styles.subdiv_message}>
+                    {item.userId === id && (
+                      <div className={styles.outgoing_message}>
+                        <div>
+                          <p>{item.content}</p>
+                          <span>{formattedTime}</span>
+                        </div>
+                      </div>
+                    )}
+                    {item.userId !== id && (
+                      <div className={styles.incoming_message}>
+                        <div>
+                          <p>{item.content}</p>
+                          <span>{formattedTime}</span>
+                        </div>
+                      </div>
+                    )}
+
+                  </div>
+                );
+              })}
           </div>
 
-          <div
-            className={
-              visibleSmile
-                ? styles.smile_icon
-                : `${styles.smile_icon} ${styles._smile_icon_visible}`
-            }
-          >
-            <ul>
-              {smileData.map((item, index) => (
-                <li key={index}>
-                  <img src={item.smile} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </form>
+          <form className={styles.input_message}>
+            <input
+              type="file"
+              id="fileInput"
+              ref={fileInputRef}
+              className="hidden-input"
+              name="uploadedFile"
+              style={{ display: "none" }}
+            />
+            <img src={AddCircle} onClick={handleAddCircleClick} />{" "}
+            <input type="text" value={inputData} onChange={handlerDataInput} />
+            <div>
+              <img onClick={handleClickSmileVisible} src={EmojiIcon} />
+              <img src={SentIcon} onClick={handleMessageClick} />
+            </div>
+            <div
+              className={
+                visibleSmile
+                  ? styles.smile_icon
+                  : `${styles.smile_icon} ${styles._smile_icon_visible}`
+              }
+            >
+              <ul>
+                {smileData.map((item, index) => (
+                  <li key={index}>
+                    <img src={item.smile} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+      )}
+    </>
   );
 };
 

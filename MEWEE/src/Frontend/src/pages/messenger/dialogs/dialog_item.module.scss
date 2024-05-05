@@ -28,6 +28,15 @@
       text-overflow: ellipsis;
       margin-right: 1rem;
       z-index: 1;
+      h2
+      {
+        font-size: 0.8rem;
+      }
+      h5
+      {
+        font-size: 0.6rem;
+        color:gray;
+      }
     }
     .chat_div_item2 {
       margin-right: 1rem;

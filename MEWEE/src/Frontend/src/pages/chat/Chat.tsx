@@ -5,24 +5,18 @@ import ChatWindow from "./chat-window/ChatWindow";
 import { useAuthStore, useChatStore, useSignalRStore } from "../../entities";
 import { useNavigate } from "react-router-dom";
 const Chat: FC = () => {
-
-
   const navigate = useNavigate();
   const { connection, joinChat } = useSignalRStore();
   const { isLoggedIn, id } = useAuthStore();
 
-  if (!isLoggedIn)
-    navigate('auth/login');
+  if (!isLoggedIn) navigate("auth/login");
 
-
-  const { getChats } = useChatStore();
+  const { getChats, setCurrentChat } = useChatStore();
   const [chatsData, setChatsData] = useState<any>(null);
   const [currentChatId, setCurrentChatId] = useState<string>("");
   const [messagesData, setMessagesData] = useState<any>(null);
 
-
   const onResponse = (data: any, errors: string[]) => {
-
     if (errors.length == 0 && data !== null) {
       console.log("NEW CHAT DATA: ", data);
       setChatsData(data);
@@ -30,29 +24,28 @@ const Chat: FC = () => {
   };
 
   const onMessageReceived = (message: string) => {
-
     console.log("refreshing chats...", message);
     refreshChats();
   };
 
   const refreshChats = () => {
     getChats(onResponse);
-  }
+  };
   useEffect(() => {
     refreshChats();
-  }, [])
-
+  }, []);
 
   const loadMessagesData = (chatId: string) => {
     setCurrentChatId(chatId);
     joinChat(chatId);
+    setCurrentChat(chatsData);
   };
 
   return (
     <>
       <div style={{ padding: "1rem" }}>
         <Grid container>
-          <Grid md={3} sx={{ maxHeight: "82vh", overflowY: "auto" }}>
+          <Grid item md={3} sx={{ maxHeight: "82vh", overflowY: "auto" }}>
             <DialogSidebar chats={chatsData} onOpenChat={loadMessagesData} />
           </Grid>
           <Grid md={9}>

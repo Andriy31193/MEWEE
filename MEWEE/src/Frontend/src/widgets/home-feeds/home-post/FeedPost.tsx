@@ -5,12 +5,11 @@ import { postDataTypes } from "../../../pages/post-show/dataPostShow.interface";
 import { FeedPostPropsTypes } from "../../../pages/home/home.interface";
 
 export const FeedPost: FC<FeedPostPropsTypes> = ({ posts }) => {
-  
   return (
     <div>
       {posts &&
         posts.map((item: postDataTypes) => {
-          return <FeedPostItem item={item}></FeedPostItem>
+          return <FeedPostItem key={item.id} item={item} />;
         })}
     </div>
   );

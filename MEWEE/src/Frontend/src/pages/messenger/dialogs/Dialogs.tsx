@@ -1,7 +1,5 @@
 import { FC } from "react";
-import {
-  dialogsDataPropTypes,
-} from "../messengerData.interface";
+import { dialogsDataPropTypes } from "../messengerData.interface";
 import styles from "./dialogs.module.scss";
 import { useAuthStore, useUserStore } from "../../../entities";
 import DialogItem from "./DialogItem";

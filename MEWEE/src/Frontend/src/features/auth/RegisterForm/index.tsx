@@ -81,15 +81,21 @@ export const RegisterForm: React.FC<{ onNext: () => void }> = ({ onNext }) => {
     <div className="form-container">
       <div className="login-or-block">
         <div
-          style={{ borderColor: currentTheme?.authPages.commonElements.lineColor }}
+          style={{
+            borderColor: currentTheme?.authPages.commonElements.lineColor,
+          }}
         ></div>
         <span
-          style={{ color: currentTheme?.authPages.commonElements.lineColorText }}
+          style={{
+            color: currentTheme?.authPages.commonElements.lineColorText,
+          }}
         >
           {t("or")}
         </span>
         <div
-          style={{ borderColor: currentTheme?.authPages.commonElements.lineColor }}
+          style={{
+            borderColor: currentTheme?.authPages.commonElements.lineColor,
+          }}
         ></div>
       </div>
       <form onSubmit={formik.handleSubmit}>

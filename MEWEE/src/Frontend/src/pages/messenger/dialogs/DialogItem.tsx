@@ -40,7 +40,7 @@ const DialogItem: FC<{ onClick: ()=>void, userIds: any, sideBarType: boolean, mo
                 <div className={styles.chat_div_item1}>
                     <h2>{speaker.firstName} {speaker.secondName}</h2>
                     <h5>@{speaker.username}</h5>
-                    {/* <h5>{speaker.lastMessage}</h5> */}
+                    <p>{12334}</p> 
                 </div>
                 {!sideBarType && (
                     <>

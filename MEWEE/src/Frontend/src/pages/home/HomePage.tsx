@@ -14,11 +14,11 @@ export const HomePage: React.FC = () => {
   //<CreateChatTest></CreateChatTest>
   return (
     <Grid container>
-      <Grid sm={12}>
+      <Grid item sm={12}>
         <HomeFeed />
       </Grid>
-      <Grid sm={4}>
-        <HomeNews />
+      <Grid item sm={4}>
+        <HomeFeed />
       </Grid>
     </Grid>
   );
