@@ -85,7 +85,7 @@ export const SideToolbar = () => {
         </div>
         <div
           className="toolbar-prof-block-container"
-          onClick={() => navigate('/profile/'+username)}
+          onClick={() => {navigate('/profile/'+username); navigate(0);}}
           style={{
             backgroundColor: currentTheme?.mainPage?.sideBar?.background,
             cursor:"pointer"

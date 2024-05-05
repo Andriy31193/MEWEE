@@ -1,48 +1,34 @@
 import { FC } from "react";
-import CustomModalIcon from "../../../widgets/сommon/custom-modal-icon/CustomModalIcon";
-import DialogCheck from "../../../assets/image/icons/DialogCheck.svg";
 import {
   dialogsDataPropTypes,
-  dialogDataTypes,
 } from "../messengerData.interface";
 import styles from "./dialogs.module.scss";
+import { useAuthStore, useUserStore } from "../../../entities";
+import DialogItem from "./DialogItem"; 
+
 const Dialog: FC<dialogsDataPropTypes> = ({
+  onOpenChat,
   dialogData,
   modalDialogsData,
   sideBarType,
 }) => {
+  const { id } = useAuthStore();
+
   return (
     <div className={styles.div}>
       {dialogData &&
-        dialogData.map((item: dialogDataTypes) => {
+        dialogData.map((item: any) => {
+          console.log("item:", item);
+          const title = item.chatUsers ? item.chatUsers.map((user: any) => user.userId).filter((userId: string) => userId !== id).join(',') : '';
+
           return (
-            <div key={item.id} className={styles.chat_div}>
-              <img src={item.avatar} />
-              <div className={styles.chat_div_item}>
-                <div className={styles.chat_div_item1}>
-                  <h2>{item.name}</h2>
-                  <h5>{item.lastMessage}</h5>
-                </div>
-                {!sideBarType && (
-                  <>
-                    <div className={styles.chat_div_item2}>
-                      <h5>{item.time}</h5>
-                      <div>
-                        {item.newMessade && <h5>{item.valueMessage}</h5>}
-                      </div>
-                    </div>
-                    <div className={styles.chat_div_item3}>
-                      {item.check && <img src={DialogCheck} />}
-                    </div>
-                  </>
-                )}
-              </div>
-              {!sideBarType && (
-                <div className={styles.modal_div}>
-                  <CustomModalIcon id={item.id} links={modalDialogsData} />
-                </div>
-              )}
-            </div>
+            <DialogItem
+              onClick={() => onOpenChat(item.id)}
+              key={item.id}
+              userId={title}
+              sideBarType={sideBarType}
+              modalDialogsData={modalDialogsData}
+            />
           );
         })}
     </div>

@@ -8,16 +8,18 @@
     align-items: center;
     background-color: white;
     border-radius: 10px;
-    padding-top: 2rem;
+    padding-top: 10rem;
     margin-bottom: 1rem;
+    border: 1px solid red;
     .avatar {
-
+     position: absolute;
+      top: -30px;
+      right: 7%;
+      width: 12.6rem;
+      height: 12.6rem;
       border-radius: 50%;
-      width: 100px;
-      height: 100px;
       border: 3px solid #25005c;
       margin-top: 0;
-      width: 100px;
     }
     .user_name {
       display: flex;

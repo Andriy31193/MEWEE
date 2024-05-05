@@ -10,7 +10,22 @@ import CommentWriterAvatar from "../../../assets/image/CommentWriterAvatar.png";
 import { chatDataTypes } from "../chatData.interface";
 import { incomingMessageData } from "../chatData";
 import styles from "./chat_window.module.scss";
-const ChatWindow: FC = () => {
+import { useAuthStore, useChatStore, useSignalRStore } from "../../../entities";
+interface ChatWindowProps {
+  chatId: string | undefined;
+}
+
+const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
+  // Ensure chatId exists before rendering
+  if (!chatId) {
+    return null; // or any fallback UI if needed
+  }
+
+  const { connection, sendMessage } = useSignalRStore();
+
+  const { getConversation } = useChatStore();
+  const [chatData, setChatData] = useState<any>(null);
+  const { id } = useAuthStore();
   const fileInputRef = useRef<HTMLInputElement>(null); // Создание рефа для элемента
   const [visibleSmile, setVisibleSmile] = useState<boolean>(true);
   const [massageArray, setMassageArray] = useState<chatDataTypes[]>([]);
@@ -33,6 +48,41 @@ const ChatWindow: FC = () => {
       userType: ""
     }
   );
+
+
+  const onResponse = (data: any, errors: string[]) => {
+
+    if (errors.length == 0 && data !== null) {
+      console.log("NEW CHAT DATA: ", data);
+      setChatData(data);
+    }
+  };
+
+  useEffect(() => {
+    if (connection) {
+      // Attach event listener for receiving messages
+      connection.on('receiveMessage', (message: any, chatId: any) => {
+        console.log("ON_RECEIVED", message);
+        
+          //setChatData(updatedChatData);
+      });
+      connection.on('onJoined', (messages: any, chatId: any) => {
+        console.log("ON_JOINED");
+        setChatData(messages);
+      });
+    }
+
+    // Cleanup function
+    // return () => {
+    //     if (connection) {
+    //         // Remove event listener when component unmounts
+    //         connection.off('receiveMessage', handleMessageReceived);
+    //     }
+    // };
+  }, [connection]); // Re-run effect when connection changes
+
+  //return null; // You can return JSX here if needed
+
 
   useEffect(() => {
     setIncomingMessage(incomingMessageData)
@@ -57,24 +107,35 @@ const ChatWindow: FC = () => {
   }
 
   const handleMessageClick = () => {
-    const randomNum = Math.floor(Math.random() * 900) + 100;
-    const newId = randomNum.toString();
-    setOutgoingMessage(
+    // const randomNum = Math.floor(Math.random() * 900) + 100;
+    // const newId = randomNum.toString();
+    // setOutgoingMessage(
+    //   {
+    //     id: newId,
+    //     content: inputData,
+    //     createdAt: "1",
+    //     updatedAt: "1",
+    //     userType: "me"
+    //   }
+    // )
+    if(chatData == null)
       {
-        id: newId,
-        content: inputData,
-        createdAt: "1",
-        updatedAt: "1",
-        userType: "me"
+        console.warn("chat data is null")
+      return;
       }
-    )
+
+    console.log(chatId, inputData, "2024-05-03 00:00:00");
+    sendMessage(chatId, inputData, "2024-05-03 00:00:00");
     setInputData("")
   }
   useEffect(() => {
     if (outgoingMessage) {
       setMassageArray([...massageArray, outgoingMessage])
     }
+
   }, [outgoingMessage]);
+
+
 
   return (
     <div className={styles.div}>
@@ -97,11 +158,11 @@ const ChatWindow: FC = () => {
       </div>
       <div className={styles.subdiv_down}>
         <div>
-          {massageArray.length != 0 && (
-            massageArray.map((item: chatDataTypes) => {
+          {chatData && (
+            chatData.map((item: any) => {
               return (
                 <div key={item.id} className={styles.subdiv_message}>
-                  {item.userType === "me" && (
+                  {item.userId === id && (
                     <div className={styles.outgoing_message}>
                       <div>
                         <h5>
@@ -110,7 +171,7 @@ const ChatWindow: FC = () => {
                       </div>
                     </div>
                   )}
-                  {item.userType === "incom" && (
+                  {item.userId !== id && (
                     <div className={styles.incoming_message}>
                       <div>
                         <h5>

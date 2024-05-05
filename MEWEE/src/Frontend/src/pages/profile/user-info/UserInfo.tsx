@@ -1,21 +1,20 @@
 import { FC, useEffect, useState } from "react";
 import { Grid } from "@mui/material";
-import ProfileAvatar from "../../../assets/image/ProfileAvatar.png"
 import ProfileLockal from "../../../assets/image/icons/ProfileLockal.svg"
 import PropfileAdd from "../../../assets/image/icons/PropfileAdd.svg"
 import ProfilePortfolio from "../../../assets/image/icons/ProfilePortfolio.svg"
-import ProfileGallery from "../../../assets/image/ProfileGallery.png"
-import { userInfoDataPropsTypes, userInfoDataEducation, userInfoDataGalery } from "../profileData.interface";
-import styles from "./user_info.module.scss"
+import ProfileLovely from    "../../../assets/image/icons/ProfileLovely.svg";
+import ProfileFlash from     "../../../assets/image/icons/ProfileFlash.svg";
 import { decryptImage } from "../../../entities/sharedStores/post-utils";
-const UserInfo: FC<{userData: any}> = ({ userData }) => {
+import styles from "./user_info.module.scss"
+const UserInfo: FC<{ userData: any }> = ({ userData }) => {
 
     const [avatar, setAvatar] = useState<any>(null);
 
     useEffect(() => {
         userData.profileAvatar && decryptImage(userData.profileAvatar).then(setAvatar).catch(console.error);
     });
-    
+
     return (
         <>
             {userData && (
@@ -28,8 +27,12 @@ const UserInfo: FC<{userData: any}> = ({ userData }) => {
                                 <h1>{userData.secondName}</h1>
                             </div>
                             <div>
-                                <img src={ProfileLockal} />
-                                <h4>{userData.location}</h4>
+                                {userData.location !== null && (
+                                    <>
+                                        <img src={ProfileLockal} />
+                                        <h4>{userData.location}</h4>
+                                    </>
+                                )}
                             </div>
                         </div>
                         <div className={styles.folowers}>
@@ -44,20 +47,28 @@ const UserInfo: FC<{userData: any}> = ({ userData }) => {
                         </div>
                         <div className={styles.folow_button}>
                             <button>Підписатись</button>
-                            <img style={{cursor:'pointer'}} src={PropfileAdd} />
+                            <img style={{ cursor: 'pointer' }} src={PropfileAdd} />
                         </div>
                     </div>
                     <div className={styles.sub_div2}>
                         <ul>
-                            {userData.education && (
-                                userData.education.map((item: userInfoDataEducation) => {
-                                    return (
-                                        <li key={item.id}>
-                                            <img src={item.icon} />
-                                            <h5>{item.text}</h5>
-                                        </li>
-                                    )
-                                })
+                            {userData.workplace && (
+                            <li key={"r"}>
+                                <img src={ProfilePortfolio} />
+                                <h5>{userData.workplace}</h5>
+                            </li>
+                            )}
+                            {userData.status && (
+                            <li key={"r"}>
+                                <img src={ProfileLovely} />
+                                <h5>{userData.status}</h5>
+                            </li>
+                            )}
+                            {userData.website && (
+                            <li key={"r"}>
+                                <img src={ProfileFlash} />
+                                <h5>{userData.website}</h5>
+                            </li>
                             )}
                         </ul>
                     </div>
@@ -81,9 +92,11 @@ const UserInfo: FC<{userData: any}> = ({ userData }) => {
                                 })
                             )} */}
                         </Grid>
-                        <div>
-                            <h5>Показати ще 30 </h5>
-                        </div>
+                        {userData.PhotoCount > 0 && (
+                            <div>
+                                <h5>Показати ще {userData.PhotoCount}</h5>
+                            </div>
+                        )}
                     </div>
 
                 </div>
