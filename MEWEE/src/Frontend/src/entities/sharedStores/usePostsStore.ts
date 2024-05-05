@@ -6,11 +6,13 @@ import { useAuthStore } from "./useAuthStore";
 import { get } from "http";
 
 interface ICreatePostRequest {
+  authorId: string | undefined;
   title: string;
   content: string;
   attachment: string;
   location: string;
   category: string;
+  type: string;
 }
 
 interface IPoststore {
@@ -55,7 +57,7 @@ console.log(request.category);
     set({ isLoading: true });
 
     try {
-      const response = await $api.post<any>(ENDPOINTS.USER.GET_POSTS, { userId: id });
+      const response = await $api.post<any>(ENDPOINTS.USER.GET_POSTS, { AuthorId: id, Type:0});
       //console.log(response);
 
       callback(pErrors(response.data.errors));

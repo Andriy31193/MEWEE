@@ -80,7 +80,7 @@ export const FeedPostItem: FC<{ item: postDataTypes }> = ({ item }) => {
   const updatePost = () => {
     getComments(onResponse, item.id, 1, 0);
     getPostLikes(onGetPostLikesResponse, item.id);
-    getProfile(onProfileResponse, item.userId);
+    getProfile(onProfileResponse, item.authorId);
     item.attachment && decryptImage(item.attachment).then(setImageSrc).catch(console.error);
 
   }

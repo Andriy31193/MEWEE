@@ -5,15 +5,15 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 // import AddIcon from "@mui/icons-material/Add";
-import { ReactComponent as IconClose } from"../../../../assets/image/icons/IconClose.svg";
 import { ReactComponent as IconPlus } from "../../images/icon_plus.svg";
+import { ReactComponent as IconClose } from"../../../../assets/image/icons/IconClose.svg";
 import { ReactComponent as AddIcon } from "../../../../assets/image/icons/AddIcon.svg";
 import { ReactComponent as SizeIcon } from "../../../../assets/image/icons/SizeIcon.svg";
-import { ReactComponent as ZoomIcon } from "../../../../assets/image/icons/ZoomIcon.svg";
+import { ReactComponent as ZoomIcon } from     "../../../../assets/image/icons/ZoomIcon.svg";
 import { ReactComponent as IconOriginal } from "../../../../assets/image/icons/IconOriginal.svg";
-import { ReactComponent as Icon1x1 } from "../../../../assets/image/icons/Icon1x1.svg";
-import { ReactComponent as Icon4x5 } from "../../../../assets/image/icons/Icon4x5.svg";
-import { ReactComponent as Icon16x9 } from "../../../../assets/image/icons/Icon16x9.svg";
+import { ReactComponent as Icon1x1 } from      "../../../../assets/image/icons/Icon1x1.svg";
+import { ReactComponent as Icon4x5 } from      "../../../../assets/image/icons/Icon4x5.svg";
+import { ReactComponent as Icon16x9 } from     "../../../../assets/image/icons/Icon16x9.svg";
 import { ReactComponent as IconAdd } from "../../../../assets/image/icons/IconAdd.svg";
 import { ReactComponent as SizeModalButton } from "../../../../assets/image/icons/SizeModalButton.svg";
 import AddItem from "../../../../assets/image/AddItem.png";
@@ -73,7 +73,7 @@ const initialModalStates: ModalStates = {
 
 const AddPost: FC = () => {
 
-  const { username } = useAuthStore();
+  const { username, id } = useAuthStore();
   const [image, setImage] = useState<string | ArrayBuffer | null>(null);
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
@@ -128,7 +128,7 @@ const AddPost: FC = () => {
   const handleSubmit = async () => {
     if(croppedSrc != null){
       // await encryptImage(croppedSrc)
-      createPost(onResponse, { title: title, content: content, attachment: encryptedImage, location: location, category: category });
+      createPost(onResponse, { authorId: id??"", title: title, content: content, attachment: encryptedImage, location: location, category: category, type: "User" });
     }
     else{
       console.log('croppedSrc error!');

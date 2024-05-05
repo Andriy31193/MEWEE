@@ -85,7 +85,7 @@ export const profileButtonsData = [
 export const profileItemData: postDataTypes[] = [
   {
     id: "user04259",
-    userId: "d084d1e6-4aeb-47c4-b1a6-0f162ed2b701",
+    authorId: "d084d1e6-4aeb-47c4-b1a6-0f162ed2b701",
     username: "User1",
     profileImageUrl: "profile_image_url_1",
     location: "Location 1",
@@ -102,7 +102,7 @@ export const profileItemData: postDataTypes[] = [
   },
   {
     id: "user04259",
-    userId: "2a6f6099-0b2a-4b63-8d02-0d7dc60e9c95",
+    authorId: "2a6f6099-0b2a-4b63-8d02-0d7dc60e9c95",
     username: "User2",
     profileImageUrl: "profile_image_url_2",
     location: "Location 2",
@@ -119,7 +119,7 @@ export const profileItemData: postDataTypes[] = [
   },
   {
     id: "user04259",
-    userId: "b257a9e7-389d-45b2-8b42-990fa7c27b2f",
+    authorId: "b257a9e7-389d-45b2-8b42-990fa7c27b2f",
     username: "User3",
     profileImageUrl: "profile_image_url_3",
     location: "Location 3",
@@ -136,7 +136,7 @@ export const profileItemData: postDataTypes[] = [
   },
   {
     id: "user04259",
-    userId: "a50745cd-5b17-4c89-b78c-6ad67ed4e8e4",
+    authorId: "a50745cd-5b17-4c89-b78c-6ad67ed4e8e4",
     username: "User4",
     profileImageUrl: "profile_image_url_4",
     location: "Location 4",
