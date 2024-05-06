@@ -59,9 +59,8 @@ export const RecoverySetPasswordForm: React.FC<{ onNext: () => void }> = ({
         <main>
           <div>
             <label
-              className={`${styles.label} ${
-                passwordError ? styles.label_error : ""
-              }`}
+              className={`${styles.label} ${passwordError ? styles.label_error : ""
+                }`}
             >
               <input
                 type={showPassword.password ? "text" : "password"}
@@ -75,11 +74,10 @@ export const RecoverySetPasswordForm: React.FC<{ onNext: () => void }> = ({
               />
               <span
                 className={`${styles.show_password_toggle} 
-                                ${
-                                  showPassword.password
-                                    ? styles.password_icon_active
-                                    : styles.password_icon_default
-                                }`}
+                                ${showPassword.password
+                    ? styles.password_icon_active
+                    : styles.password_icon_default
+                  }`}
                 onClick={() => togglePasswordVisibility("password")}
               />
             </label>
@@ -89,9 +87,8 @@ export const RecoverySetPasswordForm: React.FC<{ onNext: () => void }> = ({
           </div>
           <div>
             <label
-              className={`${styles.label} ${
-                confirmPasswordError ? styles.label_error : ""
-              }`}
+              className={`${styles.label} ${confirmPasswordError ? styles.label_error : ""
+                }`}
             >
               <input
                 type={showPassword.confirm_password ? "text" : "password"}
@@ -105,11 +102,10 @@ export const RecoverySetPasswordForm: React.FC<{ onNext: () => void }> = ({
               />
               <span
                 className={`${styles.show_password_toggle} 
-                                ${
-                                  showPassword.confirm_password
-                                    ? styles.password_icon_active
-                                    : styles.password_icon_default
-                                }`}
+                                ${showPassword.confirm_password
+                    ? styles.password_icon_active
+                    : styles.password_icon_default
+                  }`}
                 onClick={() => togglePasswordVisibility("confirm_password")}
               />
             </label>

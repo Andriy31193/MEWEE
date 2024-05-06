@@ -7,7 +7,7 @@ import { Routing } from "../widgets/exportWigetComponents";
 import { Grid } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import "./App.css";
-import {setThemeVariables} from "../themesToCss";
+import { setThemeVariables } from "../themesToCss";
 import RegLogRouting from "../widgets/routing/RegLogRouting";
 
 const App: React.FC = () => {

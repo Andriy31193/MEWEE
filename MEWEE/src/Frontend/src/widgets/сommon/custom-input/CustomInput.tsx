@@ -1,6 +1,6 @@
 import { FC, useState, useRef } from "react";
-import EmojiIcon from "../../../assets/image/icons/EmojiIcon.svg";
-import SentIcon from "../../../assets/image/icons/SentIcon.svg";
+import { ReactComponent as EmojiIcon } from "../../../assets/image/icons/EmojiIcon.svg";
+import { ReactComponent as SentIcon } from "../../../assets/image/icons/SentIcon.svg";
 import AddCircle from "../../../assets/image/icons/AddCircle.svg";
 import { smileData } from "../../widgetData";
 import { smileDataTypes } from "../../widget.interface";
@@ -76,8 +76,8 @@ const CustomInput: FC<CustomInputProps> = ({
         />
 
         <div>
-          <img onClick={handleClickSmileVisible} src={EmojiIcon} />
-          <img src={SentIcon} onClick={() => formik.handleSubmit()} />
+          <EmojiIcon onClick={handleClickSmileVisible}/>
+          <SentIcon onClick={() => formik.handleSubmit()}/>
         </div>
 
         <div

@@ -53,8 +53,20 @@
   }
   > div {
     display: flex;
-    > img {
+    align-items: center;
+    justify-content: center;
+    > svg{
+      width: 24px;
+      height: 24px;
       @include hover-scale;
+      color: var(--mainPage_post_secondIcon);
+
+      &:hover{
+        opacity: var(--mainPage_post_secondHoverIcon);
+      }
+      &:active{
+        color: var(--mainPage_post_secondActiveIcon);
+      }
     }
   }
 }
