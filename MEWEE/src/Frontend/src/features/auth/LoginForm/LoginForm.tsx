@@ -1,16 +1,13 @@
 import { CircularProgress } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { useAuthStore, useErrors, useThemeStore } from "../../../entities";
+import { useState } from "react";
+import { useAuthStore, useErrors } from "../../../entities";
 import { useFormik } from "formik"; // Import Formik library
-import * as Yup from "yup"; // Import Yup for validation
 import Link from "@mui/material/Link";
 import { useNavigate } from "react-router-dom";
-import "./index.css";
-import styles from "./login_form.module.scss";
 import { useTranslation } from "react-i18next";
 import { LOGIN_SCHEMA } from "../../../shared/exportSharedMorules";
 import { PopUpError } from "../../../widgets/popuperror/PopUpError";
+import styles from "./login_form.module.scss";
 
 export function LoginForm() {
   const { t } = useTranslation();
@@ -63,9 +60,8 @@ export function LoginForm() {
           <main className={styles.main}>
             <div>
               <label
-                className={`${styles.label} ${
-                  emailError ? styles.label_error : ""
-                }`}
+                className={`${styles.label} ${emailError ? styles.label_error : ""
+                  }`}
               >
                 <input
                   required
@@ -85,9 +81,8 @@ export function LoginForm() {
             </div>
             <div>
               <label
-                className={`${styles.label} ${
-                  passwordError ? styles.label_error : ""
-                }`}
+                className={`${styles.label} ${passwordError ? styles.label_error : ""
+                  }`}
               >
                 <input
                   required
@@ -101,11 +96,10 @@ export function LoginForm() {
                   className={`${passwordError ? styles.input_error : ""}`}
                 />
                 <span
-                  className={`${
-                    showPassword.password
-                      ? styles.password_icon_active
-                      : styles.password_icon_default
-                  }`}
+                  className={`${showPassword.password
+                    ? styles.password_icon_active
+                    : styles.password_icon_default
+                    }`}
                   onClick={() => togglePasswordVisibility("password")}
                 />
               </label>

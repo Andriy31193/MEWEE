@@ -3,10 +3,10 @@ import { useFormik } from "formik"; // Import Formik library
 import * as Yup from "yup"; // Import Yup for validation
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import "./index.css";
 import { CircularProgress } from "@mui/material";
 import { REGISTER_SCHEMA } from "../../../shared/exportSharedMorules";
 import { useAuthStore, useErrors, useThemeStore } from "../../../entities";
+import "./index.css";
 
 export const RegisterForm: React.FC<{ onNext: () => void }> = ({ onNext }) => {
   const [errors, setErrors, setAutoClearErrors] = useErrors();
@@ -21,13 +21,13 @@ export const RegisterForm: React.FC<{ onNext: () => void }> = ({ onNext }) => {
     backgroundColor: isActiveButton
       ? currentTheme?.authPages.commonElements.buttonActiveBackground
       : isHoverButton && !isActiveButton
-      ? currentTheme?.authPages.commonElements.buttonHoverBackground
-      : currentTheme?.authPages.commonElements.buttonBackground,
+        ? currentTheme?.authPages.commonElements.buttonHoverBackground
+        : currentTheme?.authPages.commonElements.buttonBackground,
     color: isActiveButton
       ? currentTheme?.authPages.commonElements.buttonActiveColor
       : isHoverButton && !isActiveButton
-      ? currentTheme?.authPages.commonElements.buttonHoverColor
-      : currentTheme?.authPages.commonElements.buttonColor,
+        ? currentTheme?.authPages.commonElements.buttonHoverColor
+        : currentTheme?.authPages.commonElements.buttonColor,
   };
 
   const [showPassword, setShowPassword] = useState({
@@ -112,9 +112,8 @@ export const RegisterForm: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                 value={formik.values.username}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className={`text-style-1 input-short input-registration ${
-                  usernameError ? "input-error" : ""
-                }`}
+                className={`text-style-1 input-short input-registration ${usernameError ? "input-error" : ""
+                  }`}
                 style={{
                   backgroundColor:
                     currentTheme?.authPages.commonElements.inputBackground,
@@ -137,9 +136,8 @@ export const RegisterForm: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                 value={formik.values.surname}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className={`text-style-1 input-short input-registration ${
-                  surnameError ? "input-error" : ""
-                }`}
+                className={`text-style-1 input-short input-registration ${surnameError ? "input-error" : ""
+                  }`}
                 style={{
                   backgroundColor:
                     currentTheme?.authPages.commonElements.inputBackground,
@@ -162,9 +160,8 @@ export const RegisterForm: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className={`text-style-1 input-long input-registration ${
-                  emailError ? "input-error" : ""
-                }`}
+                className={`text-style-1 input-long input-registration ${emailError ? "input-error" : ""
+                  }`}
                 style={{
                   backgroundColor:
                     currentTheme?.authPages.commonElements.inputBackground,
@@ -189,20 +186,18 @@ export const RegisterForm: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className={`text-style-1 input-short input-registration password-input ${
-                  passwordError ? "input-error" : ""
-                }`}
+                className={`text-style-1 input-short input-registration password-input ${passwordError ? "input-error" : ""
+                  }`}
                 style={{
                   backgroundColor:
                     currentTheme?.authPages.commonElements.inputBackground,
                 }}
               />
               <span
-                className={`show-password-toggle ${
-                  showPassword.password
+                className={`show-password-toggle ${showPassword.password
                     ? "password-icon-active"
                     : "password-icon-default"
-                }`}
+                  }`}
                 onClick={() => togglePasswordVisibility("password")}
               />
             </label>
@@ -212,9 +207,8 @@ export const RegisterForm: React.FC<{ onNext: () => void }> = ({ onNext }) => {
           </div>
           <div className="input-container">
             <label
-              className={`label-style ${
-                confirmPasswordError ? "label-error" : ""
-              }`}
+              className={`label-style ${confirmPasswordError ? "label-error" : ""
+                }`}
             >
               <input
                 type={showPassword.confirm_password ? "text" : "password"}
@@ -224,20 +218,18 @@ export const RegisterForm: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                 value={formik.values.confirm_password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className={`text-style-1 input-short input-registration password-input ${
-                  confirmPasswordError ? "input-error" : ""
-                }`}
+                className={`text-style-1 input-short input-registration password-input ${confirmPasswordError ? "input-error" : ""
+                  }`}
                 style={{
                   backgroundColor:
                     currentTheme?.authPages.commonElements.inputBackground,
                 }}
               />
               <span
-                className={`show-password-toggle ${
-                  showPassword.confirm_password
+                className={`show-password-toggle ${showPassword.confirm_password
                     ? "password-icon-active"
                     : "password-icon-default"
-                }`}
+                  }`}
                 onClick={() => togglePasswordVisibility("confirm_password")}
               />
             </label>
@@ -272,9 +264,8 @@ export const RegisterForm: React.FC<{ onNext: () => void }> = ({ onNext }) => {
           />
           <div className="agree-with-policy-container">
             <div
-              className={`text-style-1 agree-with-policy-text ${
-                policyAgreeError ? "input-error" : ""
-              }`}
+              className={`text-style-1 agree-with-policy-text ${policyAgreeError ? "input-error" : ""
+                }`}
             >
               {t("agree-with-policy")}
             </div>
