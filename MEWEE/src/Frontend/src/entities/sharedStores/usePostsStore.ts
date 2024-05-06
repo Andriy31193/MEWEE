@@ -21,6 +21,7 @@ interface IPoststore {
 
   createPost: (callback: ResponseCallback, request: ICreatePostRequest) => Promise<void>;
   getPosts: (callback: ResponseCallback, id: any) => Promise<void>;
+  savePost: (callback: ResponseCallback, postId: string) => Promise<void>;
   findPosts: (callback: ResponseCallback, query: string, pagination: any) => Promise<void>;
   likePost: (callback: ResponseCallback, postId: string) => Promise<void>;
   unLikePost: (callback: ResponseCallback, postId: string) => Promise<void>;
@@ -32,16 +33,14 @@ export const usePostsStore = create<IPoststore>((set) => ({
   posts: null,
 
   createPost: async (callback: ResponseCallback, request: ICreatePostRequest) => {
-console.log(request.category);
+
     set({ isLoading: true });
     try {
       const response = await $api.post<any>(ENDPOINTS.USER.POST, request);
-      //console.log(response);
 
-      callback(pErrors(response.data.errors));
 
       if (response?.status == 200) {
-        //console.log(response.data);
+        callback([]);
       } else {
         callback(pErrors(response.data.errors));
       }
@@ -57,14 +56,31 @@ console.log(request.category);
     set({ isLoading: true });
 
     try {
-      const response = await $api.post<any>(ENDPOINTS.USER.GET_POSTS, { AuthorId: id, Type:0});
-      //console.log(response);
+      const response = await $api.post<any>(ENDPOINTS.USER.GET_POSTS, { AuthorId: id, Type: 0 });
 
-      callback(pErrors(response.data.errors));
 
       if (response?.status == 200) {
-        //console.log(response.data);
         set({ posts: response.data });
+        callback([]);
+      } else {
+        callback(pErrors(response.data.errors));
+      }
+    } catch (error: any) {
+      callback(pErrors(['unknown_error']));
+
+    }
+
+    set({ isLoading: false });
+  },
+  savePost: async (callback: ResponseCallback, postId: string) => {
+
+    set({ isLoading: true });
+
+    try {
+      const response = await $api.post<any>(ENDPOINTS.USER.SAVE_POST, { PostId: postId });
+
+      if (response?.status == 200) {
+        callback([]);
       } else {
         callback(pErrors(response.data.errors));
       }
@@ -87,6 +103,7 @@ console.log(request.category);
       if (response?.status == 200) {
         //console.log(response.data);
         set({ posts: response.data });
+        callback([]);
       } else {
         callback(pErrors(response.data.errors));
       }
@@ -105,9 +122,7 @@ console.log(request.category);
 
     try {
       const response = await $api.post<any>(ENDPOINTS.HOME.LIKE_POST, { postId: postId });
-      console.log(response);
-
-
+    
       if (response?.status == 200) {
         console.log(response.data);
         callback([]);
@@ -126,11 +141,9 @@ console.log(request.category);
 
     try {
       const response = await $api.post<any>(ENDPOINTS.HOME.UNLIKE_POST, { postId: postId });
-      console.log(response);
-
+    
 
       if (response?.status == 200) {
-        console.log("unlike-post response:", response.data);
         callback([]);
       } else {
         callback(pErrors(response.data.errors));
@@ -149,11 +162,8 @@ console.log(request.category);
 
     try {
       const response = await $api.post<any>(ENDPOINTS.HOME.GET_POST_LIKES, { postId: postId, pagination: { page: 1, pageSize: 0 } });
-      console.log(response);
-
-
+      
       if (response?.status == 200) {
-        console.log(response.data);
         callback(response.data, pErrors(response.data.errors));
       } else {
         callback(null, pErrors(response.data.errors));

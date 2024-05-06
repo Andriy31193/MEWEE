@@ -17,6 +17,8 @@ interface IAuthStore {
   isLoggedIn: boolean;
 
   id: string | null;
+  firstName: string | null;
+  secondName: string | null;
   username: string | null;
   email: string | null;
   profileAvatar: string | null;
@@ -47,6 +49,8 @@ export const useAuthStore = create<IAuthStore>()(
     (set, get) => ({
       isLoading: false,
       id: null,
+      firstName: null,
+      secondName: null,
       username: null,
       email: null,
       profileAvatar: null,
@@ -78,6 +82,8 @@ export const useAuthStore = create<IAuthStore>()(
             set({
               id: userData?.id,
               username: userData?.username,
+              firstName: userData?.firstName,
+              secondName: userData?.secondName,
               email: userData?.email,
               role: userData?.role,
               profileAvatar: userData?.profileAvatar,

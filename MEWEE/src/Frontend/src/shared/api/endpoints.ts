@@ -7,12 +7,18 @@ export const ENDPOINTS = {
         LOGOUT: `${API_URL}/auth/logout`,
         //CHECK_EMAIL: `https://65f7919db4f842e80885b525.mockapi.io/auth/check-email/check-email`,
     },
+    GROUPS: {
+        CREATE_GROUP: `${API_URL}/create-group`,
+        DELETE_GROUP: `${API_URL}/delete-group`,
+        GET_GROUPS: `${API_URL}/groups`,
+    },
     USER :{
         REGISTER: `${API_URL}/user/register`,
         GET_PROFILE_DATA: `${API_URL}/user/profile`,
         UPDATE_PROFILE_DATA: `${API_URL}/user/profile`,
         CONFIRM_EMAIL: `${API_URL}/user/confirm-email`,
         GET_POSTS: `${API_URL}/posts`,
+        SAVE_POST: `${API_URL}/save-post`,
         POST: `${API_URL}/post`,
         CREATE_CHAT: `${API_URL}/chat`,
         GET_CHATS: `${API_URL}/get-chats`,

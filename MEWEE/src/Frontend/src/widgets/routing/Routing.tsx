@@ -16,6 +16,7 @@ import Profile from "../../pages/profile/Profile";
 import Messenger from "../../pages/messenger/Messenger";
 import Chat from "../../pages/chat/Chat";
 import Setting from "../../pages/setting/Setting";
+import Group from "../../pages/groups/group/Group";
 
 export const Routing = () => {
   return (
@@ -31,6 +32,7 @@ export const Routing = () => {
               <Route path="/feed" element={<HomePage />} />
               {/* <Route path="/post-show" element={<PostShow />} /> */}
               <Route path="/groups" element={<Groups />} />
+              <Route path="/group/:id" element={<Group />} />
               <Route path="/profile/:username" element={<Profile />} />
               <Route path="/messenger" element={<Messenger />} />
               <Route path="/chat" element={<Chat />} />

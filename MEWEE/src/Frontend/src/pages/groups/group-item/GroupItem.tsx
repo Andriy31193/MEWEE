@@ -40,7 +40,7 @@ const GroupItem: FC<dataGroupItemPropTypes> = ({ data }) => {
                   </div>
                 </div>
                 <div className={styles.modal_button}>
-                  <CustomModalIcon id={item.id} links={modalPostDataLink} />
+                  {/* <CustomModalIcon id={item.id} links={modalPostDataLink} /> */}
                 </div>
               </div>
             </Grid>

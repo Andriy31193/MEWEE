@@ -22,7 +22,7 @@ import { CircularProgress } from "@mui/material";
 
 export const SideToolbar = () => {
   const navigate = useNavigate();
-  const { username, profileAvatar, email, isLoggedIn, role, isEmailConfirmed } =
+  const { username, firstName, secondName, profileAvatar, email, isLoggedIn, role, isEmailConfirmed } =
     useAuthStore();
   const { t, i18n } = useTranslation();
   const [avatar, setAvatar] = useState<any>(null);
@@ -91,26 +91,26 @@ export const SideToolbar = () => {
             cursor:"pointer"
           }}
         >
-          <div className="toolbar-profile-main-container">
-                <ProfilePictureUploader></ProfilePictureUploader>
+          <div className="toolbar-profile-main-container" onClick={() => {navigate('/profile/'+username); navigate(0);}}>
+                {/* <ProfilePictureUploader></ProfilePictureUploader> */}
             <div className="toolbar-profile-image">
               <img src={avatar === "" ? require("./images/unknown.jpg") : avatar}>
               </img>
             </div>
             {isVisible && (
               <div
-              onClick={() => {navigate('/profile/'+username); navigate(0);}}
+              
                 className="toolbar-profile-info-container"
                 style={{
                   color: currentTheme?.mainPage?.sideBar?.secondColorText,
                 }}
               >
                 <span className="toolbar-fio-title">
-                  {username ?? "Unknown"}
+                  {firstName ?? "Unknown"}
                 </span>
-                {/* <span className="toolbar-fio-second">
-                  {username : "Unknown"}
-                </span> */}
+                <span className="toolbar-fio-second">
+                  {secondName ?? "Unknown"}
+                </span>
               </div>
             )}
           </div>

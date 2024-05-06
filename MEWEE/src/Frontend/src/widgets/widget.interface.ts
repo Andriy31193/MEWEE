@@ -7,6 +7,7 @@ export interface ButtonPropsTypes {
 export interface modalPostDataLinkTypes {
   id: number;
   icons: any;
+  onClick: ()=>void;
   url: string;
   text: string;
 }

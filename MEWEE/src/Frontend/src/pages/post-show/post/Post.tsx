@@ -116,7 +116,7 @@ const Post: FC<postDataProps> = ({ dataObject }) => {
               </div>
             </div>
           </div>
-          <CustomModalIcon id={0} links={modalPostDataLink} />
+          {/* <CustomModalIcon id={0} links={modalPostDataLink} /> */}
         </header>
         <main className={styles.main}>
           {dataObject.attachment ? (

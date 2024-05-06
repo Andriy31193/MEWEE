@@ -71,6 +71,7 @@ const ProfileItem: FC<{ profileData: any; friends: any }> = ({
           )}
 
           {activeItemId === 3 && <Friends friendsData={friends} />}
+          {activeItemId === 4 && <Friends friendsData={friends} />}
           {(activeItemId === 5 && gallery)  && (
             <div className={styles.sliders_div}>
               <div className={styles.div_title}>

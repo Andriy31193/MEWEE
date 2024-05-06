@@ -33,7 +33,7 @@ const CustomModalIcon: FC<CustomModalIconPropsTypes> = ({ id, links }) => {
           {links ? (
             links.map((item: modalPostDataLinkTypes) => {
               return (
-                <li key={item.id}>
+                <li key={item.id} onClick={item.onClick}>
                   <a href={item.url}>
                     <div>
                       <img src={`${item.icons}`} />

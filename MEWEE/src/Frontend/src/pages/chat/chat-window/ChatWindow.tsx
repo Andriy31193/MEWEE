@@ -172,7 +172,7 @@ const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
           <div className={styles.subdiv_up_right}>
             <img src={VolumeHigh} />
             <div>
-              <CustomModalIcon id={1} links={modalPostDataLink} />
+              {/* <CustomModalIcon id={1} links={modalPostDataLink} /> */}
             </div>
           </div>
         </div>
