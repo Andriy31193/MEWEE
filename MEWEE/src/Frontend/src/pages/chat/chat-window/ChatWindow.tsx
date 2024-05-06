@@ -14,12 +14,13 @@ import { useAuthStore, useChatStore, useSignalRStore, useUserStore } from "../..
 import { decryptImage } from "../../../entities/sharedStores/post-utils";
 import { useTranslation } from "react-i18next";
 interface ChatWindowProps {
-  chatId: string | undefined;
+  chat: any;
 }
 
-const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
+const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
+  
   // Ensure chatId exists before rendering
-  if (!chatId) {
+  if (!chat) {
     return null; // or any fallback UI if needed
   }
   const {t} = useTranslation();
@@ -27,7 +28,6 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
   const [speaker, setSpeaker] = useState<any>(null);
   const [avatar, setAvatar] = useState<any>(null);
   const { getProfile } = useUserStore();
-  const { currentChat } = useChatStore();
   const [chatData, setChatData] = useState<any>(null);
   const { id } = useAuthStore();
   const fileInputRef = useRef<HTMLInputElement>(null); // Создание рефа для элемента
@@ -72,21 +72,6 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
     console.log(messages)
   }
   useEffect(() => {
-    if (currentChat) {
-
-      const chatUserIds = currentChat.chatUsers
-        ? currentChat.chatUsers
-          .map((user: any) => user.userId)
-          .filter((userId: string) => userId !== id)
-        : [];
-
-      if (chatUserIds.length > 0) {
-        getProfile(onProfileResponse, chatUserIds[0]);
-      }
-
-    }
-  }, []);
-  useEffect(() => {
     if (connection) {
       // Attach event listener for receiving messages
       connection.on('receiveMessage', handleMessageReceived)
@@ -101,7 +86,24 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
       }
     };
   }, []);
+  useEffect(() => {
+    console.log("ok");
+    if (chat) {
 
+      const chatUserIds = chat.chatUsers
+        ? chat.chatUsers
+          .map((user: any) => user.userId)
+          .filter((userId: string) => userId !== id)
+        : [];
+
+        console.log("CHAT USERS: ",chat.chatUsers);
+
+      if (chatUserIds.length > 0) {
+        getProfile(onProfileResponse, chatUserIds[0]);
+      }
+
+    }
+  }, [chat]);
   useEffect(() => {
     setIncomingMessage(incomingMessageData);
     if (incomingMessage) {
@@ -143,9 +145,10 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
     const now = new Date();
     const formattedDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
 
-    sendMessage(chatId, inputData, formattedDate);
+    sendMessage(chat.id, inputData, formattedDate);
     setInputData("")
   }
+  
   useEffect(() => {
     if (outgoingMessage) {
       setMassageArray([...massageArray, outgoingMessage]);

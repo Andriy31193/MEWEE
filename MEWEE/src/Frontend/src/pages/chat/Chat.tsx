@@ -11,9 +11,9 @@ const Chat: FC = () => {
 
   if (!isLoggedIn) navigate("auth/login");
 
-  const { getChats, setCurrentChat } = useChatStore();
+  const { getChats } = useChatStore();
   const [chatsData, setChatsData] = useState<any>(null);
-  const [currentChatId, setCurrentChatId] = useState<string>("");
+  const [currentChat, setCurrentChat] = useState<string>("");
   const [messagesData, setMessagesData] = useState<any>(null);
 
   const onResponse = (data: any, errors: string[]) => {
@@ -36,9 +36,10 @@ const Chat: FC = () => {
   }, []);
 
   const loadMessagesData = (chatId: string) => {
-    setCurrentChatId(chatId);
+    
+    const chat = chatsData.find((item: any) => item.id == chatId);
+    setCurrentChat(chat);
     joinChat(chatId);
-    setCurrentChat(chatsData);
   };
 
   return (
@@ -49,7 +50,7 @@ const Chat: FC = () => {
             <DialogSidebar chats={chatsData} onOpenChat={loadMessagesData} />
           </Grid>
           <Grid md={9}>
-            <ChatWindow  chatId={currentChatId} />
+            <ChatWindow chat={currentChat} />
           </Grid>
         </Grid>
       </div>

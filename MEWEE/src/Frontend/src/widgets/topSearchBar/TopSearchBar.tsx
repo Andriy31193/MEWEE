@@ -24,7 +24,7 @@ export const TopSearchBar = () => {
     initialValues: { prompt: "" },
 
     onSubmit: () => {
-      findPosts(onResponse, formik.values.prompt, { page: 1, pageSize: 0 });
+      findPosts(onResponse, formik.values.prompt, { page: 0, pageSize: 10 });
     },
 
   });

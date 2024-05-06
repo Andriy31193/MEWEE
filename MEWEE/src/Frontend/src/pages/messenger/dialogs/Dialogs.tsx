@@ -11,7 +11,6 @@ const Dialog: FC<dialogsDataPropTypes> = ({
   sideBarType,
 }) => {
   const { id } = useAuthStore();
-  console.log(dialogData);
   return (
     <div className={styles.div}>
       {dialogData &&

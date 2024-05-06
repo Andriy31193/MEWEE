@@ -41,6 +41,7 @@ export interface smileDataTypes {
 
 export interface imagesDataTypes {
   id: string;
+  content: string;
   imgPath1: any;
   imgPath2: any;
 }
@@ -53,5 +54,6 @@ export interface videoDataTypes {
 
 export interface photoVideoSlidersPropTypes {
   title?: string;
+  retouch?: boolean;
   sliderData: imagesDataTypes[];
 }

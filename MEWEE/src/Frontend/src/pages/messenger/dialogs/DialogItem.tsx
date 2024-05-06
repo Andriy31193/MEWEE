@@ -62,7 +62,7 @@ const DialogItem: FC<{ onClick: ()=>void, userIds: any, sideBarType: boolean, mo
                 </div>
             )}
         </div>
-        )};
+        )}
         </>
     );
 }

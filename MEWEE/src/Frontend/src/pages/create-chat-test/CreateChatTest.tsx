@@ -9,7 +9,7 @@ const CreateChatTest: FC = () => {
     const { createChat } = useChatStore();
 
   const handleSubmit = () => {
-    createChat(onResponse, id??"");
+
   };
 
   const onResponse = (errors: string[]) => {

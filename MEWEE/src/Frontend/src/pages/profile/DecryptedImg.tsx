@@ -1,8 +1,10 @@
 import { FC, useState, useEffect } from "react";
 import { decryptImage } from "../../entities/sharedStores/post-utils";
 
-const DecryptedImg: FC<{ content: string }> = ({
-    content
+const DecryptedImg: FC<{ content: string, className?:string, size?: string }> = ({
+    content,
+    className,
+    size = '50px'
 }) => {
 
     const [image, setImage] = useState<any>(null);
@@ -11,7 +13,7 @@ const DecryptedImg: FC<{ content: string }> = ({
         decryptImage(content).then(setImage).catch(console.error);
     }, []);
     return (
-            <img style={{width: '50px', height:'50px'}} src={image}></img>
+            <img className={className} style={size!=="noset"?{width: size, height:size}:{}} src={image}></img>
         
     );
 };

@@ -4,7 +4,6 @@ import {
   portfilioData,
   setificateData,
   friendData,
-  imageData,
 } from "../profileData";
 import { profileButtonsDataTypes } from "../profileData.interface";
 import ProfilePost from "./profile-post/ProfilePost";
@@ -18,10 +17,12 @@ const ProfileItem: FC<{ profileData: any; friends: any }> = ({
   profileData,
   friends,
 }) => {
+  const {getProfileGallery} = useUserStore();
+  const [gallery, setGallery] = useState<any>(null);
   const [activeItemId, setActiveItemId] = useState<number | null>(null);
-  const { getFriends } = useUserStore();
 
   useEffect(() => {
+    refreshGallery();
     if (profileButtonsData.length > 0 && activeItemId === null) {
       setActiveItemId(profileButtonsData[0].id);
     }
@@ -30,6 +31,15 @@ const ProfileItem: FC<{ profileData: any; friends: any }> = ({
   const handleLiClick = (itemId: number) => {
     setActiveItemId(itemId);
   };
+  const onGetProfileGalleryResponse = (data: any, errors: string[]) => {
+    if (errors.length == 0 && data !== null) {
+        setGallery(data);
+    }
+};
+  const refreshGallery = () => {
+    getProfileGallery(onGetProfileGalleryResponse);
+  }
+
 
   return (
     <>
@@ -61,29 +71,28 @@ const ProfileItem: FC<{ profileData: any; friends: any }> = ({
           )}
 
           {activeItemId === 3 && <Friends friendsData={friends} />}
-          {activeItemId === 5 && (
+          {(activeItemId === 5 && gallery)  && (
             <div className={styles.sliders_div}>
               <div className={styles.div_title}>
                 <h1>Недавні</h1>
                 <img src={ProfileItemFilter} />
               </div>
-              <PhotoVideoSliders sliderData={imageData} />
-              <PhotoVideoSliders title={"Ретуш"} sliderData={imageData} />
+              <PhotoVideoSliders sliderData={gallery} />
+              <PhotoVideoSliders retouch={true} title={"Ретуш"} sliderData={gallery} />
             </div>
           )}
-          {activeItemId === 6 && (
+          {(activeItemId === 6 && gallery) && (
             <div className={styles.sliders_div}>
               <div className={styles.div_title}>
                 <h1>Недавні</h1>
                 <img src={ProfileItemFilter} />
               </div>
-              <PhotoVideoSliders sliderData={imageData} />
-              <PhotoVideoSliders title={"Ретуш"} sliderData={imageData} />
+              <PhotoVideoSliders sliderData={gallery} />
+              <PhotoVideoSliders  retouch={true} title={"Ретуш"} sliderData={gallery} />
             </div>
           )}
         </div>
       )}
-      ;
     </>
   );
 };

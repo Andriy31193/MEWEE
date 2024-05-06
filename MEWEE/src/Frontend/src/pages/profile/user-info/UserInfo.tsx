@@ -3,17 +3,20 @@ import { CircularProgress, Grid } from "@mui/material";
 import ProfileLockal from "../../../assets/image/icons/ProfileLockal.svg";
 import PropfileAdd from "../../../assets/image/icons/PropfileAdd.svg";
 import ProfilePortfolio from "../../../assets/image/icons/ProfilePortfolio.svg";
+import CommentPostIcon from "../../../assets/image/icons/CommentPostIcon.svg";
 import ProfileLovely from "../../../assets/image/icons/ProfileLovely.svg";
 import ProfileFlash from "../../../assets/image/icons/ProfileFlash.svg";
 import { decryptImage, encryptImage } from "../../../entities/sharedStores/post-utils";
 import styles from "./user_info.module.scss";
-import { useAuthStore, useUserStore } from "../../../entities";
+import { useAuthStore, useChatStore, useUserStore } from "../../../entities";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import DecryptedImg from "../DecryptedImg";
 const UserInfo: FC<{ userData: any }> = ({ userData }) => {
     const { id } = useAuthStore();
     const { t } = useTranslation();
+    const navigate = useNavigate();
+    const { createChat } = useChatStore();
     const { isLoading, followUser, unfollowUser, getFollowers, getFollowings, uploadPhotoToProfile, getProfileGallery } = useUserStore();
     const [avatar, setAvatar] = useState<any>(null);
     const [followingStatus, setFollowingStatus] = useState<string>("follow");
@@ -78,29 +81,31 @@ const UserInfo: FC<{ userData: any }> = ({ userData }) => {
         getFollowings(onFollowingsResponse, userData.id);
 
     }
-
+    const onChatCreatedResponse = (errors: string[]) => {
+        if (errors.length === 0) 
+            {
+                console.log("chat created");
+                navigate('/chat');
+            }
+    };
+    const handleMessageUser = () => {
+        createChat(onChatCreatedResponse, userData.id);
+    }
     const handleAddPhoto = async () => {
-        // Create a hidden input element
         const input = document.createElement('input');
         input.type = 'file';
 
-        // Set accept attribute to specify image files
         input.accept = 'image/*';
 
-        // Add event listener for file selection
         input.addEventListener('change', async (event) => {
             const file = (event.target as HTMLInputElement).files?.[0];
             if (file) {
                 try {
-                    // Read the file contents as a data URL
                     const reader = new FileReader();
                     reader.onload = async (e) => {
                         if (e.target && e.target.result) {
                             const imageDataUrl = e.target.result as string;
-                            // Encrypt the image data URL
                             const encryptedData = await encryptImage(imageDataUrl);
-                            // Set the encrypted ima
-                            // Update profile with the encrypted image data
                             uploadPhotoToProfile((errors: any) => {
 
                                 if (errors.length == 0) {
@@ -109,22 +114,20 @@ const UserInfo: FC<{ userData: any }> = ({ userData }) => {
                             }, encryptedData);
                         }
                     };
-                    reader.readAsDataURL(file); // Read file as data URL
+                    reader.readAsDataURL(file);
                 } catch (error) {
                     console.error('Error handling image:', error);
                 }
             }
         });
 
-        // Trigger file input click
         input.click();
     };
 
-    const refreshGallery = () => 
-        {
+    const refreshGallery = () => {
 
-            getProfileGallery(onGetProfileGalleryResponse);
-        }
+        getProfileGallery(onGetProfileGalleryResponse);
+    }
 
     useEffect(() => {
 
@@ -175,10 +178,15 @@ const UserInfo: FC<{ userData: any }> = ({ userData }) => {
                         </div>
                         <div className={styles.folow_button}>
                             {(userData.id !== id) && (
+                                <>
+                                    <button onClick={() => handleFolow(userData.id)}>{t(followingStatus)}</button>
 
-                                <button onClick={() => handleFolow(userData.id)}>{t(followingStatus)}</button>
+                                    <img style={{ cursor: "pointer" }} onClick={handleMessageUser} src={CommentPostIcon} />
+                                </>
                             )}
-                            <img style={{ cursor: "pointer" }} onClick={handleAddPhoto} src={PropfileAdd} />
+                            {(userData.id === id) && (
+                                <img style={{ cursor: "pointer" }} onClick={handleAddPhoto} src={PropfileAdd} />
+                            )}
                             {isLoading && <CircularProgress size={"1rem"}></CircularProgress>}
                         </div>
                     </div>
@@ -204,7 +212,7 @@ const UserInfo: FC<{ userData: any }> = ({ userData }) => {
                             )}
                         </ul>
                     </div>
-                    <div>{/* //ТУТ МОЖЕТ БЫТЬ JUST DO IT */}</div>
+                    <div>{/* JUST DO IT */}</div>
                     <div className={styles.gallery}>
                         <h2>Фото</h2>
                         <Grid container>
@@ -226,7 +234,6 @@ const UserInfo: FC<{ userData: any }> = ({ userData }) => {
                     </div>
                 </div>
             )}
-            ;
         </>
     );
 };

@@ -13,12 +13,6 @@ const DialogSidebar: FC<{chats: any, onOpenChat: (chatId: string) => void}> = ({
   return (
     <>
       <div>
-        {/* <div className={styles.div}>
-          <p>
-            goggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggog
-            goggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggoggog
-          </p>
-        </div> */}
         <Dialog onOpenChat={onOpenChat} dialogData={chats} sideBarType={true} />
       </div>
     </>

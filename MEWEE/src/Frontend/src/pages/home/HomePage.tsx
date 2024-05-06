@@ -18,7 +18,7 @@ export const HomePage: React.FC = () => {
         <HomeFeed />
       </Grid>
       <Grid item sm={4}>
-        <HomeFeed />
+        <HomeNews />
       </Grid>
     </Grid>
   );

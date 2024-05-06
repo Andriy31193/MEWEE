@@ -2,6 +2,7 @@ import { FC, useEffect } from "react";
 import { useAuthStore, usePostsStore } from "../../../entities";
 import { Box, CircularProgress } from "@mui/material";
 import News from "./news/News";
+import { FeedPost } from "../../../features/exportFeaturesComponents";
 
 export const HomeNews: FC = () => {
   const { getPosts } = usePostsStore();
@@ -18,7 +19,7 @@ export const HomeNews: FC = () => {
   };
   return (
     <div className="home-news-generic-container">
-      <News posts={data} />
+      <FeedPost posts={data} />
     </div>
   );
 };
