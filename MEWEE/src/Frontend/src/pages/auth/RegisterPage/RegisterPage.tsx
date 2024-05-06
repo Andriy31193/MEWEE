@@ -51,7 +51,7 @@ export const RegisterPage: React.FC<IAuthPageProps> = ({
         <RegisterForm onNext={handleStageProgression} />
       )}
       {currentStage === EnumRegistrationStage.EmailConfirmation && (
-        <EmailConfirmationForm onNext={handleStageProgression} onBack={handleBack}/>
+        <EmailConfirmationForm onNext={handleStageProgression} onBack={handleBack} />
       )}
       {currentStage === EnumRegistrationStage.Preferences && (
         <PreferencesForm></PreferencesForm>

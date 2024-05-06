@@ -1,11 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next"; // Import useTranslation hook
-import "./AuthLayout.css";
 import { useNavigate } from "react-router-dom";
 import { AuthHeaderForm } from "../../../../features/exportFeaturesComponents";
 import { SwitchComponent } from "../../../../widgets/sideToolbar/components/switchComponent";
 import { LanguageComponent } from "../../../../widgets/sideToolbar/components/languageComponent";
 import { useThemeStore } from "../../../../entities";
+import "./AuthLayout.css";
 
 export const AuthLayout: React.FC<{
   children: React.ReactNode;
@@ -30,6 +30,7 @@ export const AuthLayout: React.FC<{
           </span>
           <span className="auth-sub-title-text">{t("title-description")}</span>
         </div>
+        {/* <div className="trapezoid" /> */}
         <div className="auth-content-container">
           {isAuthNavActive && (
             <div className="buttons-container">
@@ -37,10 +38,10 @@ export const AuthLayout: React.FC<{
                 onClick={() => navigate("/auth/register")}
                 className="button-c"
               >
-                <a>{t("registration")}</a>
+                <h4>{t("registration")}</h4>
               </div>
               <div onClick={() => navigate("/auth/login")} className="button-c">
-                <a>{t("login")}</a>
+                <h4>{t("login")}</h4>
               </div>
             </div>
           )}

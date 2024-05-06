@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IRecoveryPageProps } from "../IRecoveryPageProps";
-import { RecoveryEmailForm } from "../../../features/auth/RecoveryForm";
+import { RecoveryEmailForm } from "../../../features/auth/RecoveryForm/RecoveryEmailForm";
 import { EnumRecoveryStage } from "../../../entities/enums/EnumRecoveryStage";
 import { RecoveryEmailConfirmationForm } from "../../../features/auth/RecoveryForm/email/stages/confirmationForm/index";
 import { RecoverySetPasswordForm } from "../../../features/auth/RecoveryForm/generic/setPasswordForm";
@@ -38,7 +38,7 @@ export const RecoveryPage: React.FC<IRecoveryPageProps> = ({ url }) => {
             <RecoveryEmailConfirmationForm onNext={handleStageProgression} onBack={handleBack} />
           )}
           {currentStage === EnumRecoveryStage.ChangePassword && (
-            <RecoverySetPasswordForm onNext={handleStageProgression}  />
+            <RecoverySetPasswordForm onNext={handleStageProgression} />
           )}
           {currentStage === EnumRecoveryStage.Sucess && (
             <RecoverySuccessFulForm
