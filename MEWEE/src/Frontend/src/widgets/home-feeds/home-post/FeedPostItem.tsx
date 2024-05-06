@@ -1,9 +1,9 @@
 import { FC, useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import LocationIcon from "../../../assets/image/icons/LocationIcon.svg";
-import LikePostIcon from "../../../assets/image/icons/LikePostIcon.svg";
-import SentIcon from "../../../assets/image/icons/SentIcon.svg";
-import CommentPostIcon from "../../../assets/image/icons/CommentPostIcon.svg";
+import { ReactComponent as LocationIcon } from "../../../assets/image/icons/LocationIcon.svg";
+import { ReactComponent as LikePostIcon } from"../../../assets/image/icons/LikePostIcon.svg";
+import { ReactComponent as SentIcon } from "../../../assets/image/icons/SentIcon.svg";
+import { ReactComponent as CommentPostIcon } from "../../../assets/image/icons/CommentPostIcon.svg";
 import styles from "./feed_post_item.module.scss";
 import { useAuthStore, usePostsStore, useThemeStore, useUserStore } from "../../../entities";
 import CustomModalIcon from "../../сommon/custom-modal-icon/CustomModalIcon";
@@ -20,7 +20,7 @@ export const FeedPostItem: FC<{ item: postDataTypes }> = ({ item }) => {
   const { t } = useTranslation();
   const [imageSrc, setImageSrc] = useState<string>();
   const [avatar, setAvatar] = useState<any>(null);
-
+  const showButton = item && item.content && item.content.length > 90;
   const videoRef = useRef<HTMLVideoElement>(null);
   const { getProfile } = useUserStore();
   const { currentTheme } = useThemeStore();
@@ -29,9 +29,24 @@ export const FeedPostItem: FC<{ item: postDataTypes }> = ({ item }) => {
   const { getComments } = useCommentStore();
   const { getPostLikes } = usePostsStore();
   const [comments, setComments] = useState<any>(null);
+  const [showFullContent, setShowFullContent] = useState(false);
   const isImage = (url: string) => {
     return /\.(jpeg|jpg|gif|png)$/i.test(url);
   };
+
+  const handleClickShow = () => {
+    setShowFullContent(!showFullContent);
+  };
+
+  function formatTime(dateString: string) {
+    const date = new Date(dateString);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    return formattedTime;
+  }
+
+
 
   const isVideo = (url: string) => {
     return /\.(mp4|webm|ogg)$/i.test(url);
@@ -101,12 +116,9 @@ export const FeedPostItem: FC<{ item: postDataTypes }> = ({ item }) => {
   const CustomBox = currentTheme?.components?.MuiIcon;
   // const fio = username?.split(' ');
   return (
-    <div className={styles.div}>
+    <div className={styles.div} >
       <div
         className={commentsHiden === null ? styles.sub_div : `${styles.sub_div} ${styles._sub_div_box_shadow}`}
-        style={{
-          backgroundColor: currentTheme?.mainPage.post.background,
-        }}
       >
         <header>
           <div className={styles.header_div}>
@@ -114,29 +126,11 @@ export const FeedPostItem: FC<{ item: postDataTypes }> = ({ item }) => {
               <img src={avatar === "" ? "" : avatar} />
             </div>
             <div>
-              <span
-                style={{
-                  color: currentTheme?.mainPage.post.colorText,
-                }}
-              >
-                {author !== null ? author.username : ""}
-              </span>
-              <span
-                style={{
-                  color: currentTheme?.mainPage.post.thirdColorText,
-                }}
-              >
-                {item.createdAt}
-              </span>
+              <span>{author !== null ? author.username : ""}</span>
+              <span className={styles.span_date}>{formatTime(item.createdAt)}</span>
               <div>
-                <img src={LocationIcon} />
-                <span
-                  style={{
-                    color: currentTheme?.mainPage.post.secondColorText,
-                  }}
-                >
-                  {item.location}
-                </span>
+                <LocationIcon />
+                <span>{item.location}</span>
               </div>
             </div>
           </div>
@@ -144,17 +138,20 @@ export const FeedPostItem: FC<{ item: postDataTypes }> = ({ item }) => {
         </header>
         <main className={styles.main}>
           {item.attachment ? (
-            <div>
-              <img src={imageSrc} alt="Post Image" />
-            </div>
+              <div>
+                <div>
+                  <div style={{backgroundImage: `url(${imageSrc})`}}></div>
+                  <img src={imageSrc} alt="Post Image" />
+                </div>
+              </div>
           ) : isVideo(item.imageUrl) ? (
-            <video
-              className={styles.feed_post_video}
-              ref={videoRef}
-              autoPlay
-              muted
-            >
-              <source src={item.imageUrl} type="video/mp4" />
+              <video
+                  className={styles.feed_post_video}
+                  ref={videoRef}
+                  autoPlay
+                  muted
+              >
+                <source src={item.imageUrl} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           ) : (
@@ -162,41 +159,45 @@ export const FeedPostItem: FC<{ item: postDataTypes }> = ({ item }) => {
           )}
         </main>
         <footer className={styles.footer}>
-          <span
-            style={{ color: currentTheme?.mainPage.post.colorText }}
-          >
-            {item.title}
-          </span>
-          <p>{item.description}</p>
-          <nav className={styles.nav}>
-            <CustomButton text={t("more")} />
+          <span>{item.title}</span>
+          <div>{showFullContent ? (item?.content || '') : (item?.content?.slice(0, 90) || '')}</div>
+          <nav className={styles.nav} style={!showButton ? { justifyContent: 'flex-end' } : {}}>
+            {showButton && (
+                <CustomButton text={showFullContent ? t("less") : t("more")} onClick={handleClickShow}/>
+            )}
             <div>
               <div>
-                <img onClick={handleLikePost} style={{ filter: isLiked ? "saturate(3)" : "" }} src={LikePostIcon} />
-                { !isLoading && <span>{item.likesCount}</span>}
-              </div>
-              <div>
-                <img src={SentIcon} />
-                <span></span>
-              </div>
-              <div>
-                <img
-                  onClick={() => handleCommentClick(item.id)}
-                  src={CommentPostIcon}
-                  style={{ filter: commentsHiden ? "saturate(3)" : "" }}
-                />
-                <span>{comments ? (comments.length > 0 ? comments.length - 1 : 0) : 0}</span>
+                <div>
+                  <LikePostIcon onClick={handleLikePost}
+                                style={{ color: isLiked ? currentTheme?.mainPage.post.secondActiveIcon
+                                      :
+                                      currentTheme?.mainPage.post.secondIcon
+                  }}/>
+                  {!isLoading && <span>{item.likesCount}</span>}
+                </div>
+                <div>
+                  <SentIcon style={{color: currentTheme?.mainPage.post.secondIcon}}/>
+                </div>
+                <div>
+                  <CommentPostIcon onClick={() => handleCommentClick(item.id)}
+                                   style={{ color: commentsHiden ? currentTheme?.mainPage.post.secondActiveIcon
+                                         :
+                                         currentTheme?.mainPage.post.secondIcon
+                                   }}
+                  />
+                  <span>{comments ? (comments.length > 0 ? comments.length  : 0) : 0}</span>
+                </div>
               </div>
             </div>
           </nav>
         </footer>
       </div>
       <CommentBarComponents
-        id={item.id}
-        appearance={true}
-        hiden={commentsHiden}
-        commentDataRender={comments}
-        onUpdated={onCommentsUpdated}
+          id={item.id}
+          appearance={true}
+          hiden={commentsHiden}
+          commentDataRender={comments}
+          onUpdated={onCommentsUpdated}
       />
     </div>
   );

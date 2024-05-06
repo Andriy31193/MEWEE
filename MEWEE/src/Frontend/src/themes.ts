@@ -62,6 +62,8 @@ declare module '@mui/material/styles' {
       post: {
         icon: string;
         secondIcon: string;
+        secondHoverIcon: string;
+        secondActiveIcon: string;
         background: string;
         colorText: string;
         secondColorText: string;
@@ -149,6 +151,8 @@ declare module '@mui/material/styles' {
       post?: {
         icon?: string;
         secondIcon?: string;
+        secondHoverIcon?: string;
+        secondActiveIcon?: string;
         background?: string;
         colorText?: string;
         secondColorText?: string;
@@ -236,6 +240,8 @@ export const themes: Theme[] = [
       post: {
         icon: '#25005C',
         secondIcon: '#B67AFE',
+        secondHoverIcon: '0.75',
+        secondActiveIcon: '#FBA500',
         background: 'white',
         colorText: 'black',
         secondColorText:'#25005C',
@@ -326,6 +332,8 @@ export const themes: Theme[] = [
       post: {
         icon: '#B67AFE',
         secondIcon: '#B67AFE',
+        secondHoverIcon: '0.75',
+        secondActiveIcon: '#FBA500',
         background: '#302a37',
         colorText: 'white',
         secondColorText:'#B67AFE',
