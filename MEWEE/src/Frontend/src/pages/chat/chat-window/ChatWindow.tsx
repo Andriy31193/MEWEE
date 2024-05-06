@@ -23,7 +23,7 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
 
   const { connection, sendMessage } = useSignalRStore();
 
-  const { getConversation } = useChatStore();
+  // const { getConversation } = useChatStore();
   const [chatData, setChatData] = useState<any>(null);
   const { id } = useAuthStore();
   const fileInputRef = useRef<HTMLInputElement>(null); // Создание рефа для элемента

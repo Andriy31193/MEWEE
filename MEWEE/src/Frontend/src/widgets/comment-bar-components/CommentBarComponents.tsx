@@ -98,6 +98,7 @@ const CommentBarComponents: FC<CommentBarPropsTypes> = ({
             onSubmit={handleSubmit}
             placeHolder="Lorem ipsum..."
           />
+
         </div>
       )}
     </>
