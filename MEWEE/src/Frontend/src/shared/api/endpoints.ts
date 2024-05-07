@@ -11,6 +11,7 @@ export const ENDPOINTS = {
         CREATE_GROUP: `${API_URL}/create-group`,
         DELETE_GROUP: `${API_URL}/delete-group`,
         GET_GROUPS: `${API_URL}/groups`,
+        GET_GROUP: `${API_URL}/get-group`,
     },
     USER :{
         REGISTER: `${API_URL}/user/register`,
@@ -19,6 +20,8 @@ export const ENDPOINTS = {
         CONFIRM_EMAIL: `${API_URL}/user/confirm-email`,
         GET_POSTS: `${API_URL}/posts`,
         SAVE_POST: `${API_URL}/save-post`,
+        GET_POST_SAVE: `${API_URL}/get-post-save`,
+        UNSAVE_POST: `${API_URL}/unsave-post`,
         POST: `${API_URL}/post`,
         CREATE_CHAT: `${API_URL}/chat`,
         GET_CHATS: `${API_URL}/get-chats`,

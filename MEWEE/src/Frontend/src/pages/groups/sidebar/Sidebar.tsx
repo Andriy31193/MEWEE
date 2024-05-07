@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import { dataSideBarTypes, groupDataPropTypes } from "../groupData.interface";
 import styles from "./sidebar.module.scss";
-const Sidebar: FC<groupDataPropTypes> = ({ data }) => {
+const Sidebar: FC<groupDataPropTypes> = ({ data, onCategoryChanged }) => {
   const [activeItemId, setActiveItemId] = useState<number | null>(null);
 
   useEffect(() => {
@@ -12,6 +12,7 @@ const Sidebar: FC<groupDataPropTypes> = ({ data }) => {
 
   const handleLiClick = (itemId: number) => {
     setActiveItemId(itemId);
+    onCategoryChanged(itemId);
   };
 
   return (

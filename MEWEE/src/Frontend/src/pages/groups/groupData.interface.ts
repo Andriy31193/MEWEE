@@ -6,15 +6,15 @@ export interface dataSideBarTypes {
 
 export interface groupDataPropTypes {
   data: dataSideBarTypes[];
+  onCategoryChanged: (id: number) => void;
 }
 
 export interface dataGroupItemTypes {
-  id: number;
-  img: any;
-  title: string;
-  participants: string;
+  groups: any;
+  members: any;
 }
 
 export interface dataGroupItemPropTypes {
-  data: dataGroupItemTypes[];
+  category: number;
+  data: any;
 }

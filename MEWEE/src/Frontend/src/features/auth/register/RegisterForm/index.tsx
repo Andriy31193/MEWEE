@@ -79,6 +79,7 @@ export const RegisterForm: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                 }`}
               >
                 <input
+                  autoComplete="firstName"
                   type="text"
                   id="username"
                   name="username"
@@ -100,6 +101,7 @@ export const RegisterForm: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                 }`}
               >
                 <input
+                  autoComplete="surname"
                   type="text"
                   id="surname"
                   name="surname"

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import KubsGroupPage from "../../../assets/image/icons/KubsGroupPage.svg";
 import CustomButton from "../../../widgets/сommon/custom-button/customButton";
@@ -10,8 +10,35 @@ import {
 } from "../groupData.interface";
 import styles from "./group_item.module.scss";
 import { useTranslation } from "react-i18next";
-const GroupItem: FC<dataGroupItemPropTypes> = ({ data }) => {
+import { useNavigate } from "react-router-dom";
+import DecryptedImg from "../../profile/DecryptedImg";
+import { useAuthStore, useUserStore } from "../../../entities";
+
+const GroupItem: FC<dataGroupItemPropTypes> = ({ data, category }) => {
+  const [friends, setFriends] = useState<any>(null);
   const { t } = useTranslation();
+
+  const navigate = useNavigate();
+  const { id } = useAuthStore();
+  const { getFriends } = useUserStore();
+
+  const onFriendsResponse = (data: any, errors: string[]) => {
+    if (errors.length == 0) {
+      setFriends(data);
+      console.log("Friends received.")
+    }
+    else console.error("Errors occured in onFriendsResponse (GroupItem)", errors);
+  }
+
+  useEffect(() => {
+    if (!id) {
+      console.error("User must be logged in. (GroupItem)");
+      navigate('/auth/login');
+      return;
+    }
+    getFriends(onFriendsResponse, id ?? "");
+  }, []);
+
   return (
     <Grid container>
       <Grid item md={12}>
@@ -21,19 +48,29 @@ const GroupItem: FC<dataGroupItemPropTypes> = ({ data }) => {
         </header>
       </Grid>
       {data &&
-        data.map((item: dataGroupItemTypes, index: number) => {
+        data.map((item: any, index: number) => {
+          console.log(item);
+          const currentGroup: any = item.group;
+          const members: any = item.members;
           return (
-            <Grid item key={item.id} md={index < 6 ? 4 : 6}>
+            <Grid item key={currentGroup.id} md={index < 6 ? 4 : 6} onClick={() => {
+              navigate("/group/" + currentGroup.id, { replace: false });
+              navigate(0);
+            }}>
               <div
                 className={` ${index < 6 ? styles.div : styles._div_horizont}`}
               >
-                <img src={item.img} />
+                {currentGroup.avatar && (
+                  <DecryptedImg borderRadius="20px" size="100%" content={currentGroup.avatar}></DecryptedImg>
+                )}
                 <div>
                   <div>
-                    <h4>{item.title}</h4>
-                    <p>
-                      {item.participants} {t("participants")}
-                    </p>
+                    <h4>{currentGroup.title}</h4>
+                    {members && (
+                      <p>
+                        {members.length} {t("participants")}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <CustomButton text={t("join")} />

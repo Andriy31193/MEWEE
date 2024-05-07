@@ -22,10 +22,10 @@ import { CircularProgress } from "@mui/material";
 
 export const SideToolbar = () => {
   const navigate = useNavigate();
-  const { username, firstName, secondName, profileAvatar, email, isLoggedIn, role, isEmailConfirmed } =
+  const { username, firstName, secondName, avatar, email, isLoggedIn, role, isEmailConfirmed } =
     useAuthStore();
   const { t, i18n } = useTranslation();
-  const [avatar, setAvatar] = useState<any>(null);
+  const [_avatar, setAvatar] = useState<any>(null);
   const { currentTheme, currentThemeIndex, cycleThemes, getCurrentTheme } =
     useThemeStore();
 
@@ -41,7 +41,7 @@ export const SideToolbar = () => {
   });
 
   const handleAvatarDecrypt = () => {
-    const at = profileAvatar ?? "";
+    const at = avatar ?? "";
     if (at != "")
       decryptImage(at)
         .then(decryptedData => {
@@ -94,7 +94,7 @@ export const SideToolbar = () => {
           <div className="toolbar-profile-main-container" onClick={() => {navigate('/profile/'+username); navigate(0);}}>
                 {/* <ProfilePictureUploader></ProfilePictureUploader> */}
             <div className="toolbar-profile-image">
-              <img src={avatar === "" ? require("./images/unknown.jpg") : avatar}>
+              <img src={_avatar === "" ? require("./images/unknown.jpg") : _avatar}>
               </img>
             </div>
             {isVisible && (

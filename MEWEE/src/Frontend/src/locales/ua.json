@@ -76,6 +76,8 @@
   "unfollow":"Відписатись",
   "following":"Відстежується",
   "friends":"Друзі",
+  "save":"Зберегти",
+  "saved":"Збережено",
   "last_online_recently": "в мережі пару хвилин тому",
   "add_comment_placeholder": "Додайте коментар...",
   "confirmationCode_does_not_exist": "Код підтвердження не існує",

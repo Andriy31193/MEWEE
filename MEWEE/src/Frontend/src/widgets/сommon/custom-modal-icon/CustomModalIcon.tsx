@@ -34,10 +34,12 @@ const CustomModalIcon: FC<CustomModalIconPropsTypes> = ({ id, links }) => {
             links.map((item: modalPostDataLinkTypes) => {
               return (
                 <li key={item.id} onClick={item.onClick}>
-                  <a href={item.url}>
+                  <a>
                     <div>
                       <img src={`${item.icons}`} />
-                      <h6>{t(`${item.text}`)}</h6>
+                      <h5>{t(`${item.text}`)}</h5>
+                      {item.customSymbols &&
+                      <p style={{marginLeft:'5px' , verticalAlign:'center'}}>{item.customSymbols}</p>}
                     </div>
                   </a>
                 </li>

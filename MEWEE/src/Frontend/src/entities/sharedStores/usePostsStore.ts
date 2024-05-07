@@ -21,7 +21,9 @@ interface IPoststore {
 
   createPost: (callback: ResponseCallback, request: ICreatePostRequest) => Promise<void>;
   getPosts: (callback: ResponseCallback, id: any) => Promise<void>;
-  savePost: (callback: ResponseCallback, postId: string) => Promise<void>;
+  savePost: (callback: ResponseDataCallback, postId: string) => Promise<void>;
+  unsavePost: (callback: ResponseCallback, postId: string) => Promise<void>;
+  getSavePost: (callback: ResponseDataCallback, postId: string) => Promise<void>;
   findPosts: (callback: ResponseCallback, query: string, pagination: any) => Promise<void>;
   likePost: (callback: ResponseCallback, postId: string) => Promise<void>;
   unLikePost: (callback: ResponseCallback, postId: string) => Promise<void>;
@@ -72,12 +74,31 @@ export const usePostsStore = create<IPoststore>((set) => ({
 
     set({ isLoading: false });
   },
-  savePost: async (callback: ResponseCallback, postId: string) => {
+  savePost: async (callback: ResponseDataCallback, postId: string) => {
 
     set({ isLoading: true });
 
     try {
       const response = await $api.post<any>(ENDPOINTS.USER.SAVE_POST, { PostId: postId });
+
+      if (response?.status == 200) {
+        callback(response.data, []);
+      } else {
+        callback(null, pErrors(response.data.errors));
+      }
+    } catch (error: any) {
+      callback(null, pErrors(['unknown_error']));
+
+    }
+
+    set({ isLoading: false });
+  },
+  unsavePost: async (callback: ResponseCallback, postId: string) => {
+
+    set({ isLoading: true });
+
+    try {
+      const response = await $api.post<any>(ENDPOINTS.USER.UNSAVE_POST, { PostId: postId });
 
       if (response?.status == 200) {
         callback([]);
@@ -86,6 +107,25 @@ export const usePostsStore = create<IPoststore>((set) => ({
       }
     } catch (error: any) {
       callback(pErrors(['unknown_error']));
+
+    }
+
+    set({ isLoading: false });
+  },
+  getSavePost: async (callback: ResponseDataCallback, postId: string) => {
+
+    set({ isLoading: true });
+
+    try {
+      const response = await $api.post<any>(ENDPOINTS.USER.GET_POST_SAVE, { PostId: postId });
+
+      if (response?.status == 200) {
+        callback(response.data, []);
+      } else {
+        callback(null, pErrors(response.data.errors));
+      }
+    } catch (error: any) {
+      callback(null, pErrors(['unknown_error']));
 
     }
 

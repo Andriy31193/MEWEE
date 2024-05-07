@@ -6,12 +6,12 @@ import { useAuthStore, useUserStore } from "../../entities";
 const ProfilePictureUploader = () => {
   const [image, setImage] = useState<string | null>(null);
 const {updateProfile} = useUserStore();
+console.log("ok");
   const handleDrop = async (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
     if (rejectedFiles.length > 0) {
       // Handle rejected files if needed
       return;
     }
-    
     const file = acceptedFiles[0];
     const reader = new FileReader();
 

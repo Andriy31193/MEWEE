@@ -1,21 +1,22 @@
 import { FC, useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { useUserStore } from "../../../entities";
+import { useGroupsStore, useUserStore } from "../../../entities";
 import UserInfo from "../../profile/user-info/UserInfo";
 import ProfileItem from "../../profile/propfile-item/ProfileItem";
 
-const Profile: FC = () => {
+const Group: FC = () => {
   const [profileData, setProfileData] = useState<any>(null);
   const { getProfile, getFriends } = useUserStore();
-  const { username } = useParams<{ username: string }>();
+  const { getGroup } = useGroupsStore();
+  const { id } = useParams<{ id: string }>();
   const [friends, setFriendsData] = useState<any>(null);
 
 
   const onProfileResponse = (data: any, errors: string[]) => {
     if (errors.length == 0 && data !== null) {
       setProfileData(data);
-      
+      console.log("group:",data);
       getFriends(onFriendsResponse, data.id ?? "#");
 
     }
@@ -28,7 +29,7 @@ const Profile: FC = () => {
 
 
   useEffect(() => {
-    getProfile(onProfileResponse, username ?? "#");
+    getGroup(onProfileResponse, id ?? "");
   }, []);
 
   return (
@@ -47,4 +48,4 @@ const Profile: FC = () => {
   );
 };
 
-export default Profile;
+export default Group;

@@ -77,6 +77,8 @@
   "unfollow":"Unfollow",
   "following":"Following",
   "friends":"Friends",
+  "save":"Save",
+  "saved":"Saved",
   "last_online_recently": "last online few minutes ago",
   "confirmationCode_does_not_exist": "Confirmation code does not exist",
   "confirmationCode_invalid": "Invalid confirmation code",

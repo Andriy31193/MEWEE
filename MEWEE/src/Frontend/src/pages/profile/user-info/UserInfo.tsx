@@ -132,8 +132,8 @@ const UserInfo: FC<{ userData: any }> = ({ userData }) => {
     useEffect(() => {
 
 
-        userData.profileAvatar &&
-            decryptImage(userData.profileAvatar).then(setAvatar).catch(console.error);
+        userData.avatar &&
+            decryptImage(userData.avatar).then(setAvatar).catch(console.error);
 
         refreshFollows();
         refreshGallery();

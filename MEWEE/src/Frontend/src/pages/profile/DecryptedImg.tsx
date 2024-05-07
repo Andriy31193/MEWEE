@@ -1,20 +1,26 @@
 import { FC, useState, useEffect } from "react";
 import { decryptImage } from "../../entities/sharedStores/post-utils";
 
-const DecryptedImg: FC<{ content: string, className?:string, size?: string }> = ({
+const DecryptedImg: FC<{ content: string, className?: string, borderRadius?: string, size?: string }> = ({
     content,
     className,
+    borderRadius,
     size = '50px'
 }) => {
-
     const [image, setImage] = useState<any>(null);
 
     useEffect(() => {
         decryptImage(content).then(setImage).catch(console.error);
     }, []);
+
+    const imgStyles = {
+        width: size !== "noset" ? size : undefined,
+        height: size !== "noset" ? size : undefined,
+        borderRadius: borderRadius ?? undefined,
+    };
+
     return (
-            <img className={className} style={size!=="noset"?{width: size, height:size}:{}} src={image}></img>
-        
+        <img className={className} style={imgStyles} src={image} alt="Decrypted Image" />
     );
 };
 

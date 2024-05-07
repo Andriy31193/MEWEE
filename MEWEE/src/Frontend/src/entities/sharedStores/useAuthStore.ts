@@ -21,7 +21,7 @@ interface IAuthStore {
   secondName: string | null;
   username: string | null;
   email: string | null;
-  profileAvatar: string | null;
+  avatar: string | null;
   role: string | null;
   isEmailConfirmed: boolean | null;
   platform: string | null;
@@ -53,7 +53,7 @@ export const useAuthStore = create<IAuthStore>()(
       secondName: null,
       username: null,
       email: null,
-      profileAvatar: null,
+      avatar: null,
       role: null,
       platform: null,
       isEmailConfirmed: null,
@@ -86,7 +86,7 @@ export const useAuthStore = create<IAuthStore>()(
               secondName: userData?.secondName,
               email: userData?.email,
               role: userData?.role,
-              profileAvatar: userData?.profileAvatar,
+              avatar: userData?.avatar,
               isEmailConfirmed: userData?.isEmailConfirmed,
               platform: userData?.platform,
             });

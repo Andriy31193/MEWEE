@@ -3,23 +3,28 @@ import styles from "./groups.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { decryptImage } from "../../entities/sharedStores/post-utils";
 import { useGroupsStore } from "../../entities";
+import { Grid } from "@mui/material";
+import Sidebar from "./sidebar/Sidebar";
+import GroupItem from "./group-item/GroupItem";
+import { dataSideBar } from "./groupData";
 
 const Groups: FC<{}> = () => {
   const [avatarImages, setAvatarImages] = useState<string[]>([]);
   const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState<number>(0);
   const [data, setData] = useState<any>();
   const { getGroups } = useGroupsStore();
 
-  
-  
+
+
   const onGroupsResponse = (data: any, errors: string[]) => {
     if (errors.length == 0 && data !== null) {
       setData(data);
       console.log(data);
       fetchAvatars();
-      
-    }else
-    console.error(errors);
+
+    } else
+      console.error(errors);
   };
   useEffect(() => {
     getGroups(onGroupsResponse);
@@ -45,31 +50,25 @@ const Groups: FC<{}> = () => {
       setAvatarImages(decryptedAvatars);
     }
   };
+  const onCategoryChanged = (id: number) => {
+    setSelectedCategory(id);
+  }
+
+  const sideBarData = dataSideBar();
 
   return (
     <>
+
       {data && (
-        <div className={styles.div}>
-          <ul>
-            {data &&
-              data.map((group: any, index: number) => {
-                return (
-                  <li
-                    key={group.id}
-                    onClick={() => {
-                      navigate("/group/" + group.id, { replace: false });
-                      navigate(0);
-                    }}
-                  >
-                    {avatarImages[index] && (
-                      <img src={avatarImages[index]} alt="Decrypted Avatar" />
-                    )}
-                    <h2>{group.title}</h2>
-                  </li>
-                );
-              })}
-          </ul>
-        </div>
+        <Grid container sx={{ paddingRight: "1rem", paddingLeft: "1rem" }}>
+          <Grid item md={3}>
+            <Sidebar data={sideBarData} onCategoryChanged={onCategoryChanged} />
+          </Grid>
+          <Grid item md={9}>
+            <GroupItem category={selectedCategory} data={data} />
+          </Grid>
+        </Grid>
+
       )}
     </>
   );

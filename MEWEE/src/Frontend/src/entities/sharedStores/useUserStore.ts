@@ -3,6 +3,7 @@ import {
     ILoginRequest,
     IRegisterRequest,
     IUserData,
+    useAuthStore,
 } from "../index";
 import { $api, decodeJwtToken } from "../../shared/exportSharedMorules";
 import { create } from "zustand";
