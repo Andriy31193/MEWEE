@@ -177,6 +177,12 @@ const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
 
   }, [chatData]);
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleMessageClick();
+    }
+  };
 
   useEffect(() => {
     if (outgoingMessage) {
@@ -255,7 +261,7 @@ const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
               <AddCircle onClick={handleAddCircleClick}/>{" "}
               <EmojiIcon onClick={handleClickSmileVisible}/>
             </div>
-            <input type="text" value={inputData} onChange={handlerDataInput} />
+            <input type="text" value={inputData} onKeyDown={handleKeyDown} onChange={handlerDataInput} />
             <div>
               <SentIcon onClick={handleMessageClick} style={{marginRight: '0'}}/>
             </div>

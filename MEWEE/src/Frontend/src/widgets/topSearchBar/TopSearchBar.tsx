@@ -7,9 +7,9 @@ import { ReactComponent as IconNothification } from "./images/icon_nothification
 import { ReactComponent as IconMessages } from "./images/icon_messages.svg";
 import { TopSearchBarItem } from "./components/topSearchBarItem/TopSearchBarItem";
 import AddPost from "./components/add-post/AddPost";
-import "./index.css";
 import { CircularProgress } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import styles from "./top_search_bar.module.scss";
 
 export const TopSearchBar = () => {
   const navigate = useNavigate();
@@ -20,6 +20,11 @@ export const TopSearchBar = () => {
   const { currentTheme } = useThemeStore();
   const { isLoading, findPosts, getPosts } = usePostsStore();
   // const fio = username?.split(' ');
+  const location = useLocation();
+
+  const activeIcon = (path: string) => {
+    return location.pathname.includes(path);
+  }
 
   const formik = useFormik({
     initialValues: { prompt: "" },
@@ -38,41 +43,36 @@ export const TopSearchBar = () => {
   };
 
   return (
-    <div
-      className="top-search-bar-container"
-      style={{ backgroundColor: currentTheme?.mainPage.header.background }}
-    >
-      <div className="top-search-bar-title-container">
-        <span
-          className="top-search-bar-title"
-          style={{ color: currentTheme?.mainPage.header.colorText }}
-        >
-          {t(title)}
-        </span>
+    <div className={styles.top_search_bar_container}>
+      <div className={styles.top_search_bar_title_container}>
+        <span className={styles.top_search_bar_title} onClick={() => navigate('/feed')}>{t(title)}</span>
       </div>
-      <div className="input-search-container">
-        <label className="label-search-bar-style">
+      <div className={styles.input_search_container}>
+        <label className={styles.label_search_bar_style}>
           <input
-            className="input-search-bar"
-            type="text"
-            name="prompt"
-            id="prompt"
-            value={formik.values.prompt}
-            onChange={formik.handleChange}
-            placeholder={t("search") + "..."}
+              className={styles.input_search_bar}
+              type="text"
+              name="prompt"
+              id="prompt"
+              value={formik.values.prompt}
+              onChange={formik.handleChange}
+              placeholder={t("search") + "..."}
           />
-
-          <span className="input-search-bar-icon search-icon-default" onClick={() => formik.handleSubmit()} />
+          <span className={`${styles.input_search_bar_icon} ${styles.search_icon_default}`}
+                onClick={() => formik.handleSubmit()} />
         </label>
       </div>
       <div>
       </div>
           {isLoading && <CircularProgress size={"1rem"}></CircularProgress>}
-      <div className="top-search-bar-tools-container">
+      <div className={styles.top_search_bar_tools_container}>
         <AddPost />
-        <TopSearchBarItem onClick={() => navigate('/')}icon={<IconFilter />} />
-        <TopSearchBarItem onClick={() => navigate('/')}icon={<IconNothification />} />
-        <TopSearchBarItem onClick={() => navigate('/chat')} icon={<IconMessages />} />
+        <TopSearchBarItem onClick={() => navigate('/feed')} icon={<IconFilter />}
+                          isActive={false}/>
+        <TopSearchBarItem onClick={() => navigate('/feed')} icon={<IconNothification />}
+                          isActive={false}/>
+        <TopSearchBarItem onClick={() => navigate('/chat')} icon={<IconMessages />}
+                          isActive={activeIcon("/chat")}/>
       </div>
     </div>
   );

@@ -58,6 +58,7 @@ declare module '@mui/material/styles' {
         colorText: string;
         inputTextColor: string;
         inputColorStroke: string;
+        colorPlaceholder: string;
       },
       chat:{
         icon: string;
@@ -160,6 +161,7 @@ declare module '@mui/material/styles' {
         colorText?: string;
         inputTextColor?: string;
         inputColorStroke?: string;
+        colorPlaceholder?: string;
       },
       chat?:{
         icon?: string;
@@ -262,6 +264,7 @@ export const themes: Theme[] = [
         colorText: 'black',
         inputTextColor: 'gray',
         inputColorStroke: 'red',
+        colorPlaceholder: 'gray',
       },
       chat:{
         icon: '#B67AFE',
@@ -367,6 +370,7 @@ export const themes: Theme[] = [
         colorText: 'white',
         inputTextColor: 'gray',
         inputColorStroke: 'yellow',
+        colorPlaceholder: 'white',
       },
       chat:{
         icon: 'white',
