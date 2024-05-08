@@ -8,6 +8,7 @@
   margin: 1rem 1rem 2rem 1rem;
 }
 .input_search_container {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,28 +17,21 @@
 }
 .label_search_bar_style {
   position: relative;
-  display: block;
-  background: linear-gradient(
-                  91.54deg,
-                  rgba(37, 0, 92, 0.7) 0%,
-                  rgba(151, 71, 255, 0.7) 100%
-  );
-  padding: 2px;
-  border-radius: 10px;
   width: 100%;
-  margin: 15px;
 }
 .input_search_bar {
   background: var(--mainPage_post_comments_inputBackground);
-  border-radius: 8px;
-  border: none;
+  border-radius: 10px;
   outline: none;
   width: 100%;
   height: 34px;
+  border: 2px solid #b67afe;
   padding-left: 5px;
   position: relative;
   padding-right: 25px;
-  color: var(--mainPage_header_colorText);
+  color: #fba500;
+  font-family: "Geometria", sans-serif;
+  font-weight: bold;
 }
 .input_search_bar::placeholder {
   font-family: Geometria, sans-serif;
@@ -46,7 +40,7 @@
   color: var(--mainPage_header_colorPlaceholder);
 }
 .top_search_bar_title_container {
-  margin-right: 20px;
+  margin-right: 35px;
   flex: 0 0 auto;
   cursor: pointer;
 }
@@ -56,7 +50,7 @@
   color: var(--mainPage_header_colorText);
 }
 .top_search_bar_tools_container {
-  margin-left: 10px;
+  margin-left: 25px;
   display: flex;
   gap: 8px;
   flex: 0 0 auto;
@@ -81,3 +75,5 @@
 .search_icon_default {
   background-image: url("./images/icon_search.svg");
 }
+
+

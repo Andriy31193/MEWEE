@@ -90,7 +90,9 @@ const CommentBarComponents: FC<CommentBarPropsTypes> = ({
           {replyTo !== null && (
             <div className={styles.reply}>
               <span>Replying to... {replyTo.username}</span>
-              <CloseIcon onClick={resetReplyTo} />
+              <div>
+                <CloseIcon onClick={resetReplyTo} />
+              </div>
             </div>
           )}
           <CustomInput

@@ -10,6 +10,8 @@ import AddPost from "./components/add-post/AddPost";
 import { CircularProgress } from "@mui/material";
 import {useLocation, useNavigate} from "react-router-dom";
 import styles from "./top_search_bar.module.scss";
+import React, {useEffect, useState} from "react";
+import Search from "./components/search-component/Search";
 
 export const TopSearchBar = () => {
   const navigate = useNavigate();
@@ -21,6 +23,7 @@ export const TopSearchBar = () => {
   const { isLoading, findPosts, getPosts } = usePostsStore();
   // const fio = username?.split(' ');
   const location = useLocation();
+  const [isVisible, setIsVisible] = useState(false);
 
   const activeIcon = (path: string) => {
     return location.pathname.includes(path);
@@ -35,6 +38,14 @@ export const TopSearchBar = () => {
 
   });
 
+  useEffect(() => {
+    if (formik.values.prompt.trim() !== '') {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  }, [formik.values.prompt]);
+
   const onResponse = (errors: string[]) => {
     setAutoClearErrors(errors);
 
@@ -48,9 +59,10 @@ export const TopSearchBar = () => {
         <span className={styles.top_search_bar_title} onClick={() => navigate('/feed')}>{t(title)}</span>
       </div>
       <div className={styles.input_search_container}>
-        <label className={styles.label_search_bar_style}>
+        <div className={styles.label_search_bar_style}>
           <input
               className={styles.input_search_bar}
+              style={{borderRadius: isVisible ? "10px 10px 0 0" : "10px"}}
               type="text"
               name="prompt"
               id="prompt"
@@ -60,18 +72,21 @@ export const TopSearchBar = () => {
           />
           <span className={`${styles.input_search_bar_icon} ${styles.search_icon_default}`}
                 onClick={() => formik.handleSubmit()} />
-        </label>
+        </div>
+        {isVisible &&(
+            <Search />
+        )}
       </div>
       <div>
       </div>
-          {isLoading && <CircularProgress size={"1rem"}></CircularProgress>}
+      {isLoading && <CircularProgress size={"1rem"}></CircularProgress>}
       <div className={styles.top_search_bar_tools_container}>
-        <AddPost />
-        <TopSearchBarItem onClick={() => navigate('/feed')} icon={<IconFilter />}
+        <AddPost/>
+        <TopSearchBarItem onClick={() => navigate('/feed')} icon={<IconFilter/>}
                           isActive={false}/>
-        <TopSearchBarItem onClick={() => navigate('/feed')} icon={<IconNothification />}
+        <TopSearchBarItem onClick={() => navigate('/feed')} icon={<IconNothification/>}
                           isActive={false}/>
-        <TopSearchBarItem onClick={() => navigate('/chat')} icon={<IconMessages />}
+        <TopSearchBarItem onClick={() => navigate('/chat')} icon={<IconMessages/>}
                           isActive={activeIcon("/chat")}/>
       </div>
     </div>
