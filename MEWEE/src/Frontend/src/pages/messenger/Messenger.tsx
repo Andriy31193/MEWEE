@@ -16,6 +16,7 @@ const Messenger: FC = () => {
             dialogData={dialogData}
             modalDialogsData={modalChatsDataLink}
             sideBarType={false}
+            openChat={false}
           />
         </Grid>
       </Grid>

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import CustomModalIcon from "../../../widgets/сommon/custom-modal-icon/CustomModalIcon";
 import DialogCheck from "../../../assets/image/icons/DialogCheck.svg";
 import {
@@ -8,12 +8,14 @@ import {
 import styles from "./dialog_item.module.scss";
 import { useAuthStore, useUserStore } from "../../../entities";
 import { decryptImage } from "../../../entities/sharedStores/post-utils";
-const DialogItem: FC<{ onClick: ()=>void, userIds: any, sideBarType: boolean, modalDialogsData:any }> = ({
-    onClick,
-    userIds,
-    sideBarType,
-    modalDialogsData
-}) => {
+import CustomModalMenu from "../../../widgets/сommon/custom-modal-menu/CustomModalMenu";
+const DialogItem: FC<{ onClick: ()=>void, userIds: any, sideBarType: boolean, modalDialogsData:any, openChat: boolean}>
+    = ({
+           onClick,
+           userIds,
+           sideBarType,
+           modalDialogsData, openChat
+    }) => {
     const { id } = useAuthStore();
     const { getProfile } = useUserStore();
     const [speaker, setSpeaker] = useState<any>(null);
@@ -33,36 +35,52 @@ const DialogItem: FC<{ onClick: ()=>void, userIds: any, sideBarType: boolean, mo
 
     return (
         <>
-        {speaker && (
-        <div key={speaker.id} className={styles.chat_div} onClick={onClick}>
-            <img src={avatar} />
-            <div className={styles.chat_div_item}>
-                <div className={styles.chat_div_item1}>
-                    <h2>{speaker.firstName} {speaker.secondName}</h2>
-                    <h5>@{speaker.username}</h5>
-                    <p>{12334}</p> 
-                </div>
-                {!sideBarType && (
-                    <>
-                        <div className={styles.chat_div_item2}>
-                            <h5>{speaker.time}</h5>
+            {speaker && (
+                <div key={speaker.id} className={styles.chat_div} onClick={onClick}
+                     style={{
+                         marginBottom: openChat ? "0" : "0.8rem",
+                         borderRadius: openChat ? "0" : "1rem",
+                         // backgroundColor: speaker.id ? "#FBA500" : "",
+                     }}>
+                    <img src={avatar}/>
+                    <div className={styles.chat_div_item}>
+                        <div className={styles.chat_div_item1}>
                             <div>
-                                {speaker.newMessade && <h5>{speaker.valueMessage}</h5>}
+                                <h2>{speaker.firstName} {speaker.secondName}</h2>
+                                {!openChat && (
+                                    <h5>(@{speaker.username})</h5>
+                                )}
                             </div>
+                            <p>Last comment...</p>
                         </div>
-                        <div className={styles.chat_div_item3}>
-                            {speaker.check && <img src={DialogCheck} />}
+                        {!sideBarType && (
+                            <>
+                                <div className={styles.chat_div_item2}>
+                                    <h5>{speaker.time}</h5>
+                                    <div>
+                                        {speaker.newMessade && <h5>{speaker.valueMessage}</h5>}
+                                    </div>
+                                </div>
+                                <div className={styles.chat_div_item3}>
+                                    {speaker.check && <img src={DialogCheck}/>}
+                                </div>
+                            </>
+                        )}
+                    </div>
+                    {!openChat && (
+                        <div className={styles.modal_div}
+                             onClick={(event) => event.stopPropagation()}>
+                            <CustomModalMenu location={["0", "100%", "", ""]}/>
                         </div>
-                    </>
-                )}
-            </div>
-            {!sideBarType && (
-                <div className={styles.modal_div}>
-                    <CustomModalIcon id={speaker.id} links={modalDialogsData} />
+                    )}
+                    {!sideBarType && (
+                        <div className={styles.modal_div}>
+                            <CustomModalIcon id={speaker.id} links={modalDialogsData}/>
+                        </div>
+                    )}
                 </div>
+
             )}
-        </div>
-        )}
         </>
     );
 }
