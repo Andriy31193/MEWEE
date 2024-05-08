@@ -56,7 +56,7 @@ const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
   const onProfileResponse = (data: any, errors: string[]) => {
     if (errors.length == 0 && data !== null) {
       setSpeaker(data);
-      data.profileAvatar && decryptImage(data.profileAvatar).then(setAvatar).catch(console.error);
+      data.avatar && decryptImage(data.avatar).then(setAvatar).catch(console.error);
     }
   };
 

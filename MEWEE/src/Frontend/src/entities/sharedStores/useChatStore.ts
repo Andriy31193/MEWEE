@@ -3,7 +3,7 @@ import { ResponseCallback, ResponseDataCallback, decryptState, encryptState, pEr
 import { $api, ENDPOINTS } from "../../shared/exportSharedMorules";
 
 interface IChatStore {
-  currentChat: any;
+  currentChatId: any;
   isLoading: boolean;
 
   setCurrentChat: (chatData: any) => void;
@@ -14,10 +14,10 @@ interface IChatStore {
 
 export const useChatStore = create<IChatStore>((set) => ({
   isLoading: false,
-  currentChat: null,
+  currentChatId: null,
 
   setCurrentChat:(chatData: any) => {
-    set({ currentChat: chatData[0] });
+    set({ currentChatId: chatData });
   },
   createChat: async (callback: ResponseCallback, inviteUserId: string) => {
 

@@ -14,8 +14,8 @@ const Friends: FC<{ friendsData: any }> = ({ friendsData }) => {
       const decryptedAvatars = await Promise.all(
         friendsData.map(async (friend: any) => {
           try {
-            if (friend.profileAvatar) {
-              const decryptedAvatar = await decryptImage(friend.profileAvatar);
+            if (friend.avatar) {
+              const decryptedAvatar = await decryptImage(friend.avatar);
               return decryptedAvatar;
             }
             return null;

@@ -132,7 +132,7 @@ const ProfileItem: FC<{ profileData: any; friends: any }> = ({
                     <button onClick={() => handleCreateGroup()}>CREATE</button>
                   </div>
                 )}
-                <Friends friendsData={friends} />
+                {/* <Friends friendsData={friends} /> */}
 
               </div>
             )}

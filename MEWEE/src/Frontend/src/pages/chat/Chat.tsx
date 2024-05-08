@@ -12,9 +12,9 @@ const Chat: FC = () => {
 
   if (!isLoggedIn) navigate("auth/login");
 
-  const { getChats } = useChatStore();
+  const { getChats, setCurrentChat } = useChatStore();
   const [chatsData, setChatsData] = useState<any>(null);
-  const [currentChat, setCurrentChat] = useState<string>("");
+  const [currentChat, _setCurrentChat] = useState<string>("");
   const [messagesData, setMessagesData] = useState<any>(null);
 
   const onResponse = (data: any, errors: string[]) => {
@@ -39,7 +39,9 @@ const Chat: FC = () => {
   const loadMessagesData = (chatId: string) => {
     
     const chat = chatsData.find((item: any) => item.id == chatId);
-    setCurrentChat(chat);
+    _setCurrentChat(chat);
+    setCurrentChat(chatId);
+    
     joinChat(chatId);
   };
 

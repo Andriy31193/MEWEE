@@ -26,6 +26,7 @@ const Dialog: FC<dialogsDataPropTypes> = ({
           return (
               <DialogItem
                   onClick={() => onOpenChat(item.id)}
+                  chatId={item.id}
                   key={item.id}
                   userIds={chatUserIds}
                   sideBarType={sideBarType}

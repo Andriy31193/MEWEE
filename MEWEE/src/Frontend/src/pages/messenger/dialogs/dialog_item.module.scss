@@ -42,8 +42,12 @@
           font-family: Geometria, sans-serif;
           color: var(--mainPage_post_colorText);
           font-size: 0.8rem;
-          text-overflow: ellipsis;
-          overflow: hidden;
+          display:inline-block !important;
+          vertical-align: middle !important;
+          max-width: 10ch;
+          white-space: nowrap !important;
+          overflow: hidden !important;
+          text-overflow: ellipsis !important;
         }
         h5
         {

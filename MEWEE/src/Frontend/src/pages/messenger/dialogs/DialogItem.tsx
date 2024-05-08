@@ -6,11 +6,12 @@ import {
     dialogDataTypes,
 } from "../messengerData.interface";
 import styles from "./dialog_item.module.scss";
-import { useAuthStore, useUserStore } from "../../../entities";
+import { useAuthStore, useChatStore, useUserStore } from "../../../entities";
 import { decryptImage } from "../../../entities/sharedStores/post-utils";
 import CustomModalMenu from "../../../widgets/сommon/custom-modal-menu/CustomModalMenu";
-const DialogItem: FC<{ onClick: ()=>void, userIds: any, sideBarType: boolean, modalDialogsData:any, openChat: boolean}>
+const DialogItem: FC<{ chatId: string, onClick: ()=>void, userIds: any, sideBarType: boolean, modalDialogsData:any, openChat: boolean}>
     = ({
+        chatId,
            onClick,
            userIds,
            sideBarType,
@@ -18,14 +19,16 @@ const DialogItem: FC<{ onClick: ()=>void, userIds: any, sideBarType: boolean, mo
     }) => {
     const { id } = useAuthStore();
     const { getProfile } = useUserStore();
+    const { currentChatId }= useChatStore();
     const [speaker, setSpeaker] = useState<any>(null);
     const [avatar, setAvatar] = useState<any>(null);
 
+    console.log(currentChatId);
     const onProfileResponse = (data: any, errors: string[]) => {
 
         if (errors.length == 0 && data !== null) {
             setSpeaker(data);
-            data.profileAvatar && decryptImage(data.profileAvatar).then(setAvatar).catch(console.error);
+            data.avatar && decryptImage(data.avatar).then(setAvatar).catch(console.error);
         }
     };
 
@@ -39,8 +42,8 @@ const DialogItem: FC<{ onClick: ()=>void, userIds: any, sideBarType: boolean, mo
                 <div key={speaker.id} className={styles.chat_div} onClick={onClick}
                      style={{
                          marginBottom: openChat ? "0" : "0.8rem",
-                         borderRadius: openChat ? "0" : "1rem",
-                         // backgroundColor: speaker.id ? "#FBA500" : "",
+                         borderRadius: openChat ? "0.5rem" : "1rem",
+                         backgroundColor: chatId == currentChatId ? "#FBA500" : "",
                      }}>
                     <img src={avatar}/>
                     <div className={styles.chat_div_item}>
