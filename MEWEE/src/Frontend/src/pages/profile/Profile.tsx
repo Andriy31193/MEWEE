@@ -4,14 +4,14 @@ import ProfileItem from "./propfile-item/ProfileItem";
 import UserInfo from "./user-info/UserInfo";
 import { userInfoData } from "./profileData";
 import { useParams } from "react-router-dom";
-import { useAuthStore, useUserStore } from "../../entities";
+import { EnumProfileType, useAuthStore, useSearchBar, useUserStore } from "../../entities";
 
-const Profile: FC = () => {
+const Profile: FC<{}> = ( ) => {
   const [profileData, setProfileData] = useState<any>(null);
   const { getProfile, getFriends } = useUserStore();
   const { username } = useParams<{ username: string }>();
   const [friends, setFriendsData] = useState<any>(null);
-
+  const { setTitle } = useSearchBar();
 
   const onProfileResponse = (data: any, errors: string[]) => {
     if (errors.length == 0 && data !== null) {
@@ -29,6 +29,7 @@ const Profile: FC = () => {
 
 
   useEffect(() => {
+    setTitle("profile");
     getProfile(onProfileResponse, username ?? "#");
   }, []);
 
@@ -37,10 +38,10 @@ const Profile: FC = () => {
       {(profileData) && (
         <Grid container sx={{ padding: "0 1rem" }}>
           <Grid item md={3} sm={12}>
-            <UserInfo userData={profileData} />
+            <UserInfo profileType={EnumProfileType.User}  userData={profileData} />
           </Grid>
           <Grid item md={8} sm={12}>
-            <ProfileItem profileData={profileData} friends={friends} />
+            <ProfileItem profileType={EnumProfileType.User} profileData={profileData} friends={friends} />
           </Grid>
         </Grid>
       )}

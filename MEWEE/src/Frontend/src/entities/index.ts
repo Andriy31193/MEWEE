@@ -5,6 +5,7 @@
 export { EnumActivityType } from './enums/EnumActivityType'
 export { EnumRegistrationStage } from './enums/EnumRegistrationStage'
 export { EnumPostType } from './enums/EnumPostType'
+export { EnumProfileType } from './enums/EnumProfileType'
 export { EnumUserRole } from './enums/EnumUserRole'
 export { EnumPlanType } from './enums/EnumPlanType'
 export { EnumScheduledPlanType } from './enums/EnumScheduleType'
@@ -34,6 +35,7 @@ export type { IUserData } from './responses/shared/IUserData'
 ////////////////////////////////////
 
 export { useErrors } from './sharedStores/useErrors';
+export { useSearchBar } from './sharedStores/useSearchBar';
 export { useGroupsStore } from './sharedStores/useGroupsStore';
 export { useUserStore } from './sharedStores/useUserStore';
 export { useChatStore } from './sharedStores/useChatStore';

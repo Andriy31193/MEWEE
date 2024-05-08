@@ -2,7 +2,7 @@ import { FC, useState, useEffect } from "react";
 import styles from "./groups.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { decryptImage } from "../../entities/sharedStores/post-utils";
-import { useGroupsStore } from "../../entities";
+import { useGroupsStore, useSearchBar } from "../../entities";
 import { Grid } from "@mui/material";
 import Sidebar from "./sidebar/Sidebar";
 import GroupItem from "./group-item/GroupItem";
@@ -11,9 +11,10 @@ import { dataSideBar } from "./groupData";
 const Groups: FC<{}> = () => {
   const [avatarImages, setAvatarImages] = useState<string[]>([]);
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState<number>(0);
+  const [selectedCategory, setSelectedCategory] = useState<string>('Policy');
   const [data, setData] = useState<any>();
   const { getGroups } = useGroupsStore();
+  const { setTitle } = useSearchBar();
 
 
 
@@ -27,6 +28,7 @@ const Groups: FC<{}> = () => {
       console.error(errors);
   };
   useEffect(() => {
+    setTitle("groups");
     getGroups(onGroupsResponse);
   }, []);
 
@@ -50,7 +52,7 @@ const Groups: FC<{}> = () => {
       setAvatarImages(decryptedAvatars);
     }
   };
-  const onCategoryChanged = (id: number) => {
+  const onCategoryChanged = (id: string) => {
     setSelectedCategory(id);
   }
 

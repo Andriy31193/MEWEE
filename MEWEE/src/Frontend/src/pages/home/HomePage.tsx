@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { CircularProgress, Grid, LinearProgress } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { useAuthStore, usePostsStore } from "../../entities";
+import { useAuthStore, usePostsStore, useSearchBar } from "../../entities";
 import { HomeFeed } from "./../../widgets/home-feeds/HomeFeed";
 import { HomeNews } from "./home-news/HomeNews";
 import CreateChatTest from "../create-chat-test/CreateChatTest";
@@ -9,7 +9,7 @@ import { Navigate } from "react-router-dom";
 
 export const HomePage: React.FC = () => {
   const { isLoggedIn, role } = useAuthStore();
-
+  const { setTitle } = useSearchBar();
   if (!isLoggedIn)
     return <Navigate to='/auth/login' />
 
@@ -20,6 +20,7 @@ export const HomePage: React.FC = () => {
   };
 
   useEffect(() => {
+    setTitle('main');
     findPosts(onResponse, "", { page: 0, pageSize: 10 });
   }, []);
   return (

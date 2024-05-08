@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { useGroupsStore, useUserStore } from "../../../entities";
+import { EnumProfileType, useGroupsStore, useUserStore } from "../../../entities";
 import UserInfo from "../../profile/user-info/UserInfo";
 import ProfileItem from "../../profile/propfile-item/ProfileItem";
 
@@ -37,10 +37,10 @@ const Group: FC = () => {
       {(profileData) && (
         <Grid container sx={{ padding: "0 1rem" }}>
           <Grid item md={3} sm={12}>
-            <UserInfo userData={profileData} />
+            <UserInfo profileType={EnumProfileType.Group} userData={profileData} />
           </Grid>
           <Grid item md={8} sm={12}>
-            <ProfileItem profileData={profileData} friends={friends} />
+            <ProfileItem profileType={EnumProfileType.Group} profileData={profileData} friends={friends} />
           </Grid>
         </Grid>
       )}

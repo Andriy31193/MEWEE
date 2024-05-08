@@ -10,8 +10,8 @@ const Sidebar: FC<groupDataPropTypes> = ({ data, onCategoryChanged }) => {
     }
   }, [activeItemId]);
 
-  const handleLiClick = (itemId: number) => {
-    setActiveItemId(itemId);
+  const handleLiClick = (id: number, itemId: string) => {
+    setActiveItemId(id);
     onCategoryChanged(itemId);
   };
 
@@ -26,7 +26,8 @@ const Sidebar: FC<groupDataPropTypes> = ({ data, onCategoryChanged }) => {
                   item.id === activeItemId ? styles._li_active : ""
                 }`}
                 key={item.id}
-                onClick={() => handleLiClick(item.id)}
+
+                onClick={() => handleLiClick(item.id, item.category)}
               >
                 <a href={item.url}>
                   <h5>{item.text}</h5>

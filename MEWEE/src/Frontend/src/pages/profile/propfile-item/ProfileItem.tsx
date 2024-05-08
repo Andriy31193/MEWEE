@@ -12,13 +12,14 @@ import Friends from "./friends/Friends";
 import PhotoVideoSliders from "../../../widgets/photo-video-sliders/PhotoVideoSliders";
 import ProfileItemFilter from "../../../assets/image/icons/ProfileItemFilter.svg";
 import styles from "./profile_item.module.scss";
-import { useGroupsStore, useUserStore } from "../../../entities";
+import { EnumProfileType, useGroupsStore, useUserStore } from "../../../entities";
 import { Input } from "@mui/material";
 import { useFormik } from "formik";
 import { GROUP_NAME_VALIDATION, LOGIN_SCHEMA } from "../../../shared/exportSharedMorules";
 import { useNavigate } from "react-router-dom";
-const ProfileItem: FC<{ profileData: any; friends: any }> = ({
+const ProfileItem: FC<{ profileData: any, profileType: EnumProfileType, friends: any }> = ({
   profileData,
+  profileType,
   friends,
 }) => {
 

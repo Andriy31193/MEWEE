@@ -10,7 +10,7 @@ import CommentWriterAvatar from "../../../assets/image/CommentWriterAvatar.png";
 import { chatDataTypes } from "../chatData.interface";
 import { incomingMessageData } from "../chatData";
 import styles from "./chat_window.module.scss";
-import { useAuthStore, useChatStore, useSignalRStore, useUserStore } from "../../../entities";
+import { useAuthStore, useSignalRStore, useUserStore } from "../../../entities";
 import { decryptImage } from "../../../entities/sharedStores/post-utils";
 import { useTranslation } from "react-i18next";
 import CustomModalMenu from "../../../widgets/сommon/custom-modal-menu/CustomModalMenu";
@@ -76,6 +76,7 @@ const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
     console.log(messages)
   }
   useEffect(() => {
+
     if (connection) {
       // Attach event listener for receiving messages
       connection.on('receiveMessage', handleMessageReceived)
@@ -91,7 +92,7 @@ const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
     };
   }, []);
   useEffect(() => {
-    console.log("ok");
+
     if (chat) {
 
       const chatUserIds = chat.chatUsers

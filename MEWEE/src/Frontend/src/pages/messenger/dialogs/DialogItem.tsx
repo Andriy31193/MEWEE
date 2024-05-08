@@ -42,7 +42,7 @@ const DialogItem: FC<{ chatId: string, onClick: ()=>void, userIds: any, sideBarT
                 <div key={speaker.id} className={styles.chat_div} onClick={onClick}
                      style={{
                          marginBottom: openChat ? "0" : "0.8rem",
-                         borderRadius: openChat ? "0.5rem" : "1rem",
+                         borderRadius: openChat ? "0" : "1rem",
                          backgroundColor: chatId == currentChatId ? "#FBA500" : "",
                      }}>
                     <img src={avatar}/>

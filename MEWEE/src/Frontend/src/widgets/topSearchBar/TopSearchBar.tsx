@@ -1,4 +1,4 @@
-import { useErrors, usePostsStore, useThemeStore } from "../../entities";
+import { useErrors, usePostsStore, useSearchBar, useThemeStore } from "../../entities";
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
 import { ReactComponent as IconPlus } from "./images/icon_plus.svg";
@@ -16,6 +16,7 @@ export const TopSearchBar = () => {
   const { t } = useTranslation();
   // const { username, email, isLoggedIn, role, isEmailConfirmed } = useAuthStore();
   const [errors, setErrors, setAutoClearErrors] = useErrors();
+  const { title } = useSearchBar();
   const { currentTheme } = useThemeStore();
   const { isLoading, findPosts, getPosts } = usePostsStore();
   // const fio = username?.split(' ');
@@ -46,7 +47,7 @@ export const TopSearchBar = () => {
           className="top-search-bar-title"
           style={{ color: currentTheme?.mainPage.header.colorText }}
         >
-          {t("main")}
+          {t(title)}
         </span>
       </div>
       <div className="input-search-container">
@@ -63,6 +64,8 @@ export const TopSearchBar = () => {
 
           <span className="input-search-bar-icon search-icon-default" onClick={() => formik.handleSubmit()} />
         </label>
+      </div>
+      <div>
       </div>
           {isLoading && <CircularProgress size={"1rem"}></CircularProgress>}
       <div className="top-search-bar-tools-container">

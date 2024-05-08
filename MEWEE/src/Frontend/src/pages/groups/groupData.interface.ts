@@ -2,11 +2,12 @@ export interface dataSideBarTypes {
   id: number;
   url: string;
   text: string;
+  category: string;
 }
 
 export interface groupDataPropTypes {
   data: dataSideBarTypes[];
-  onCategoryChanged: (id: number) => void;
+  onCategoryChanged: (id: string) => void;
 }
 
 export interface dataGroupItemTypes {
@@ -15,6 +16,6 @@ export interface dataGroupItemTypes {
 }
 
 export interface dataGroupItemPropTypes {
-  category: number;
+  category: string;
   data: any;
 }

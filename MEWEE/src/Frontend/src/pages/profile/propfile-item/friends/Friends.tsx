@@ -54,7 +54,7 @@ const Friends: FC<{ friendsData: any }> = ({ friendsData }) => {
                     {avatarImages[index] && (
                       <img src={avatarImages[index]} alt="Decrypted Avatar" />
                     )}
-                    <h2>{item.username}</h2>
+                    <h2>{item.username ?? item.nickname}</h2>
                   </li>
                 );
               })}

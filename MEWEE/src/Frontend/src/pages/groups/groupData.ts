@@ -21,36 +21,43 @@ export const dataSideBar = () => {
       id: 1,
       url: "#",
       text: t('interesting'),
+      category: 'Interesting',
     },
     {
       id: 2,
       url: "#",
       text: t('groups_friends'),
+      category: 'FriendsGroups',
     },
     {
       id: 3,
       url: "#",
       text: t('entertainment'),
+      category: 'Entertainment',
     },
     {
       id: 4,
       url: "#",
       text: t('policy'),
+      category: 'Policy',
     },
     {
       id: 5,
       url: "#",
       text: t('music'),
+      category: 'Music',
     },
     {
       id: 6,
       url: "#",
       text: t('unions'),
+      category: 'Unions',
     },
     {
       id: 7,
       url: "#",
       text: t('education'),
+      category: 'Education',
     },
   ];
 

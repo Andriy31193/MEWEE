@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import DialogSidebar from "./dialog-sidebar/DialogSidebar";
 import ChatWindow from "./chat-window/ChatWindow";
-import { useAuthStore, useChatStore, useSignalRStore } from "../../entities";
+import { useAuthStore, useChatStore, useSearchBar, useSignalRStore } from "../../entities";
 import { useNavigate } from "react-router-dom";
 import CustomBurgerMenu from "../../widgets/сommon/custom-burger-menu/CustomBurgerMenu";
 const Chat: FC = () => {
@@ -11,7 +11,7 @@ const Chat: FC = () => {
   const { isLoggedIn, id } = useAuthStore();
 
   if (!isLoggedIn) navigate("auth/login");
-
+  const { setTitle } = useSearchBar();
   const { getChats, setCurrentChat } = useChatStore();
   const [chatsData, setChatsData] = useState<any>(null);
   const [currentChat, _setCurrentChat] = useState<string>("");
@@ -33,6 +33,7 @@ const Chat: FC = () => {
     getChats(onResponse);
   };
   useEffect(() => {
+    setTitle("chat");
     refreshChats();
   }, []);
 

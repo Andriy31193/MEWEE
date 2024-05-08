@@ -16,6 +16,7 @@ import { useAuthStore, useUserStore } from "../../../entities";
 
 const GroupItem: FC<dataGroupItemPropTypes> = ({ data, category }) => {
   const [friends, setFriends] = useState<any>(null);
+  const [dataToDisplay, setDataToDisplay] = useState<any>(data);
   const { t } = useTranslation();
 
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const GroupItem: FC<dataGroupItemPropTypes> = ({ data, category }) => {
   const onFriendsResponse = (data: any, errors: string[]) => {
     if (errors.length == 0) {
       setFriends(data);
-      console.log("Friends received.")
+      console.log("Friends received.", data)
     }
     else console.error("Errors occured in onFriendsResponse (GroupItem)", errors);
   }
@@ -39,6 +40,25 @@ const GroupItem: FC<dataGroupItemPropTypes> = ({ data, category }) => {
     getFriends(onFriendsResponse, id ?? "");
   }, []);
 
+  useEffect(() => {
+    onCategorySwitch();
+  }, [category]);
+
+  const onCategorySwitch = () => {
+    if (category == "Interesting")
+      setDataToDisplay(data);
+    else if (category == "FriendsGroups") {
+      const friendIds = friends.map((friend: any) => friend.id);
+
+      const groupsWithFriends = data.filter((group: any) => {
+        return group.members.some((member: any) => friendIds.includes(member.userId));
+      });
+      setDataToDisplay(groupsWithFriends);
+    }
+    else
+      setDataToDisplay(data.filter((groupData: any) => groupData.group.category === category));
+  }
+
   return (
     <Grid container>
       <Grid item md={12}>
@@ -48,8 +68,7 @@ const GroupItem: FC<dataGroupItemPropTypes> = ({ data, category }) => {
         </header>
       </Grid>
       {data &&
-        data.map((item: any, index: number) => {
-          console.log(item);
+        dataToDisplay.map((item: any, index: number) => {
           const currentGroup: any = item.group;
           const members: any = item.members;
           return (

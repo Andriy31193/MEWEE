@@ -8,11 +8,11 @@ import ProfileLovely from "../../../assets/image/icons/ProfileLovely.svg";
 import ProfileFlash from "../../../assets/image/icons/ProfileFlash.svg";
 import { decryptImage, encryptImage } from "../../../entities/sharedStores/post-utils";
 import styles from "./user_info.module.scss";
-import { useAuthStore, useChatStore, useUserStore } from "../../../entities";
+import { EnumProfileType, useAuthStore, useChatStore, useUserStore } from "../../../entities";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import DecryptedImg from "../DecryptedImg";
-const UserInfo: FC<{ userData: any }> = ({ userData }) => {
+const UserInfo: FC<{ userData: any, profileType: EnumProfileType }> = ({ userData, profileType }) => {
     const { id } = useAuthStore();
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -82,11 +82,10 @@ const UserInfo: FC<{ userData: any }> = ({ userData }) => {
 
     }
     const onChatCreatedResponse = (errors: string[]) => {
-        if (errors.length === 0) 
-            {
-                console.log("chat created");
-                navigate('/chat');
-            }
+        if (errors.length === 0) {
+            console.log("chat created");
+            navigate('/chat');
+        }
     };
     const handleMessageUser = () => {
         createChat(onChatCreatedResponse, userData.id);
@@ -153,12 +152,19 @@ const UserInfo: FC<{ userData: any }> = ({ userData }) => {
                     <div className={styles.sub_div1}>
                         <img className={styles.avatar} src={avatar} />
                         <div className={styles.user_name}>
+                            {profileType === EnumProfileType.User && (
+                                <div>
+                                    <h1>{userData.firstName}</h1>
+                                    <h1>{userData.secondName}</h1>
+                                </div>
+                            )}
+                            {profileType === EnumProfileType.Group && (
+                                <div>
+                                    <h1>{userData.title}</h1>
+                                </div>
+                            )}
                             <div>
-                                <h1>{userData.firstName}</h1>
-                                <h1>{userData.secondName}</h1>
-                            </div>
-                            <div>
-                                {userData.location !== null && (
+                                {(userData.location !== null && profileType === EnumProfileType.User) && (
                                     <>
                                         <img src={ProfileLockal} />
                                         <h4>{userData.location}</h4>
@@ -171,44 +177,66 @@ const UserInfo: FC<{ userData: any }> = ({ userData }) => {
                                 <h2>{followers.length}</h2>
                                 <h3>Підписників</h3>
                             </div>
-                            <div>
-                                <h2>{followings.length}</h2>
-                                <h3>Відстежується</h3>
-                            </div>
+                            {profileType === EnumProfileType.User && (
+                                <div>
+                                    <h2>{followings.length}</h2>
+                                    <h3>Відстежується</h3>
+                                </div>
+                            )}
                         </div>
                         <div className={styles.folow_button}>
-                            {(userData.id !== id) && (
+                            {profileType === EnumProfileType.User && (
                                 <>
-                                    <button onClick={() => handleFolow(userData.id)}>{t(followingStatus)}</button>
+                                    {(userData.id !== id) && (
+                                        <>
+                                            <button onClick={() => handleFolow(userData.id)}>{t(followingStatus)}</button>
 
-                                    <img style={{ cursor: "pointer" }} onClick={handleMessageUser} src={CommentPostIcon} />
+                                            <img style={{ cursor: "pointer" }} onClick={handleMessageUser} src={CommentPostIcon} />
+                                        </>
+                                    )}
+                                    {(userData.id === id) && (
+                                        <img style={{ cursor: "pointer" }} onClick={handleAddPhoto} src={PropfileAdd} />
+                                    )}
                                 </>
                             )}
-                            {(userData.id === id) && (
-                                <img style={{ cursor: "pointer" }} onClick={handleAddPhoto} src={PropfileAdd} />
-                            )}
-                            {isLoading && <CircularProgress size={"1rem"}></CircularProgress>}
+                            {/* {isLoading && <CircularProgress size={"1rem"}></CircularProgress>} */}
                         </div>
                     </div>
                     <div className={styles.sub_div2}>
                         <ul>
-                            {userData.workplace && (
-                                <li key={"r"}>
-                                    <img src={ProfilePortfolio} />
-                                    <h5>{userData.workplace}</h5>
-                                </li>
+                            {profileType === EnumProfileType.User && (
+                                <>
+                                    {userData.workplace && (
+                                        <li key={"ProfilePortfolio"}>
+                                            <img src={ProfilePortfolio} />
+                                            <h5>{userData.workplace}</h5>
+                                        </li>
+                                    )}
+                                    {userData.status && (
+                                        <li key={"ProfileLovely"}>
+                                            <img src={ProfileLovely} />
+                                            <h5>{userData.status}</h5>
+                                        </li>
+                                    )}
+                                    {userData.website && (
+                                        <li key={"ProfileFlash"}>
+                                            <img src={ProfileFlash} />
+                                            <h5>{userData.website}</h5>
+                                        </li>
+                                    )}
+                                </>
                             )}
-                            {userData.status && (
-                                <li key={"r"}>
-                                    <img src={ProfileLovely} />
-                                    <h5>{userData.status}</h5>
-                                </li>
-                            )}
-                            {userData.website && (
-                                <li key={"r"}>
-                                    <img src={ProfileFlash} />
-                                    <h5>{userData.website}</h5>
-                                </li>
+                            {profileType === EnumProfileType.Group && (
+                                <>
+                                    <li key={"nickname"}>
+                                        <img src={ProfileFlash} />
+                                        <h5>@{userData.nickname}</h5>
+                                    </li>
+                                    <li key={"category"}>
+                                        <img src={ProfilePortfolio} />
+                                        <h5>{userData.category}</h5>
+                                    </li>
+                                </>
                             )}
                         </ul>
                     </div>
