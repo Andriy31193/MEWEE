@@ -43,7 +43,7 @@ const DialogItem: FC<{ chatId: string, onClick: ()=>void, userIds: any, sideBarT
                      style={{
                          marginBottom: openChat ? "0" : "0.8rem",
                          borderRadius: openChat ? "0.5rem" : "1rem",
-                         backgroundColor: chatId == currentChatId ? "#FBA500" : "",
+                         ...(openChat && chatId === currentChatId && { backgroundColor: "#FBA500" }),
                      }}>
                     <img src={avatar}/>
                     <div className={styles.chat_div_item}>

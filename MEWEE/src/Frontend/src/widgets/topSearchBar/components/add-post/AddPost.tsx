@@ -33,6 +33,7 @@ import {canvasPreview} from "./canvasPreview";
 import {useDebounceEffect} from "./useDebounceEffect";
 import {imgPreview} from "./imgPreview";
 import {useTranslation} from "react-i18next";
+import {boolean} from "yup";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogActions-root": {
@@ -93,6 +94,7 @@ const AddPost: FC = () => {
   const previewImageRef = useRef<HTMLImageElement>(null);
   const [inputValue, setInputValue] = useState('');
   const [textareaValue, setTextAreaValue] = useState('');
+  const [isActive, setIsActive] = useState(false);
   const MIN_HEIGHT = 300;
 
   const openModal2 = (modalId: string) => {
@@ -127,8 +129,8 @@ const AddPost: FC = () => {
 
   const handleSubmit = async () => {
     if(croppedSrc != null){
-      // await encryptImage(croppedSrc)
       createPost(onResponse, { authorId: id??"", title: title, content: content, attachment: encryptedImage, location: location, category: category, type: "User" });
+      closeModal();
     }
     else{
       console.log('croppedSrc error!');
@@ -201,6 +203,7 @@ const AddPost: FC = () => {
   };
 
   const closeModal = () => {
+    setIsActive(false);
     setCurrentStep(0);
   };
 
@@ -250,8 +253,8 @@ const AddPost: FC = () => {
   };
   return (
       <>
-        <div className={styles.div_add} onClick={() => { openModal(1); setImage(null) }}>
-          <IconPlus/>
+        <div className={styles.div_add} onClick={() => { setIsActive(true); openModal(1); setImage(null) }}>
+          <IconPlus style={{color: isActive ? "#FBA500" : ""}}/>
         </div>
 
         {/* МОДАЛЬНОЕ ОКНО ШАГ 1 */}

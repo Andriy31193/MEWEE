@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import {Navigate, useLocation, useNavigate} from "react-router-dom";
 import { useAuthStore, useThemeStore } from "../../entities";
-import "./index.css";
 import { SideToolbarMenuItem } from "./components/sideToolbarMenuItem";
 import { useTranslation } from "react-i18next";
 import { ReactComponent as IconGroups } from "./images/icon_groups.svg";
@@ -17,6 +16,7 @@ import { ReactComponent as ArrowRight } from "./images/arrow-right.svg";
 import { SwitchComponent } from "./components/switchComponent";
 import { LanguageComponent } from "./components/languageComponent";
 import { decryptImage } from "../../entities/sharedStores/post-utils";
+import styles from "./side_toolbar.module.scss"
 import ProfilePictureUploader from "../../features/profilePictureUploader/ProfilePictureUploader";
 import { CircularProgress } from "@mui/material";
 
@@ -26,10 +26,12 @@ export const SideToolbar = () => {
     useAuthStore();
   const { t, i18n } = useTranslation();
   const [_avatar, setAvatar] = useState<any>(null);
-  const { currentTheme, currentThemeIndex, cycleThemes, getCurrentTheme } =
-    useThemeStore();
-
   const [isVisible, setIsVisible] = useState(true);
+  const location = useLocation();
+
+  const activeIcon = (path: string) => {
+    return location.pathname.includes(path);
+  }
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
@@ -63,52 +65,33 @@ export const SideToolbar = () => {
   };
 
   return (
-    <div className="toolbar-generic-content">
-      <div className="toolbar-main-content">
-        <div
-          className="toolbar-block-container"
-          style={{
-            backgroundColor: currentTheme?.mainPage?.sideBar?.secondBackground,
-            cursor: "pointer"
-          }}
-          onClick={() => navigate('/feed')}
-        >
+    <div className={styles.toolbar_generic_content}>
+      <div className={styles.toolbar_main_content}>
+        <div className={styles.toolbar_block_container} onClick={() => navigate('/feed')}>
           {isVisible ? (
-            <div className="toolbar-logo">
+            <div className={styles.toolbar_logo}>
               <LogoDefault />
             </div>
           ) : (
-            <div className="toolbar-logo-another">
+            <div className={styles.toolbar_logo_another}>
               <LogoHide />
             </div>
           )}
         </div>
-        <div
-          className="toolbar-prof-block-container"
-         
-          style={{
-            backgroundColor: currentTheme?.mainPage?.sideBar?.background,
-            cursor:"pointer"
-          }}
-        >
-          <div className="toolbar-profile-main-container" onClick={() => {navigate('/profile/'+username); navigate(0);}}>
+        <div className={styles.toolbar_prof_block_container} style={{cursor:"pointer"}}>
+          <div className={styles.toolbar_profile_main_container}
+               onClick={() => {navigate('/profile/'+username); navigate(0);}}>
                 {/* <ProfilePictureUploader></ProfilePictureUploader> */}
-            <div className="toolbar-profile-image">
+            <div className={styles.toolbar_profile_image}>
               <img src={_avatar === "" ? require("./images/unknown.jpg") : _avatar}>
               </img>
             </div>
             {isVisible && (
-              <div
-              
-                className="toolbar-profile-info-container"
-                style={{
-                  color: currentTheme?.mainPage?.sideBar?.secondColorText,
-                }}
-              >
-                <span className="toolbar-fio-title">
+              <div className={styles.toolbar_profile_info_container}>
+                <span className={styles.toolbar_fio_title}>
                   {firstName ?? "Unknown"}
                 </span>
-                <span className="toolbar-fio-second">
+                <span className={styles.toolbar_fio_second}>
                   {secondName ?? "Unknown"}
                 </span>
               </div>
@@ -116,73 +99,64 @@ export const SideToolbar = () => {
           </div>
         </div>
         <div
-          className="toolbar-items-block-container"
-          style={{
-            backgroundColor: currentTheme?.mainPage?.sideBar?.background,
-          }}
-        >
-          <div className="toolbar-list">
+          className={styles.toolbar_items_block_container}>
+          <div className={styles.toolbar_list}>
             <SideToolbarMenuItem
               isVisible={isVisible}
               icon={<IconGroups />}
               title={t("groups")}
               onNavigate={() => navigate('/groups')}
+              isActive={activeIcon("/groups")}
               />
             <SideToolbarMenuItem
               isVisible={isVisible}
               icon={<IconEvents />}
               title={t("events")}
               onNavigate={() => navigate('/groups')}
+              isActive={false}
               />
             <SideToolbarMenuItem
               isVisible={isVisible}
               icon={<IconAnnouncements />}
               title={t("announcements")}
               onNavigate={() => navigate('/groups')}
+              isActive={false}
               />
             <SideToolbarMenuItem
               isVisible={isVisible}
               icon={<IconJobs />}
               title={t("jobs")}
               onNavigate={() => navigate('/groups')}
+              isActive={false}
               />
             <SideToolbarMenuItem
               isVisible={isVisible}
               icon={<IconNews />}
               title={t("news")}
               onNavigate={() => navigate('/groups')}
+              isActive={false}
               />
             <SideToolbarMenuItem
               isVisible={isVisible}
               icon={<IconSettings />}
               title={t("settings")}
               onNavigate={() => navigate('/settings')}
+              isActive={activeIcon("/settings")}
               />
           </div>
-          <div
-            onClick={toggleVisibility}
-            className="arrow-block"
-            style={{
-              backgroundColor: currentTheme?.mainPage?.sideBar?.arrowBackground,
-            }}
-          >
+          <div onClick={toggleVisibility} className={styles.arrow_block}>
             {isVisible ? (
-              <div className="arrow-icon">
+              <div className={styles.arrow_icon}>
                 <ArrowLeft />
               </div>
             ) : (
-              <div className="arrow-icon">
+              <div className={styles.arrow_icon}>
                 <ArrowRight />
               </div>
             )}
           </div>
         </div>
-        <div
-          className="toolbar-settings-block-container"
-          style={{
-            backgroundColor: currentTheme?.mainPage?.sideBar?.background,
-          }}
-        >
+        <div className={styles.toolbar_settings_block_container}>
           {isVisible && <SwitchComponent />}
           <LanguageComponent />
         </div>

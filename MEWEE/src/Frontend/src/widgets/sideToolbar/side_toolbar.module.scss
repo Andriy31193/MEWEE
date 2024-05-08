@@ -1,19 +1,26 @@
-.toolbar-block-container,
-.toolbar-prof-block-container,
-.toolbar-items-block-container,
-.toolbar-settings-block-container {
+.toolbar_block_container,
+.toolbar_prof_block_container,
+.toolbar_items_block_container,
+.toolbar_settings_block_container {
   width: 100%;
   border-radius: 10px;
+  background-color: var(--mainPage_sideBar_background);
 }
-.toolbar-generic-content {
+
+.toolbar_block_container{
+  background-color: var(--mainPage_sideBar_secondBackground);
+  cursor: pointer;
+}
+
+.toolbar_generic_content {
   padding-top: 16px;
   margin-left: 3vw;
   width: min-content;
 }
-.toolbar-block-container img {
+.toolbar_block_container img {
   width: 100%;
 }
-.toolbar-main-content {
+.toolbar_main_content {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,60 +28,59 @@
   gap: 10px;
 }
 
-.toolbar-fio-title,
-.toolbar-fio-second {
+.toolbar_fio_title,
+.toolbar_fio_second {
   font-size: 0.9rem;
   font-family: "Geometria", sans-serif;
   font-weight: bold;
 }
-.toolbar-fio-second {
+.toolbar_fio_second {
   font-weight: normal;
   font-size: 0.7rem;
 }
-.toolbar-profile-main-container {
+.toolbar_profile_main_container {
   display: flex;
-  justify-content: flex-start;
-  padding-left: 0.5rem;
-  
+  justify-content: center;
   align-items: center;
 
 }
-.toolbar-list {
+.toolbar_list {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-.toolbar-list > div {
+.toolbar_list > div {
   border-radius: 20px;
   display: flex;
   padding: 15px;
   width: 100%;
 }
-.toolbar-prof-block-container,
-.toolbar-items-block-container,
-.toolbar-settings-block-container {
+.toolbar_prof_block_container,
+.toolbar_items_block_container,
+.toolbar_settings_block_container {
   margin-top: 0;
   padding: 10px;
   align-items: center;
   justify-content: space-between;
 }
-.toolbar-items-block-container {
+.toolbar_items_block_container {
   padding: 15px 10px 211px 10px;
   position: relative;
 }
-.toolbar-settings-block-container {
+.toolbar_settings_block_container {
   padding: 16px;
   display: flex;
+  background-color: var(--mainPage_sideBar_background);
 }
-.toolbar-profile-info-container {
+.toolbar_profile_info_container {
   margin-left: 1rem;
   font-size: 14px;
-  
+  color: var(--mainPage_sideBar_secondColorText);
   display: flex;
   flex-direction: column;
 }
-.toolbar-logo,
-.toolbar-logo-another {
+.toolbar_logo,
+.toolbar_logo_another {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,36 +88,37 @@
   height: 80px;
   padding: 30px;
 }
-.toolbar-logo-another {
+.toolbar_logo_another {
   padding: 13px;
 }
-.toolbar-profile-image {
+.toolbar_profile_image {
   margin-left: 0;
-  width: 50px; /* Adjust the size as needed */
-  height: 50px; /* Adjust the size as needed */
-  border-radius: 50%; /* Make it circular */
-  overflow: hidden; /* Hide overflow content */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
   background-color: white;
 }
-.toolbar-profile-image img {
-  width: 100%; /* Make the image fill its container */
-  height: auto; /* Maintain aspect ratio */
-  display: block; /* Remove any default image spacing */
+.toolbar_profile_image img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
-.toolbar-tools-container {
+.toolbar_tools_container {
   display: flex;
   gap: 5px;
 }
 
-.arrow-block {
+.arrow_block {
   width: 30px;
   height: 30px;
   border-radius: 10px 0 10px 0;
   position: absolute;
   bottom: 0;
   right: 0;
+  background-color: var(--mainPage_sideBar_arrowBackground);
 }
-.arrow-icon {
+.arrow_icon {
   display: flex;
   justify-content: center;
   align-items: center;
