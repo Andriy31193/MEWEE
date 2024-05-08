@@ -59,6 +59,19 @@ declare module '@mui/material/styles' {
         inputTextColor: string;
         inputColorStroke: string;
       },
+      chat:{
+        icon: string;
+        secondIcon: string;
+        thirdIcon: string;
+        background: string;
+        backgroundHover: string;
+        secondBackground: string;
+        fourIcon: string;
+        colorText: string;
+        secondBackgroundHover: string;
+        thirdBackground: string;
+        secondColorText: string;
+      }
       post: {
         icon: string;
         secondIcon: string;
@@ -148,6 +161,19 @@ declare module '@mui/material/styles' {
         inputTextColor?: string;
         inputColorStroke?: string;
       },
+      chat?:{
+        icon?: string;
+        secondIcon?: string;
+        thirdIcon?: string;
+        background?: string;
+        backgroundHover?: string;
+        secondBackground?: string;
+        fourIcon?: string;
+        colorText?: string;
+        secondBackgroundHover?: string;
+        thirdBackground?: string;
+        secondColorText?: string;
+      }
       post?: {
         icon?: string;
         secondIcon?: string;
@@ -236,6 +262,19 @@ export const themes: Theme[] = [
         colorText: 'black',
         inputTextColor: 'gray',
         inputColorStroke: 'red',
+      },
+      chat:{
+        icon: '#B67AFE',
+        secondIcon: '#EC0C0C',
+        thirdIcon: '#000000',
+        background: 'white',
+        backgroundHover: '#E9E4FF',
+        secondBackground: 'white',
+        fourIcon: '#FBA500',
+        colorText: 'gray',
+        secondBackgroundHover: '#E9E4FF',
+        thirdBackground: '#E9E4FF',
+        secondColorText: 'gray',
       },
       post: {
         icon: '#25005C',
@@ -328,6 +367,19 @@ export const themes: Theme[] = [
         colorText: 'white',
         inputTextColor: 'gray',
         inputColorStroke: 'yellow',
+      },
+      chat:{
+        icon: 'white',
+        secondIcon: 'white',
+        thirdIcon: 'white',
+        background: '#B67AFE',
+        backgroundHover: '#f9cd5a',
+        secondBackground: '#de4363',
+        fourIcon: '#B67AFE',
+        colorText: '#c0c0c0',
+        secondBackgroundHover: '#645e72',
+        thirdBackground: '#B67AFE',
+        secondColorText: 'white',
       },
       post: {
         icon: '#B67AFE',

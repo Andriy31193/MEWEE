@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { dialogsDataPropTypes } from "../messengerData.interface";
+import {dialogsDataPropTypes} from "../messengerData.interface";
 import styles from "./dialogs.module.scss";
 import { useAuthStore, useUserStore } from "../../../entities";
 import DialogItem from "./DialogItem";
@@ -9,6 +9,7 @@ const Dialog: FC<dialogsDataPropTypes> = ({
   dialogData,
   modalDialogsData,
   sideBarType,
+  openChat
 }) => {
   const { id } = useAuthStore();
   return (
@@ -23,13 +24,14 @@ const Dialog: FC<dialogsDataPropTypes> = ({
             : [];
 
           return (
-            <DialogItem
-              onClick={() => onOpenChat(item.id)}
-              key={item.id}
-              userIds={chatUserIds}
-              sideBarType={sideBarType}
-              modalDialogsData={modalDialogsData}
-            />
+              <DialogItem
+                  onClick={() => onOpenChat(item.id)}
+                  key={item.id}
+                  userIds={chatUserIds}
+                  sideBarType={sideBarType}
+                  modalDialogsData={modalDialogsData}
+                  openChat={openChat}
+              />
           );
         })}
     </div>

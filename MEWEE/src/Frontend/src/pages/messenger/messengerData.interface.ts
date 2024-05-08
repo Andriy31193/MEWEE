@@ -21,4 +21,5 @@ export interface dialogsDataPropTypes {
   dialogData: dialogDataTypes[];
   modalDialogsData?: modalDialogsDataLinkTypes[];
   sideBarType: boolean;
+  openChat: boolean;
 }

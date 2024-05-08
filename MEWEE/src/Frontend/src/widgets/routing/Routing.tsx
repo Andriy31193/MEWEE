@@ -26,7 +26,7 @@ export const Routing = () => {
           <SideToolbar />
         </Grid>
         <div style={{width:'100%'}}>
-          <Grid item md={12}>
+          <Grid item md={12} style={{height:'100%'}}>
             <TopSearchBar />
             <Routes>
               <Route path="/feed" element={<HomePage />} />

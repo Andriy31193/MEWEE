@@ -4,6 +4,7 @@ import DialogSidebar from "./dialog-sidebar/DialogSidebar";
 import ChatWindow from "./chat-window/ChatWindow";
 import { useAuthStore, useChatStore, useSignalRStore } from "../../entities";
 import { useNavigate } from "react-router-dom";
+import CustomBurgerMenu from "../../widgets/сommon/custom-burger-menu/CustomBurgerMenu";
 const Chat: FC = () => {
   const navigate = useNavigate();
   const { connection, joinChat } = useSignalRStore();
@@ -44,14 +45,22 @@ const Chat: FC = () => {
 
   return (
     <>
-      <div style={{ padding: "1rem" }}>
-        <Grid container>
-          <Grid item md={3} sx={{ maxHeight: "82vh", overflowY: "auto" }}>
-            <DialogSidebar chats={chatsData} onOpenChat={loadMessagesData} />
+      <div style={{ padding: "1rem", height: "100%" }}>
+        {!currentChat && (
+            <div style={{marginBottom: "0.5rem"}}>
+              <CustomBurgerMenu/>
+            </div>
+        )}
+        <Grid container style={{height: '100%'}}>
+          <Grid item md={currentChat ? 3 : 12} sx={{ maxHeight: "82vh", height:"100%", overflowY: "scroll",
+            scrollbarWidth: "none", msOverflowStyle: "none", WebkitOverflowScrolling: "touch",}}>
+            <DialogSidebar chats={chatsData} onOpenChat={loadMessagesData} openChat={!!currentChat}/>
           </Grid>
-          <Grid md={9}>
-            <ChatWindow chat={currentChat} />
-          </Grid>
+          {currentChat &&
+              <Grid md={9}>
+                <ChatWindow chat={currentChat} />
+              </Grid>
+          }
         </Grid>
       </div>
     </>

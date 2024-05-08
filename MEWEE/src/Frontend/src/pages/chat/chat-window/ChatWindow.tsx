@@ -1,11 +1,11 @@
-import { FC, useState, useEffect, useRef, ChangeEvent } from "react";
-import EmojiIcon from "../../../assets/image/icons/EmojiIcon.svg";
-import SentIcon from "../../../assets/image/icons/SentIcon.svg";
-import AddCircle from "../../../assets/image/icons/AddCircle.svg";
+import React, { FC, useState, useEffect, useRef, ChangeEvent } from "react";
+import { ReactComponent as EmojiIcon } from "../../../assets/image/icons/EmojiIcon.svg";
+import { ReactComponent as SentIcon } from "../../../assets/image/icons/SentIcon.svg";
+import { ReactComponent as AddCircle } from "../../../assets/image/icons/AddCircle.svg";
 import { smileData } from "../../../widgets/widgetData";
 import CustomModalIcon from "../../../widgets/сommon/custom-modal-icon/CustomModalIcon";
 import { modalPostDataLink } from "../../../widgets/widgetData";
-import VolumeHigh from "../../../assets/image/icons/VolumeHigh.svg";
+import { ReactComponent as VolumeHigh } from "../../../assets/image/icons/VolumeHigh.svg";
 import CommentWriterAvatar from "../../../assets/image/CommentWriterAvatar.png";
 import { chatDataTypes } from "../chatData.interface";
 import { incomingMessageData } from "../chatData";
@@ -13,9 +13,12 @@ import styles from "./chat_window.module.scss";
 import { useAuthStore, useChatStore, useSignalRStore, useUserStore } from "../../../entities";
 import { decryptImage } from "../../../entities/sharedStores/post-utils";
 import { useTranslation } from "react-i18next";
+import CustomModalMenu from "../../../widgets/сommon/custom-modal-menu/CustomModalMenu";
+import {useNavigate} from "react-router-dom";
 interface ChatWindowProps {
   chat: any;
 }
+
 
 const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
   
@@ -48,6 +51,7 @@ const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
     updatedAt: "",
     userType: "",
   });
+  const navigate = useNavigate();
 
   const onProfileResponse = (data: any, errors: string[]) => {
     if (errors.length == 0 && data !== null) {
@@ -148,7 +152,31 @@ const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
     sendMessage(chat.id, inputData, formattedDate);
     setInputData("")
   }
-  
+
+  const moveToProfile = () => {
+    navigate(`/profile/${speaker.username}`);
+  };
+
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const scrollToBottom = () => {
+      if (chatContainerRef.current) {
+        chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      }
+    };
+
+    if (chatContainerRef.current) {
+      scrollToBottom();
+    }
+
+    const scrollTimeout = setTimeout(scrollToBottom, 100);
+
+    return () => clearTimeout(scrollTimeout);
+
+  }, [chatData]);
+
+
   useEffect(() => {
     if (outgoingMessage) {
       setMassageArray([...massageArray, outgoingMessage]);
@@ -161,23 +189,24 @@ const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
       <div className={styles.div}>
         <div className={styles.subdiv_up}>
           <div className={styles.subdiv_up_left}>
-            <img src={avatar} />
+            <img src={avatar} onClick={moveToProfile}/>
             <div>
-              <h5>
-                {speaker.firstName} {speaker.secondName} <span>@{speaker.username}</span>
-              </h5>
+              <div>
+                <h2>{speaker.firstName} {speaker.secondName}</h2>
+                <h5>(@{speaker.username})</h5>
+              </div>
               <p>{t('last_online_recently')}</p>
             </div>
           </div>
           <div className={styles.subdiv_up_right}>
-            <img src={VolumeHigh} />
+            <VolumeHigh />
             <div>
-              {/* <CustomModalIcon id={1} links={modalPostDataLink} /> */}
+              <CustomModalMenu location={["100%", "0%", "", ""]}/>
             </div>
           </div>
         </div>
         <div className={styles.subdiv_down}>
-          <div>
+          <div ref={chatContainerRef}>
             {chatData &&
               chatData.map((item: any) => {
                 const dateString = item.createdAt;
@@ -221,11 +250,13 @@ const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
               name="uploadedFile"
               style={{ display: "none" }}
             />
-            <img src={AddCircle} onClick={handleAddCircleClick} />{" "}
+            <div>
+              <AddCircle onClick={handleAddCircleClick}/>{" "}
+              <EmojiIcon onClick={handleClickSmileVisible}/>
+            </div>
             <input type="text" value={inputData} onChange={handlerDataInput} />
             <div>
-              <img onClick={handleClickSmileVisible} src={EmojiIcon} />
-              <img src={SentIcon} onClick={handleMessageClick} />
+              <SentIcon onClick={handleMessageClick} style={{marginRight: '0'}}/>
             </div>
             <div
               className={
