@@ -1,5 +1,13 @@
 @import "src/mixins.scss";
 
+.post_container
+{
+  margin-right: 0.5rem;
+  background-color: red;
+  width: 100px;
+  height: 100px;
+}
+
 .div {
   position: relative;
   height: 82vh;

@@ -17,7 +17,7 @@ import { AxiosInstance } from "axios";
 interface IUserStore {
 
 
-    isLoading: boolean;
+    isUserStoreLoading: boolean;
 
     followers: any;
     followings: any;
@@ -66,7 +66,7 @@ interface IUserStore {
 export const useUserStore = create<IUserStore>()(
     persist(
         (set, get) => ({
-            isLoading: false,
+            isUserStoreLoading: false,
             followers: null,
             followings: null,
 
@@ -79,7 +79,7 @@ export const useUserStore = create<IUserStore>()(
             getProfile: async (callback: ResponseDataCallback, userId: string) => {
 
                 try {
-                    set({ isLoading: true });
+                    set({ isUserStoreLoading: true });
                     const response = await $api.get<any>(ENDPOINTS.USER.GET_PROFILE_DATA + `/${userId}`);
 
                     if (response?.status === 200) {
@@ -91,7 +91,7 @@ export const useUserStore = create<IUserStore>()(
                     callback(null, pErrors(['unknown_error']));
 
                 }
-                set((state) => ({ ...state, isLoading: false }));
+                set((state) => ({ ...state, isUserStoreLoading: false }));
             },
             updateProfile: async (
                 callback: ResponseCallback,
@@ -113,12 +113,12 @@ export const useUserStore = create<IUserStore>()(
 
                 }
 
-                set({ isLoading: false });
+                set({ isUserStoreLoading: false });
             },
             getFollowers: async (callback: ResponseDataCallback, userId: string) => {
 
                 try {
-                    set({ isLoading: true });
+                    set({ isUserStoreLoading: true });
                     const response = await $api.get<any>(ENDPOINTS.USER.GET_FOLLOWERS + `/${userId}`);
 
                     if (response?.status === 200) {
@@ -130,13 +130,13 @@ export const useUserStore = create<IUserStore>()(
                     callback(null, pErrors(['unknown_error']));
 
                 }
-                set((state) => ({ ...state, isLoading: false }));
+                set((state) => ({ ...state, isUserStoreLoading: false }));
             },
 
             getFollowings: async (callback: ResponseDataCallback, userId: string) => {
 
                 try {
-                    set({ isLoading: true });
+                    set({ isUserStoreLoading: true });
                     const response = await $api.get<any>(ENDPOINTS.USER.GET_FOLLOWINGS + `/${userId}`);
 
                     if (response?.status === 200) {
@@ -148,12 +148,12 @@ export const useUserStore = create<IUserStore>()(
                     callback(null, pErrors(['unknown_error']));
 
                 }
-                set((state) => ({ ...state, isLoading: false }));
+                set((state) => ({ ...state, isUserStoreLoading: false }));
             },
             getFriends: async (callback: ResponseDataCallback, userId: string) => {
 
                 try {
-                    set({ isLoading: true });
+                    set({ isUserStoreLoading: true });
                     const response = await $api.get<any>(ENDPOINTS.USER.GET_FRIENDS + `/${userId}`);
 
                     if (response?.status === 200) {
@@ -165,14 +165,14 @@ export const useUserStore = create<IUserStore>()(
                     callback(null, pErrors(['unknown_error']));
 
                 }
-                set((state) => ({ ...state, isLoading: false }));
+                set((state) => ({ ...state, isUserStoreLoading: false }));
             },
 
 
             followUser: async (callback: ResponseCallback, userId: string) => {
 
                 try {
-                    set({ isLoading: true });
+                    set({ isUserStoreLoading: true });
                     const response = await $api.post<any>(ENDPOINTS.USER.FOLLOW_USER, { FollowingUserId: userId });
 
                     if (response?.status === 200) {
@@ -184,12 +184,12 @@ export const useUserStore = create<IUserStore>()(
                     callback(pErrors(['unknown_error']));
 
                 }
-                set((state) => ({ ...state, isLoading: false }));
+                set((state) => ({ ...state, isUserStoreLoading: false }));
             },
             unfollowUser: async (callback: ResponseCallback, userId: string) => {
 
                 try {
-                    set({ isLoading: true });
+                    set({ isUserStoreLoading: true });
                     const response = await $api.post<any>(
                         ENDPOINTS.USER.UNFOLLOW_USER,
                         { FollowingUserId: userId },
@@ -203,12 +203,12 @@ export const useUserStore = create<IUserStore>()(
                     callback(pErrors(['unknown_error']));
 
                 }
-                set((state) => ({ ...state, isLoading: false }));
+                set((state) => ({ ...state, isUserStoreLoading: false }));
             },
             uploadPhotoToProfile: async (callback: ResponseCallback, imageData: string) => {
 
                 try {
-                    set({ isLoading: true });
+                    set({ isUserStoreLoading: true });
                     const response = await $api.post<any>(
                         ENDPOINTS.USER.UPLOAD_PHOTO_TO_PROFILE,
                         { Photo: imageData },
@@ -222,12 +222,12 @@ export const useUserStore = create<IUserStore>()(
                     callback(pErrors(['unknown_error']));
 
                 }
-                set((state) => ({ ...state, isLoading: false }));
+                set((state) => ({ ...state, isUserStoreLoading: false }));
             },
             getProfileGallery: async (callback: ResponseDataCallback, userId: string) => {
 
                 try {
-                    set({ isLoading: true });
+                    set({ isUserStoreLoading: true });
                     const response = await $api.get<any>(ENDPOINTS.USER.GET_PROFILE_GALLERY+ `/${userId}`);
                     if (response?.status === 200) {
                         callback(response.data, []);
@@ -238,7 +238,7 @@ export const useUserStore = create<IUserStore>()(
                     callback(null, pErrors(['unknown_error']));
 
                 }
-                set((state) => ({ ...state, isLoading: false }));
+                set((state) => ({ ...state, isUserStoreLoading: false }));
             },
 
         }),

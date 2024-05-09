@@ -27,7 +27,7 @@ const UserInfo: FC<{
         const { t } = useTranslation();
         const navigate = useNavigate();
         const { createChat } = useChatStore();
-        const { isLoading, followUser, unfollowUser, getFollowers, getFollowings, uploadPhotoToProfile, getProfileGallery } = useUserStore();
+        const { followUser, unfollowUser, getFollowers, getFollowings, uploadPhotoToProfile, getProfileGallery } = useUserStore();
         const [avatar, setAvatar] = useState<any>(null);
         const [followingStatus, setFollowingStatus] = useState<string>("follow");
         const [followers, setFollowers] = useState<any>(null);

@@ -30,7 +30,7 @@ export const Routing = () => {
             <TopSearchBar />
             <Routes>
               <Route path="/feed" element={<HomePage />} />
-              {/* <Route path="/post-show" element={<PostShow />} /> */}
+               <Route path="/post/:id" element={<PostShow />} /> 
               <Route path="/groups" element={<Groups />} />
               <Route path="/group/:id" element={<Group />} />
               <Route path="/profile/:username" element={<Profile />} />

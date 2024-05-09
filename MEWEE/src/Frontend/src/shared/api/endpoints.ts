@@ -19,6 +19,7 @@ export const ENDPOINTS = {
         UPDATE_PROFILE_DATA: `${API_URL}/user/profile`,
         CONFIRM_EMAIL: `${API_URL}/user/confirm-email`,
         GET_POSTS: `${API_URL}/posts`,
+        GET_POST: `${API_URL}/get-post`,
         SAVE_POST: `${API_URL}/save-post`,
         GET_POST_SAVE: `${API_URL}/get-post-save`,
         UNSAVE_POST: `${API_URL}/unsave-post`,
