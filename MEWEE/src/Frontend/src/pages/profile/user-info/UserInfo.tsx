@@ -12,199 +12,198 @@ import { EnumProfileType, useAuthStore, useChatStore, useUserStore } from "../..
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import DecryptedImg from "../DecryptedImg";
-const UserInfo: FC<{ userData: any, profileType: EnumProfileType }> = ({ userData, profileType }) => {
-    const { id } = useAuthStore();
-    const { t } = useTranslation();
-    const navigate = useNavigate();
-    const { createChat } = useChatStore();
-    const { isLoading, followUser, unfollowUser, getFollowers, getFollowings, uploadPhotoToProfile, getProfileGallery } = useUserStore();
-    const [avatar, setAvatar] = useState<any>(null);
-    const [followingStatus, setFollowingStatus] = useState<string>("follow");
-    const [gallery, setGallery] = useState<any>(null);
-    const [followers, setFollowers] = useState<any>(null);
-    const [followings, setFollowings] = useState<any>(null);
+const UserInfo: FC<{
+    userData: any,
+    gallery: any,
+    profileType: EnumProfileType,
 
-    const onFollowResponse = (errors: string[]) => {
-        if (errors.length == 0) {
-            refreshFollows();
+    onPhotoUploaded: () => void
+}> = ({
+    userData,
+    gallery,
+    profileType,
+    onPhotoUploaded }) => {
+        const { id } = useAuthStore();
+        const { t } = useTranslation();
+        const navigate = useNavigate();
+        const { createChat } = useChatStore();
+        const { followUser, unfollowUser, getFollowers, getFollowings, uploadPhotoToProfile, getProfileGallery } = useUserStore();
+        const [avatar, setAvatar] = useState<any>(null);
+        const [followingStatus, setFollowingStatus] = useState<string>("follow");
+        const [followers, setFollowers] = useState<any>(null);
+        const [followings, setFollowings] = useState<any>(null);
 
-        }
-    };
+        const onFollowResponse = (errors: string[]) => {
+            if (errors.length == 0) {
+                refreshFollows();
 
-    const handleFolow = (userId: string) => {
-
-        if (followingStatus == "follow" || followingStatus == "follow_back")
-
-            followUser(onFollowResponse, userId);
-        else if (followingStatus == "unfollow" || followingStatus == "friends")
-            unfollowUser(onFollowResponse, userId);
-    }
-
-
-    const onFollowersResponse = (data: any, errors: string[]) => {
-        if (errors.length == 0 && data !== null) {
-            setFollowers(data);
-        }
-    };
-    const onFollowingsResponse = (data: any, errors: string[]) => {
-        if (errors.length == 0 && data !== null) {
-            setFollowings(data);
-        }
-    };
-    const onGetProfileGalleryResponse = (data: any, errors: string[]) => {
-        if (errors.length == 0 && data !== null) {
-            setGallery(data);
-            console.log("GALLERY:", data);
-        }
-    };
-
-    const setStatus = (_followers: any, _followings: any) => {
-        const follower = _followers.find((item: any) => item.id === id);
-        const following = _followings.find((item: any) => item.id === id);
-
-        if (follower != null && following != null) {
-            // If the user is following and being followed back
-            setFollowingStatus("friends");
-        } else if (following != null && follower == null) {
-            // If the user is being followed but not following back
-            setFollowingStatus("follow_back");
-        } else if (follower != null) {
-            // If the user is not being followed but following back
-            setFollowingStatus("unfollow");
-        } else {
-            // If the user is not being followed at all
-            setFollowingStatus("follow");
-        }
-    }
-    const refreshFollows = () => {
-        getFollowers(onFollowersResponse, userData.id);
-        getFollowings(onFollowingsResponse, userData.id);
-
-    }
-    const onChatCreatedResponse = (errors: string[]) => {
-        if (errors.length === 0) {
-            console.log("chat created");
-            navigate('/chat');
-        }
-    };
-    const handleMessageUser = () => {
-        createChat(onChatCreatedResponse, userData.id);
-    }
-    const handleAddPhoto = async () => {
-        const input = document.createElement('input');
-        input.type = 'file';
-
-        input.accept = 'image/*';
-
-        input.addEventListener('change', async (event) => {
-            const file = (event.target as HTMLInputElement).files?.[0];
-            if (file) {
-                try {
-                    const reader = new FileReader();
-                    reader.onload = async (e) => {
-                        if (e.target && e.target.result) {
-                            const imageDataUrl = e.target.result as string;
-                            const encryptedData = await encryptImage(imageDataUrl);
-                            uploadPhotoToProfile((errors: any) => {
-
-                                if (errors.length == 0) {
-                                    refreshGallery();
-                                } else console.error(errors);
-                            }, encryptedData);
-                        }
-                    };
-                    reader.readAsDataURL(file);
-                } catch (error) {
-                    console.error('Error handling image:', error);
-                }
             }
-        });
+        };
 
-        input.click();
-    };
+        const followersCount = userData.followersCount?? followers.length;
 
-    const refreshGallery = () => {
+        const handleFolow = (userId: string) => {
 
-        getProfileGallery(onGetProfileGalleryResponse);
-    }
+            if (followingStatus == "follow" || followingStatus == "follow_back")
 
-    useEffect(() => {
+                followUser(onFollowResponse, userId);
+            else if (followingStatus == "unfollow" || followingStatus == "friends")
+                unfollowUser(onFollowResponse, userId);
+        }
 
 
-        userData.avatar &&
-            decryptImage(userData.avatar).then(setAvatar).catch(console.error);
+        const onFollowersResponse = (data: any, errors: string[]) => {
+            if (errors.length == 0 && data !== null) {
+                setFollowers(data);
+            }
+        };
+        const onFollowingsResponse = (data: any, errors: string[]) => {
+            if (errors.length == 0 && data !== null) {
+                setFollowings(data);
+            }
+        };
 
-        refreshFollows();
-        refreshGallery();
-    }, []);
-    useEffect(() => {
+        const setStatus = (_followers: any, _followings: any) => {
+            const follower = _followers.find((item: any) => item.id === id);
+            const following = _followings.find((item: any) => item.id === id);
 
-        if (followers == null || followings == null)
-            return;
+            if (follower != null && following != null) {
+                // If the user is following and being followed back
+                setFollowingStatus("friends");
+            } else if (following != null && follower == null) {
+                // If the user is being followed but not following back
+                setFollowingStatus("follow_back");
+            } else if (follower != null) {
+                // If the user is not being followed but following back
+                setFollowingStatus("unfollow");
+            } else {
+                // If the user is not being followed at all
+                setFollowingStatus("follow");
+            }
+        }
+        const refreshFollows = () => {
+            getFollowers(onFollowersResponse, userData.id);
+            getFollowings(onFollowingsResponse, userData.id);
 
-        setStatus(followers, followings);
-    }, [followers]);
+        }
+        const onChatCreatedResponse = (errors: string[]) => {
+            if (errors.length === 0) {
+                console.log("chat created");
+                navigate('/chat');
+            }
+        };
+        const handleMessageUser = () => {
+            createChat(onChatCreatedResponse, userData.id);
+        }
+        const handleAddPhoto = async () => {
+            const input = document.createElement('input');
+            input.type = 'file';
 
-    return (
-        <>
-            {(userData && followers && followings) && (
-                <div className={styles.div}>
-                    <div className={styles.sub_div1}>
-                        <img className={styles.avatar} src={avatar} />
-                        <div className={styles.user_name}>
-                            {profileType === EnumProfileType.User && (
-                                <div>
-                                    <h1>{userData.firstName}</h1>
-                                    <h1>{userData.secondName}</h1>
-                                </div>
-                            )}
-                            {profileType === EnumProfileType.Group && (
-                                <div>
-                                    <h1>{userData.title}</h1>
-                                </div>
-                            )}
-                            <div>
-                                {(userData.location !== null && profileType === EnumProfileType.User) && (
-                                    <>
-                                        <img src={ProfileLockal} />
-                                        <h4>{userData.location}</h4>
-                                    </>
+            input.accept = 'image/*';
+
+            input.addEventListener('change', async (event) => {
+                const file = (event.target as HTMLInputElement).files?.[0];
+                if (file) {
+                    try {
+                        const reader = new FileReader();
+                        reader.onload = async (e) => {
+                            if (e.target && e.target.result) {
+                                const imageDataUrl = e.target.result as string;
+                                const encryptedData = await encryptImage(imageDataUrl);
+                                uploadPhotoToProfile((errors: any) => {
+
+                                    if (errors.length == 0) {
+                                        onPhotoUploaded();
+                                    } else console.error(errors);
+                                }, encryptedData);
+                            }
+                        };
+                        reader.readAsDataURL(file);
+                    } catch (error) {
+                        console.error('Error handling image:', error);
+                    }
+                }
+            });
+
+            input.click();
+        };
+
+
+        useEffect(() => {
+
+
+            userData.avatar &&
+                decryptImage(userData.avatar).then(setAvatar).catch(console.error);
+
+            refreshFollows();
+        }, []);
+        useEffect(() => {
+
+            if (followers == null || followings == null)
+                return;
+
+            setStatus(followers, followings);
+        }, [followers]);
+
+        return (
+            <>
+                {(userData && followers && followings) && (
+                    <div className={styles.div}>
+                        <div className={styles.sub_div1}>
+                            <img className={styles.avatar} src={avatar} />
+                            <div className={styles.user_name}>
+                                {profileType === EnumProfileType.User && (
+                                    <div>
+                                        <h1>{userData.firstName}</h1>
+                                        <h1>{userData.secondName}</h1>
+                                    </div>
                                 )}
-                            </div>
-                        </div>
-                        <div className={styles.folowers}>
-                            <div>
-                                <h2>{followers.length}</h2>
-                                <h3>Підписників</h3>
-                            </div>
-                            {profileType === EnumProfileType.User && (
+                                {profileType === EnumProfileType.Group && (
+                                    <div>
+                                        <h1>{userData.title}</h1>
+                                    </div>
+                                )}
                                 <div>
-                                    <h2>{followings.length}</h2>
-                                    <h3>Відстежується</h3>
-                                </div>
-                            )}
-                        </div>
-                        <div className={styles.folow_button}>
-                            {profileType === EnumProfileType.User && (
-                                <>
-                                    {(userData.id !== id) && (
+                                    {(userData.location !== null && profileType === EnumProfileType.User) && (
                                         <>
-                                            <button onClick={() => handleFolow(userData.id)}>{t(followingStatus)}</button>
-
-                                            <img style={{ cursor: "pointer" }} onClick={handleMessageUser} src={CommentPostIcon} />
+                                            <img src={ProfileLockal} />
+                                            <h4>{userData.location}</h4>
                                         </>
                                     )}
-                                    {(userData.id === id) && (
-                                        <img style={{ cursor: "pointer" }} onClick={handleAddPhoto} src={PropfileAdd} />
-                                    )}
-                                </>
-                            )}
-                            {/* {isLoading && <CircularProgress size={"1rem"}></CircularProgress>} */}
+                                </div>
+                            </div>
+                            <div className={styles.folowers}>
+                                <div>
+                                    <h2>{followersCount}</h2>
+                                    <h3>Підписників</h3>
+                                </div>
+                                {profileType === EnumProfileType.User && (
+                                    <div>
+                                        <h2>{followings.length}</h2>
+                                        <h3>Відстежується</h3>
+                                    </div>
+                                )}
+                            </div>
+                            <div className={styles.folow_button}>
+                                {profileType === EnumProfileType.User && (
+                                    <>
+                                        {(userData.id !== id) && (
+                                            <>
+                                                <button onClick={() => handleFolow(userData.id)}>{t(followingStatus)}</button>
+
+                                                <img style={{ cursor: "pointer" }} onClick={handleMessageUser} src={CommentPostIcon} />
+                                            </>
+                                        )}
+                                        {(userData.id === id) && (
+                                            <img style={{ cursor: "pointer" }} onClick={handleAddPhoto} src={PropfileAdd} />
+                                        )}
+                                    </>
+                                )}
+                                {/* {isLoading && <CircularProgress size={"1rem"}></CircularProgress>} */}
+                            </div>
                         </div>
-                    </div>
-                    <div className={styles.sub_div2}>
-                        <ul>
-                            {profileType === EnumProfileType.User && (
+                        <div className={styles.sub_div2}>
+                            <ul>
                                 <>
                                     {userData.workplace && (
                                         <li key={"ProfilePortfolio"}>
@@ -225,45 +224,34 @@ const UserInfo: FC<{ userData: any, profileType: EnumProfileType }> = ({ userDat
                                         </li>
                                     )}
                                 </>
-                            )}
-                            {profileType === EnumProfileType.Group && (
-                                <>
-                                    <li key={"nickname"}>
-                                        <img src={ProfileFlash} />
-                                        <h5>@{userData.nickname}</h5>
-                                    </li>
-                                    <li key={"category"}>
-                                        <img src={ProfilePortfolio} />
-                                        <h5>{userData.category}</h5>
-                                    </li>
-                                </>
-                            )}
-                        </ul>
-                    </div>
-                    <div>{/* JUST DO IT */}</div>
-                    <div className={styles.gallery}>
-                        <h2>Фото</h2>
-                        <Grid container>
-                            {gallery && (
-                                gallery.map((item: any) => {
-                                    return (
-                                        <Grid item md={6}>
-                                            <DecryptedImg content={item.content}></DecryptedImg>
-                                        </Grid>
-                                    )
-                                })
-                            )}
-                        </Grid>
-                        {userData.PhotoCount > 0 && (
-                            <div>
-                                <h5>Показати ще {userData.PhotoCount}</h5>
+                            </ul>
+                        </div>
+                        <div>{/* JUST DO IT */}</div>
+                        {profileType === EnumProfileType.User && (
+                            <div className={styles.gallery}>
+                                <h2>Фото</h2>
+                                <Grid container>
+                                    {gallery && (
+                                        gallery.map((item: any) => {
+                                            return (
+                                                <Grid item md={6}>
+                                                    <DecryptedImg content={item.content}></DecryptedImg>
+                                                </Grid>
+                                            )
+                                        })
+                                    )}
+                                </Grid>
+                                {userData.PhotoCount > 0 && (
+                                    <div>
+                                        <h5>Показати ще {userData.PhotoCount}</h5>
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
-                </div>
-            )}
-        </>
-    );
-};
+                )}
+            </>
+        );
+    };
 
 export default UserInfo;

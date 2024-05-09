@@ -12,7 +12,7 @@ interface ICreatePostRequest {
   attachment: string;
   location: string;
   category: string;
-  type: string;
+  type: number;
 }
 
 interface IPoststore {
@@ -21,6 +21,7 @@ interface IPoststore {
 
   createPost: (callback: ResponseCallback, request: ICreatePostRequest) => Promise<void>;
   getPosts: (callback: ResponseCallback, id: any) => Promise<void>;
+  getPost: (callback: ResponseDataCallback, id: any) => Promise<void>;
   savePost: (callback: ResponseDataCallback, postId: string) => Promise<void>;
   unsavePost: (callback: ResponseCallback, postId: string) => Promise<void>;
   getSavePost: (callback: ResponseDataCallback, postId: string) => Promise<void>;
@@ -69,6 +70,26 @@ export const usePostsStore = create<IPoststore>((set) => ({
       }
     } catch (error: any) {
       callback(pErrors(['unknown_error']));
+
+    }
+
+    set({ isLoading: false });
+  },
+  getPost: async (callback: ResponseDataCallback, id: any) => {
+
+    set({ isLoading: true });
+
+    try {
+      const response = await $api.get<any>(ENDPOINTS.USER.GET_POST +`/${id}`);
+
+
+      if (response?.status == 200) {
+        callback(response.data, []);
+      } else {
+        callback(null, pErrors(response.data.errors));
+      }
+    } catch (error: any) {
+      callback(null, pErrors(['unknown_error']));
 
     }
 

@@ -6,6 +6,9 @@
   border-radius: 20px;
   background-color: transparent;
   color: #b67afe;
-  padding: 0.6rem 4rem;
+  width: 100%;
+  padding: 4rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   @include hover-scale;
 }

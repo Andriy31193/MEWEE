@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Friends: FC<{ friendsData: any }> = ({ friendsData }) => {
   const [avatarImages, setAvatarImages] = useState<string[]>([]);
   const navigate = useNavigate();
-  // console.log(friendsData);
+   console.log(friendsData);
 
   useEffect(() => {
     const fetchAvatars = async () => {
@@ -42,7 +42,7 @@ const Friends: FC<{ friendsData: any }> = ({ friendsData }) => {
                   <li
                     key={item.id}
                     onClick={() => {
-                      navigate("/profile/" + item.username, { replace: false });
+                      navigate("/profile/" + item.username?? item.nickname, { replace: false });
                       navigate(0);
                     }}
                   >

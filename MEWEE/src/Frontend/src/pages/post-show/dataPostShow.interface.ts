@@ -10,6 +10,7 @@ export interface postDataTypes {
   likesCount: number;
   comments: number;
   shares: number;
+  type: string;
   // Add content property if necessary
   title: string;
   content?: string;

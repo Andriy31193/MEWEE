@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import ProfileItem from "./propfile-item/ProfileItem";
 import UserInfo from "./user-info/UserInfo";
-import { userInfoData } from "./profileData";
+import { profileButtonsData, userInfoData } from "./profileData";
 import { useParams } from "react-router-dom";
 import { EnumProfileType, useAuthStore, useSearchBar, useUserStore } from "../../entities";
 
@@ -11,6 +11,8 @@ const Profile: FC<{}> = ( ) => {
   const { getProfile, getFriends } = useUserStore();
   const { username } = useParams<{ username: string }>();
   const [friends, setFriendsData] = useState<any>(null);
+  const { getProfileGallery } = useUserStore();
+  const [gallery, setGallery] = useState<any>(null);
   const { setTitle } = useSearchBar();
 
   const onProfileResponse = (data: any, errors: string[]) => {
@@ -18,7 +20,7 @@ const Profile: FC<{}> = ( ) => {
       setProfileData(data);
       
       getFriends(onFriendsResponse, data.id ?? "#");
-
+      refreshGallery();
     }
   };
   const onFriendsResponse = (data: any, errors: string[]) => {
@@ -26,8 +28,14 @@ const Profile: FC<{}> = ( ) => {
       setFriendsData(data);
     }
   };
-
-
+  const onGetProfileGalleryResponse = (data: any, errors: string[]) => {
+    if (errors.length == 0 && data !== null) {
+      setGallery(data);
+    }
+  };
+  const refreshGallery = () => {
+    getProfileGallery(onGetProfileGalleryResponse, profileData.id);
+  }
   useEffect(() => {
     setTitle("profile");
     getProfile(onProfileResponse, username ?? "#");
@@ -38,10 +46,10 @@ const Profile: FC<{}> = ( ) => {
       {(profileData) && (
         <Grid container sx={{ padding: "0 1rem" }}>
           <Grid item md={3} sm={12}>
-            <UserInfo profileType={EnumProfileType.User}  userData={profileData} />
+            <UserInfo profileType={EnumProfileType.User}  userData={profileData} gallery={gallery} onPhotoUploaded={refreshGallery} />
           </Grid>
           <Grid item md={8} sm={12}>
-            <ProfileItem profileType={EnumProfileType.User} profileData={profileData} friends={friends} />
+            <ProfileItem profileButtonsData={profileButtonsData} photos={gallery} profileType={EnumProfileType.User} profileData={profileData} friends={friends} />
           </Grid>
         </Grid>
       )}

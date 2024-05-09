@@ -11,7 +11,7 @@ import { dataSideBar } from "./groupData";
 const Groups: FC<{}> = () => {
   const [avatarImages, setAvatarImages] = useState<string[]>([]);
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState<string>('Policy');
+  const [selectedCategory, setSelectedCategory] = useState<string>('Interesting');
   const [data, setData] = useState<any>();
   const { getGroups } = useGroupsStore();
   const { setTitle } = useSearchBar();
@@ -29,7 +29,7 @@ const Groups: FC<{}> = () => {
   };
   useEffect(() => {
     setTitle("groups");
-    getGroups(onGroupsResponse);
+    getGroups(onGroupsResponse,'all');
   }, []);
 
 

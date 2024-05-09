@@ -24,7 +24,7 @@ import Dropzone from "react-dropzone";
 import ImageModal2 from "../../../../assets/image/ImageModal2.png";
 import CommentWriterAvatar from "../../../../assets/image/CommentWriterAvatar.png";
 import styles from "./add_post.module.scss";
-import { useAuthStore, usePostsStore } from "../../../../entities";
+import { EnumProfileType, useAuthStore, usePostsStore } from "../../../../entities";
 import {decryptImage, encryptImage} from "../../../../entities/sharedStores/post-utils";
 import ReactCrop, {centerCrop, makeAspectCrop, Crop,
   PixelCrop, convertToPixelCrop,} from 'react-image-crop'
@@ -72,9 +72,12 @@ const initialModalStates: ModalStates = {
 };
 
 
-const AddPost: FC = () => {
+const AddPost: FC <{username:string, id:string, type?:EnumProfileType}> = ({
+  username,
+  id,
+  type = EnumProfileType.User
+}) => {
 
-  const { username, id } = useAuthStore();
   const [image, setImage] = useState<string | ArrayBuffer | null>(null);
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
@@ -129,7 +132,7 @@ const AddPost: FC = () => {
 
   const handleSubmit = async () => {
     if(croppedSrc != null){
-      createPost(onResponse, { authorId: id??"", title: title, content: content, attachment: encryptedImage, location: location, category: category, type: "User" });
+      createPost(onResponse, { authorId: id??"", title: title, content: content, attachment: encryptedImage, location: location, category: ((type === EnumProfileType.User?"User":"Group")+"_"+ category), type: 1 });
       closeModal();
     }
     else{

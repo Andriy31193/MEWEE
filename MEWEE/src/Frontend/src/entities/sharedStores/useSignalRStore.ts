@@ -19,6 +19,7 @@ interface ISignalRStore {
     isElectron: () => boolean,
     establishConnection: (userId: string) => Promise<void>,
     joinChat: (chatId: string) => Promise<void>,
+    sendMessageToUser: (userId: string, content: string, createdAt: string) => Promise<void>,
     sendMessage: (chatId: string, content: string, createdAt: string) => Promise<void>,
     closeConnection: () => Promise<void>,
 }
@@ -108,6 +109,19 @@ export const useSignalRStore = create<ISignalRStore>()((set, get) => ({
 
             await connection.invoke('SendMessage', chatId, content, createdAt).then(() => {
                 console.log("MESSAGE SENT");
+            });
+        } catch (error) {
+            console.error('Error invoking SendMessage:', error);
+        }
+    },
+    sendMessageToUser: async (userId: string, content: string, createdAt: string) => {
+        const { connection } = get();
+        if (!connection) return;
+
+        try {
+
+            await connection.invoke('SendMessageToUser', userId, content, createdAt).then(() => {
+                console.log("MESSAGE SENT TO USER");
             });
         } catch (error) {
             console.error('Error invoking SendMessage:', error);

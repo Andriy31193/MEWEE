@@ -3,7 +3,6 @@ import { Grid } from "@mui/material";
 import KubsGroupPage from "../../../assets/image/icons/KubsGroupPage.svg";
 import CustomButton from "../../../widgets/сommon/custom-button/customButton";
 import CustomModalIcon from "../../../widgets/сommon/custom-modal-icon/CustomModalIcon";
-import { modalPostDataLink } from "../../../widgets/widgetData";
 import {
   dataGroupItemPropTypes,
   dataGroupItemTypes,
@@ -13,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import DecryptedImg from "../../profile/DecryptedImg";
 import { useAuthStore, useUserStore } from "../../../entities";
+import { modalPostDataLinkTypes } from "../../../widgets/widget.interface";
 
 const GroupItem: FC<dataGroupItemPropTypes> = ({ data, category }) => {
   const [friends, setFriends] = useState<any>(null);
@@ -31,6 +31,30 @@ const GroupItem: FC<dataGroupItemPropTypes> = ({ data, category }) => {
     else console.error("Errors occured in onFriendsResponse (GroupItem)", errors);
   }
 
+  const [modalPostDataLink, setModalPostDataLink] = useState<modalPostDataLinkTypes[]>([
+    {
+      id: 1,
+      url: "#",
+      onClick: ()=>{},
+      icons: '',
+      text: "modal_home_link1",
+    },
+    {
+      id: 2,
+      url: "#",
+      onClick:()=>{},
+      icons: '',
+      customSymbols: "",
+      text: "save",
+    },
+    {
+      id: 3,
+      url: "#",
+      onClick:()=>{},
+      icons: '',
+      text: "modal_home_link3",
+    },
+  ]);
   useEffect(() => {
     if (!id) {
       console.error("User must be logged in. (GroupItem)");
@@ -48,6 +72,10 @@ const GroupItem: FC<dataGroupItemPropTypes> = ({ data, category }) => {
     if (category == "Interesting")
       setDataToDisplay(data);
     else if (category == "FriendsGroups") {
+      console.log(friends);
+      if (friends.length == 0) {
+        setDataToDisplay(null);
+      }
       const friendIds = friends.map((friend: any) => friend.id);
 
       const groupsWithFriends = data.filter((group: any) => {
@@ -72,10 +100,7 @@ const GroupItem: FC<dataGroupItemPropTypes> = ({ data, category }) => {
           const currentGroup: any = item.group;
           const members: any = item.members;
           return (
-            <Grid item key={currentGroup.id} md={index < 6 ? 4 : 6} onClick={() => {
-              navigate("/group/" + currentGroup.id, { replace: false });
-              navigate(0);
-            }}>
+            <Grid item key={currentGroup.id} md={index < 6 ? 4 : 6} >
               <div
                 className={` ${index < 6 ? styles.div : styles._div_horizont}`}
               >
@@ -92,11 +117,14 @@ const GroupItem: FC<dataGroupItemPropTypes> = ({ data, category }) => {
                     )}
                   </div>
                   <div>
-                    <CustomButton text={t("join")} />
+                    <CustomButton text={t("join")} onClick={() => {
+                      navigate("/group/" + currentGroup.id, { replace: false });
+                      navigate(0);
+                    }} />
                   </div>
                 </div>
                 <div className={styles.modal_button}>
-                  {/* <CustomModalIcon id={item.id} links={modalPostDataLink} /> */}
+                  <CustomModalIcon id={item.id} links={modalPostDataLink} />
                 </div>
               </div>
             </Grid>

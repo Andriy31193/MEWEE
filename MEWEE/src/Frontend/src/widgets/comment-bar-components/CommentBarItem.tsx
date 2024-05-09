@@ -61,7 +61,7 @@ const CommentBarItem: FC<{
 
   const handleAvatarDecrypt = (data: any) => {
     if (data !== null) {
-      const at = data.profileAvatar ?? "";
+      const at = data.avatar ?? "";
       if (at != "")
         decryptImage(at)
           .then((decryptedData) => {
