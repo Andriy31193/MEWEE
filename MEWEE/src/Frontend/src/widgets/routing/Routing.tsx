@@ -17,6 +17,7 @@ import Messenger from "../../pages/messenger/Messenger";
 import Chat from "../../pages/chat/Chat";
 import Setting from "../../pages/setting/Setting";
 import Group from "../../pages/groups/group/Group";
+import SettingProfile from "../../pages/setting/components/setting-profile/SettingProfile";
 
 export const Routing = () => {
   return (
@@ -37,6 +38,7 @@ export const Routing = () => {
               <Route path="/messenger" element={<Messenger />} />
               <Route path="/chat" element={<Chat />} />
               <Route path="/settings" element={<Setting />} />
+                <Route path="/settings/profile" element={<SettingProfile />} />
               <Route
                 path="plans"
                 element={

@@ -1,12 +1,13 @@
-export interface dropdownTabsDataTypes {
+export interface moreTabsDataTypes {
   id: string;
   title: string;
-  item: string;
+  path: string;
 }
 
-export interface dropdownTabsPropsTypes {
-  dropdownTabsData: dropdownTabsDataTypes[];
+export interface moreTabsPropsTypes {
+  moreTabsData: moreTabsDataTypes[];
 }
+
 
 export interface switchTabsDataTypes {
   id: string;

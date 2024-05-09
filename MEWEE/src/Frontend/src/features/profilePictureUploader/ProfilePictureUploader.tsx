@@ -37,9 +37,9 @@ console.log("ok");
         <div {...getRootProps()} style={dropzoneStyle}>
           <input {...getInputProps()} />
           {image ? (
-            <img src={image} alt="Uploaded" style={imageStyle} />
+              <p>Успішно!</p>
           ) : (
-            <p>+</p>
+            <p>Загрузить</p>
           )}
         </div>
       )}
@@ -51,10 +51,9 @@ const dropzoneStyle: React.CSSProperties = {
   border: "2px dashed #cccccc",
   borderRadius: "4px",
   padding: "5px",
-  margin:"5px",
+  margin:"0",
   textAlign: "center",
   cursor: "pointer",
-  
 };
 
 const imageStyle: React.CSSProperties = {

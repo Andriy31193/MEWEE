@@ -1,42 +1,42 @@
 import { useTranslation } from "react-i18next";
 
-export const dropdownTabsData = () => {
+export const moreTabsData = () => {
   const { t } = useTranslation();
 
-  const dropdownTabs  = [
+  const moreTabs  = [
     {
       id: "1",
       title: t('profile'),
-      item: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
+      path: "/settings/profile",
     },
     {
       id: "2",
       title: t('privacy_security'),
-      item: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
+      path: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
     },
     {
       id: "3",
       title: t('public_profile'),
-      item: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
+      path: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
     },
     {
       id: "4",
       title: t('account_management'),
-      item: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
+      path: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
     },
     {
       id: "5",
       title: t('business_account'),
-      item: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
+      path: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
     },
     {
       id: "6",
       title: t('sign_out'),
-      item: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
+      path: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
     },
   ];
 
-  return dropdownTabs;
+  return moreTabs;
 };
 
 export const switchTabsData = () => {
