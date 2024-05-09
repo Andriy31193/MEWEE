@@ -12,27 +12,17 @@ export const moreTabsData = () => {
     {
       id: "2",
       title: t('privacy_security'),
-      path: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
+      path: "/settings/security",
     },
     {
       id: "3",
-      title: t('public_profile'),
-      path: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
+      title: t('account_management'),
+      path: "/settings/account",
     },
     {
       id: "4",
-      title: t('account_management'),
-      path: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
-    },
-    {
-      id: "5",
-      title: t('business_account'),
-      path: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
-    },
-    {
-      id: "6",
       title: t('sign_out'),
-      path: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
+      path: "/auth/logout",
     },
   ];
 

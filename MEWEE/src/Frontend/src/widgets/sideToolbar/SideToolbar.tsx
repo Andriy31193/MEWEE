@@ -126,8 +126,8 @@ export const SideToolbar = () => {
               isVisible={isVisible}
               icon={<IconJobs />}
               title={t("jobs")}
-              onNavigate={() => navigate('/groups')}
-              isActive={false}
+              onNavigate={() => navigate('/jobs')}
+              isActive={activeIcon("/jobs")}
               />
             <SideToolbarMenuItem
               isVisible={isVisible}
@@ -160,7 +160,6 @@ export const SideToolbar = () => {
           {isVisible && <SwitchComponent />}
           <LanguageComponent />
         </div>
-        <button onClick={() => navigate("/auth/logout")}>LOGOUT</button>
       </div>
     </div>
   );

@@ -5,6 +5,8 @@ import {
   switchTabsDataTypes,
 } from "../settingData.interface";
 import styles from "./switch_tabs.module.scss";
+import '../components/setting-security/styled_switch.scss';
+
 const SwitchTabs: FC<switchTabsPropsTypes> = ({ switchTabsData }) => {
   const handleChcket = () => {
     const gog = "";
@@ -21,8 +23,9 @@ const SwitchTabs: FC<switchTabsPropsTypes> = ({ switchTabsData }) => {
                   {item.description != undefined && <p>{item.description}</p>}
                 </div>
                 <Switch
-                  onChange={handleChcket}
-                  defaultChecked={item.switchActive === true}
+                    className="CustomSwitch"
+                    onChange={handleChcket}
+                    defaultChecked={item.switchActive === true}
                 />
               </li>
             );

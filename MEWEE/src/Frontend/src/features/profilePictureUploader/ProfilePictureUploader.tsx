@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 import { encryptImage } from "../../entities/sharedStores/post-utils";
 import { useAuthStore, useUserStore } from "../../entities";
+import styles from "./profile_picture_uploader.module.scss"
+import {useTranslation} from "react-i18next";
 
 const ProfilePictureUploader = () => {
+  const { t } = useTranslation();
   const [image, setImage] = useState<string | null>(null);
 const {updateProfile} = useUserStore();
 console.log("ok");
@@ -37,9 +40,9 @@ console.log("ok");
         <div {...getRootProps()} style={dropzoneStyle}>
           <input {...getInputProps()} />
           {image ? (
-              <p>Успішно!</p>
+              <p className={styles.text}>{t("successfully")}</p>
           ) : (
-            <p>Загрузить</p>
+            <p className={styles.text}>{t("load_it")}</p>
           )}
         </div>
       )}

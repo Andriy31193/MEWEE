@@ -9,7 +9,6 @@ const Setting: FC = () => {
   const { setTitle } = useSearchBar();
   const switchTabs = switchTabsData();
 
-
   useEffect(()=>
   {
     setTitle("settings")
@@ -19,9 +18,14 @@ const Setting: FC = () => {
       <Grid container>
         <Grid item md={6}>
           <MoreTabs moreTabsData={moreTabs} />
+          {switchTabs.slice(0, 2).map((tab, index) => (
+              <SwitchTabs switchTabsData={[tab]} />
+          ))}
         </Grid>
         <Grid item md={6}>
-          <SwitchTabs switchTabsData={switchTabs} />
+          {switchTabs.slice(2).map((tab, index) => (
+              <SwitchTabs switchTabsData={[tab]} />
+          ))}
         </Grid>
       </Grid>
     </div>

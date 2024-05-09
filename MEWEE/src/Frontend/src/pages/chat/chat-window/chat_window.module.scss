@@ -64,9 +64,12 @@
       align-items: center;
       > svg{
         cursor: pointer;
-
+        color: #b67afe;
         &:hover{
           opacity: var(--mainPage_header_hoverIcon);;
+        }
+        &:active{
+          color: var(--mainPage_header_activeIcon);;
         }
       }
       > div {
