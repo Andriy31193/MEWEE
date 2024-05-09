@@ -13,23 +13,46 @@ const Group: FC = () => {
   const [friends, setFriendsData] = useState<any>(null);
 
 
-  const onProfileResponse = (data: any, errors: string[]) => {
+  const profileButtonsData = [
+    {
+      id: 1,
+      text: "posts",
+    },
+    {
+      id: 3,
+      text: "followers",
+    },
+  ];
+  const onGetGroupResponse = (data: any, errors: string[]) => {
     if (errors.length == 0 && data !== null) {
-      setProfileData(data);
+      const group = data.group;
+      const fetchedData =
+      {
+        id: group.id,
+        avatar: group.avatar,
+        category:  group.category,
+        username: group.nickname,
+        website: `@${group.nickname}`,
+        title: group.title,
+        followersCount: data.members.length
+    };
+    console.log("fetched",fetchedData);
+      setProfileData(fetchedData);
+      setFriendsData(data.members);
       console.log("group:",data);
-      getFriends(onFriendsResponse, data.id ?? "#");
+      //getFriends(onFriendsResponse, group.id ?? "#");
 
     }
   };
   const onFriendsResponse = (data: any, errors: string[]) => {
     if (errors.length == 0 && data !== null) {
-      setFriendsData(data);
+
     }
   };
 
 
   useEffect(() => {
-    getGroup(onProfileResponse, id ?? "");
+    getGroup(onGetGroupResponse, id ?? "");
   }, []);
 
   return (
@@ -37,10 +60,10 @@ const Group: FC = () => {
       {(profileData) && (
         <Grid container sx={{ padding: "0 1rem" }}>
           <Grid item md={3} sm={12}>
-            <UserInfo profileType={EnumProfileType.Group} userData={profileData} />
+            <UserInfo profileType={EnumProfileType.Group} userData={profileData} gallery={[]} onPhotoUploaded={()=>{}} />
           </Grid>
           <Grid item md={8} sm={12}>
-            <ProfileItem profileType={EnumProfileType.Group} profileData={profileData} friends={friends} />
+            <ProfileItem  profileButtonsData={profileButtonsData} photos={[]} profileType={EnumProfileType.Group} profileData={profileData} friends={friends} />
           </Grid>
         </Grid>
       )}

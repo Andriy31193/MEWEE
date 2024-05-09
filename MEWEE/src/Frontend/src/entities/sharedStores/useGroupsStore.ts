@@ -10,7 +10,7 @@ interface IGroupStore {
 
     createGroup: (callback: ResponseDataCallback, title: string, avatar: string, category: string) => Promise<void>;
     deleteGroup: (callback: ResponseCallback, groupId: string) => Promise<void>;
-    getGroups: (callback: ResponseDataCallback) => Promise<void>;
+    getGroups: (callback: ResponseDataCallback, category?: string) => Promise<void>;
     getGroup: (callback: ResponseDataCallback, credentials: string) => Promise<void>;
     
 
@@ -53,11 +53,11 @@ export const useGroupsStore = create<IGroupStore>()(
                 }
                 set((state) => ({ ...state, isLoading: false }));
             },
-            getGroups: async (callback: ResponseDataCallback) => {
+            getGroups: async (callback: ResponseDataCallback, category?: string) => {
 
                 try {
                     set({ isLoading: true });
-                    const response = await $api.get<any>(ENDPOINTS.GROUPS.GET_GROUPS);
+                    const response = await $api.get<any>(ENDPOINTS.GROUPS.GET_GROUPS+`/${category}`);
 
                     if (response?.status === 200) {
                         callback(response.data, []);

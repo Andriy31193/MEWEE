@@ -1,4 +1,4 @@
-import { useErrors, usePostsStore, useSearchBar, useThemeStore } from "../../entities";
+import { useAuthStore, useErrors, usePostsStore, useSearchBar, useThemeStore } from "../../entities";
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
 import { ReactComponent as IconPlus } from "./images/icon_plus.svg";
@@ -14,6 +14,7 @@ import React, {useEffect, useState} from "react";
 import Search from "./components/search-component/Search";
 
 export const TopSearchBar = () => {
+  const { username, id } = useAuthStore();
   const navigate = useNavigate();
   const { t } = useTranslation();
   // const { username, email, isLoggedIn, role, isEmailConfirmed } = useAuthStore();
@@ -81,7 +82,7 @@ export const TopSearchBar = () => {
       </div>
       {isLoading && <CircularProgress size={"1rem"}></CircularProgress>}
       <div className={styles.top_search_bar_tools_container}>
-        <AddPost/>
+        <AddPost username={username??""} id={id??""} />
         <TopSearchBarItem onClick={() => navigate('/feed')} icon={<IconFilter/>}
                           isActive={false}/>
         <TopSearchBarItem onClick={() => navigate('/feed')} icon={<IconNothification/>}

@@ -9,7 +9,7 @@ import EyeHomeModalIcon from "../../../assets/image/icons/EyeHomeModalIcon.svg";
 import { ReactComponent as SentIcon } from "../../../assets/image/icons/SentIcon.svg";
 import { ReactComponent as CommentPostIcon } from "../../../assets/image/icons/CommentPostIcon.svg";
 import styles from "./feed_post_item.module.scss";
-import { EnumPostType, useAuthStore, usePostsStore, useThemeStore, useUserStore } from "../../../entities";
+import { EnumPostType, useAuthStore, useGroupsStore, usePostsStore, useThemeStore, useUserStore } from "../../../entities";
 import CustomModalIcon from "../../сommon/custom-modal-icon/CustomModalIcon";
 import CommentBarComponents from "../../comment-bar-components/CommentBarComponents";
 import { useCommentStore } from "../../../entities/sharedStores/useCommentStore";
@@ -31,6 +31,7 @@ export const FeedPostItem: FC<{ item: postDataTypes, type?: EnumPostType }> = ({
   const [avatar, setAvatar] = useState<any>(null);
   const showButton = type == EnumPostType.News ? true : item && item.content && item.content.length > 90;
   const { getProfile, followUser } = useUserStore();
+  const { getGroup } = useGroupsStore();
   const { currentTheme } = useThemeStore();
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const { isLoading, likePost, unLikePost, savePost, getSavePost } = usePostsStore();
@@ -53,7 +54,7 @@ export const FeedPostItem: FC<{ item: postDataTypes, type?: EnumPostType }> = ({
     {
       id: 1,
       url: "#",
-      onClick: () => navigate('/profile/' + item.authorId),
+      onClick: () => navigate('/profile/' + author.username),
       icons: FriendsHomeModalIcon,
       text: "modal_home_link1",
     },
@@ -118,7 +119,18 @@ export const FeedPostItem: FC<{ item: postDataTypes, type?: EnumPostType }> = ({
 
     if (errors.length == 0 && data !== null) {
       setAuthor(data);
-      data.profileAvatar && decryptImage(data.profileAvatar).then(setAvatar).catch(console.error);
+      console.log("now me:", data);
+      modalPostDataLink[0].onClick = () => navigate('/profile/' + data.username),
+        data.avatar && decryptImage(data.avatar).then(setAvatar).catch(console.error);
+    }
+  };
+  const onGroupResponse = (data: any, errors: string[]) => {
+
+    if (errors.length == 0 && data !== null) {
+      setAuthor(data.group);
+      console.log(data);
+      modalPostDataLink[0].onClick = () => navigate('/group/' + data.group.nickname),
+        data.group.avatar && decryptImage(data.group.avatar).then(setAvatar).catch(console.error);
     }
   };
 
@@ -139,9 +151,14 @@ export const FeedPostItem: FC<{ item: postDataTypes, type?: EnumPostType }> = ({
 
 
   const updatePost = () => {
+    console.log(item);
     getComments(onResponse, item.id, 1, 0);
     getPostLikes(onGetPostLikesResponse, item.id);
-    getProfile(onProfileResponse, item.authorId);
+    console.log("category:", item.category.indexOf("User") !== -1);
+    if (item.category.indexOf("User") !== -1)
+      getProfile(onProfileResponse, item.authorId);
+    else if (item.category.indexOf("Group") !== -1)
+      getGroup(onGroupResponse, item.authorId);
     getSavePost(onPostGetSaveResponse, item.id);
     item.attachment && decryptImage(item.attachment).then(setImageSrc).catch(console.error);
 
@@ -177,7 +194,7 @@ export const FeedPostItem: FC<{ item: postDataTypes, type?: EnumPostType }> = ({
                     <img src={avatar === "" ? "" : avatar} />
                   </div>
                   <div>
-                    <span>{author !== null ? author.firstName : ""}</span>
+                    <span>{author !== null ? (author.firstName ?? author.title) : ""}</span>
                     <span className={styles.span_date}>{formatTime(item.createdAt)}</span>
                     <div>
                       <LocationIcon />

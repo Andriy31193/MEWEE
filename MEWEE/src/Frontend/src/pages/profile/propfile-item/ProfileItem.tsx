@@ -12,27 +12,30 @@ import Friends from "./friends/Friends";
 import PhotoVideoSliders from "../../../widgets/photo-video-sliders/PhotoVideoSliders";
 import ProfileItemFilter from "../../../assets/image/icons/ProfileItemFilter.svg";
 import styles from "./profile_item.module.scss";
-import { EnumProfileType, useGroupsStore, useUserStore } from "../../../entities";
+import { EnumProfileType, useGroupsStore, usePostsStore, useUserStore } from "../../../entities";
 import { Input } from "@mui/material";
 import { useFormik } from "formik";
 import { GROUP_NAME_VALIDATION, LOGIN_SCHEMA } from "../../../shared/exportSharedMorules";
 import { useNavigate } from "react-router-dom";
-const ProfileItem: FC<{ profileData: any, profileType: EnumProfileType, friends: any }> = ({
+import AddPost from "../../../widgets/topSearchBar/components/add-post/AddPost";
+import { useTranslation } from "react-i18next";
+const ProfileItem: FC<{profileButtonsData:any,  profileData: any, photos: any, profileType: EnumProfileType, friends: any }> = ({
+  profileButtonsData,
   profileData,
+  photos,
   profileType,
   friends,
 }) => {
 
-  const [groupCategory, setGroupCategory] = useState('Entertainment');
-
+  const [groupCategory, setGroupCategory] = useState('Interesting');
+  const {t} = useTranslation();
   const handleDropdownChange = (event: any) => {
     setGroupCategory(event.target.value);
   };
 
   const [createGroupFormEnabled, setCreateGroupFormEnabled] = useState<boolean>(false);
-  const { getProfileGallery } = useUserStore();
+
   const { createGroup } = useGroupsStore();
-  const [gallery, setGallery] = useState<any>(null);
   const [activeItemId, setActiveItemId] = useState<number | null>(null);
 
 
@@ -48,7 +51,6 @@ const ProfileItem: FC<{ profileData: any, profileType: EnumProfileType, friends:
   });
   const navigate = useNavigate();
   useEffect(() => {
-    refreshGallery();
     if (profileButtonsData.length > 0 && activeItemId === null) {
       setActiveItemId(profileButtonsData[0].id);
     }
@@ -57,14 +59,6 @@ const ProfileItem: FC<{ profileData: any, profileType: EnumProfileType, friends:
   const handleLiClick = (itemId: number) => {
     setActiveItemId(itemId);
   };
-  const onGetProfileGalleryResponse = (data: any, errors: string[]) => {
-    if (errors.length == 0 && data !== null) {
-      setGallery(data);
-    }
-  };
-  const refreshGallery = () => {
-    getProfileGallery(onGetProfileGalleryResponse);
-  }
   const onGroupCreationResponse = (data: any, errors: string[]) => {
     if (errors.length === 0) {
       navigate('/group/' + data.nickname)
@@ -90,12 +84,21 @@ const ProfileItem: FC<{ profileData: any, profileType: EnumProfileType, friends:
                     key={item.id}
                     onClick={() => handleLiClick(item.id)}
                   >
-                    <h5>{item.text}</h5>
+                    <h5>{t(item.text)}</h5>
                   </li>
                 );
-              })}
+              })
+            }
+            {profileType == EnumProfileType.Group && (
+
+              <AddPost username={profileData.username} id={profileData.id} type={EnumProfileType.Group}></AddPost>
+
+            )}
           </ul>
-          {activeItemId === 1 && <ProfilePost id={profileData.id} />}
+
+          {activeItemId === 1 && (
+            <ProfilePost id={profileData.id} />
+          )}
 
           {activeItemId === 2 && (
             <Portfilio
@@ -137,24 +140,24 @@ const ProfileItem: FC<{ profileData: any, profileType: EnumProfileType, friends:
 
               </div>
             )}
-          {(activeItemId === 5 && gallery) && (
+          {(activeItemId === 5 && photos) && (
             <div className={styles.sliders_div}>
               <div className={styles.div_title}>
                 <h1>Недавні</h1>
                 <img src={ProfileItemFilter} />
               </div>
-              <PhotoVideoSliders sliderData={gallery} />
-              <PhotoVideoSliders retouch={true} title={"Ретуш"} sliderData={gallery} />
+              <PhotoVideoSliders sliderData={photos} />
+              <PhotoVideoSliders retouch={true} title={"Ретуш"} sliderData={photos} />
             </div>
           )}
-          {(activeItemId === 6 && gallery) && (
+          {(activeItemId === 6 && photos) && (
             <div className={styles.sliders_div}>
               <div className={styles.div_title}>
                 <h1>Недавні</h1>
                 <img src={ProfileItemFilter} />
               </div>
-              <PhotoVideoSliders sliderData={gallery} />
-              <PhotoVideoSliders retouch={true} title={"Ретуш"} sliderData={gallery} />
+              <PhotoVideoSliders sliderData={photos} />
+              <PhotoVideoSliders retouch={true} title={"Ретуш"} sliderData={photos} />
             </div>
           )}
         </div>

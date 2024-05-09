@@ -12,7 +12,7 @@ interface ICreatePostRequest {
   attachment: string;
   location: string;
   category: string;
-  type: string;
+  type: number;
 }
 
 interface IPoststore {

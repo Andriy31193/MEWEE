@@ -1,5 +1,26 @@
 @import "src/mixins.scss";
 
+.add_post_container
+{
+  cursor: pointer;
+  width: 100%;
+  height: 4rem;
+  border-radius: 10px;
+border-top: 2px dashed gray;
+border-right: 2px dashed gray;
+border-bottom:2px dashed gray;
+border-left: 2px dashed gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+> span
+{
+  font-family: serif;
+  vertical-align: middle;
+  text-align: center;
+}
+}
 .groups_container
 {
   display: flex;

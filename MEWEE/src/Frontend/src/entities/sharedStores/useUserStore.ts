@@ -59,6 +59,7 @@ interface IUserStore {
     ) => Promise<void>;
 
     getProfileGallery: (callback: ResponseDataCallback,
+        userId:string
     ) => Promise<void>;
 
 }
@@ -223,11 +224,11 @@ export const useUserStore = create<IUserStore>()(
                 }
                 set((state) => ({ ...state, isLoading: false }));
             },
-            getProfileGallery: async (callback: ResponseDataCallback) => {
+            getProfileGallery: async (callback: ResponseDataCallback, userId: string) => {
 
                 try {
                     set({ isLoading: true });
-                    const response = await $api.get<any>(ENDPOINTS.USER.GET_PROFILE_GALLERY);
+                    const response = await $api.get<any>(ENDPOINTS.USER.GET_PROFILE_GALLERY+ `/${userId}`);
                     if (response?.status === 200) {
                         callback(response.data, []);
                     } else {

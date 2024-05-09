@@ -39,7 +39,9 @@
           background-color: white;
           > img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit:cover; /* Scale the image to be as large as possible while maintaining its aspect ratio and cropping to fit its container */
+            
             display: block;
           }
         }
