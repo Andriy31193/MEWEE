@@ -12,6 +12,8 @@ export const ENDPOINTS = {
         DELETE_GROUP: `${API_URL}/delete-group`,
         GET_GROUPS: `${API_URL}/groups`,
         GET_GROUP: `${API_URL}/get-group`,
+        JOIN_GROUP: `${API_URL}/join-group`,
+        UNJOIN_GROUP: `${API_URL}/unjoin-group`,
     },
     USER :{
         REGISTER: `${API_URL}/user/register`,

@@ -80,7 +80,7 @@ export const SideToolbar = () => {
         </div>
         <div className={styles.toolbar_prof_block_container} style={{cursor:"pointer"}}>
           <div className={styles.toolbar_profile_main_container}
-               onClick={() => {navigate('/profile/'+username); navigate(0);}}>
+               onClick={() => {navigate('/profile/'+username);}}>
                 {/* <ProfilePictureUploader></ProfilePictureUploader> */}
             <div className={styles.toolbar_profile_image}>
               <img src={_avatar === "" ? require("./images/unknown.jpg") : _avatar}>
@@ -112,8 +112,8 @@ export const SideToolbar = () => {
               isVisible={isVisible}
               icon={<IconEvents />}
               title={t("events")}
-              onNavigate={() => navigate('/groups')}
-              isActive={false}
+              onNavigate={() => navigate('/events')}
+              isActive={activeIcon("/events")}
               />
             <SideToolbarMenuItem
               isVisible={isVisible}
@@ -126,7 +126,7 @@ export const SideToolbar = () => {
               isVisible={isVisible}
               icon={<IconJobs />}
               title={t("jobs")}
-              onNavigate={() => navigate('/groups')}
+              onNavigate={() => {}}
               isActive={false}
               />
             <SideToolbarMenuItem

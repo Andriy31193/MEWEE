@@ -25,7 +25,7 @@ interface IPoststore {
   savePost: (callback: ResponseDataCallback, postId: string) => Promise<void>;
   unsavePost: (callback: ResponseCallback, postId: string) => Promise<void>;
   getSavePost: (callback: ResponseDataCallback, postId: string) => Promise<void>;
-  findPosts: (callback: ResponseCallback, query: string, pagination: any) => Promise<void>;
+  findPosts: (callback: ResponseDataCallback, query: string, pagination: any, setLocal?:boolean) => Promise<void>;
   likePost: (callback: ResponseCallback, postId: string) => Promise<void>;
   unLikePost: (callback: ResponseCallback, postId: string) => Promise<void>;
   getPostLikes: (callback: ResponseDataCallback, postId: string) => Promise<void>;
@@ -152,7 +152,7 @@ export const usePostsStore = create<IPoststore>((set) => ({
 
     set({ isLoading: false });
   },
-  findPosts: async (callback: ResponseCallback, query: string, pagination: any) => {
+  findPosts: async (callback: ResponseDataCallback, query: string, pagination: any, setLocal=true) => {
     set({ isLoading: true });
     set({ posts: null });
 
@@ -162,14 +162,15 @@ export const usePostsStore = create<IPoststore>((set) => ({
 
 
       if (response?.status == 200) {
-        //console.log(response.data);
+        console.log(response.data);
+        if(setLocal)
         set({ posts: response.data });
-        callback([]);
+        callback(response.data, []);
       } else {
-        callback(pErrors(response.data.errors));
+        callback(null, pErrors(response.data.errors));
       }
     } catch (error: any) {
-      callback(pErrors(['unknown_error']));
+      callback(null, pErrors(['unknown_error']));
 
     }
 

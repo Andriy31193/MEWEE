@@ -119,7 +119,7 @@ const GroupItem: FC<dataGroupItemPropTypes> = ({ data, category }) => {
                   <div>
                     <CustomButton text={t("join")} onClick={() => {
                       navigate("/group/" + currentGroup.id, { replace: false });
-                      navigate(0);
+                      
                     }} />
                   </div>
                 </div>

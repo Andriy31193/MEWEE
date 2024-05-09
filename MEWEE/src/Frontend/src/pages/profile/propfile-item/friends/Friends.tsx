@@ -43,7 +43,7 @@ const Friends: FC<{ friendsData: any }> = ({ friendsData }) => {
                     key={item.id}
                     onClick={() => {
                       navigate("/profile/" + item.username?? item.nickname, { replace: false });
-                      navigate(0);
+                      
                     }}
                   >
                     {item.online ? (

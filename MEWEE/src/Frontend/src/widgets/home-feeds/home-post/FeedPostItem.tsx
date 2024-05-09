@@ -45,6 +45,8 @@ export const FeedPostItem: FC<{ item: postDataTypes, appearance?: boolean, type?
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [showFullContent, setShowFullContent] = useState(false);
 
+
+
   const handleClickShow = () => {
     setShowFullContent(!showFullContent);
   };

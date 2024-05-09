@@ -20,7 +20,7 @@ const Profile: FC<{}> = ( ) => {
       setProfileData(data);
       
       getFriends(onFriendsResponse, data.id ?? "#");
-      refreshGallery();
+      getProfileGallery(onGetProfileGalleryResponse, data.id);
     }
   };
   const onFriendsResponse = (data: any, errors: string[]) => {
@@ -39,14 +39,14 @@ const Profile: FC<{}> = ( ) => {
   useEffect(() => {
     setTitle("profile");
     getProfile(onProfileResponse, username ?? "#");
-  }, []);
+  }, [username]);
 
   return (
     <>
       {(profileData) && (
         <Grid container sx={{ padding: "0 1rem" }}>
           <Grid item md={3} sm={12}>
-            <UserInfo profileType={EnumProfileType.User}  userData={profileData} gallery={gallery} onPhotoUploaded={refreshGallery} />
+            <UserInfo onFollow={()=>{}} profileType={EnumProfileType.User}  userData={profileData} gallery={gallery} onPhotoUploaded={refreshGallery} />
           </Grid>
           <Grid item md={8} sm={12}>
             <ProfileItem profileButtonsData={profileButtonsData} photos={gallery} profileType={EnumProfileType.User} profileData={profileData} friends={friends} />

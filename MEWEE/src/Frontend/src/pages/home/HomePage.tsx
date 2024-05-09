@@ -15,7 +15,7 @@ export const HomePage: React.FC = () => {
 
   const { posts, findPosts } = usePostsStore();
 
-  const onResponse = (errors: string[]) => {
+  const onResponse = (data: any, errors: string[]) => {
     if (errors.length == 0) { }
   };
 

@@ -9,9 +9,9 @@ import { TopSearchBarItem } from "./components/topSearchBarItem/TopSearchBarItem
 import AddPost from "./components/add-post/AddPost";
 import { CircularProgress } from "@mui/material";
 import {useLocation, useNavigate} from "react-router-dom";
-import styles from "./top_search_bar.module.scss";
 import React, {useEffect, useState} from "react";
 import Search from "./components/search-component/Search";
+import styles from "./top_search_bar.module.scss";
 
 export const TopSearchBar = () => {
   const { username, id } = useAuthStore();
@@ -47,7 +47,7 @@ export const TopSearchBar = () => {
     }
   }, [formik.values.prompt]);
 
-  const onResponse = (errors: string[]) => {
+  const onResponse = (data: any, errors: string[]) => {
     setAutoClearErrors(errors);
 
     console.log(errors);
