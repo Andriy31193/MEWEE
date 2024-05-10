@@ -36,6 +36,7 @@ export const ENDPOINTS = {
         
         FOLLOW_USER: `${API_URL}/follow-user`,
         UNFOLLOW_USER: `${API_URL}/unfollow-user`,
+        FIND_PEOPLE: `${API_URL}/find-groups-and-users`,
 
         UPLOAD_PHOTO_TO_PROFILE: `${API_URL}/user/photo`,
         GET_PROFILE_GALLERY: `${API_URL}/user/photos`,

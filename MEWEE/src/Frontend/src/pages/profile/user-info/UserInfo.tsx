@@ -182,7 +182,10 @@ const UserInfo: FC<{
                                         <div>
                                             <h1>{userData.firstName}</h1>
                                             <h1>{userData.secondName}</h1>
+                                            <br></br>
+                                            <h1 style={{color:'gray'}}>@{userData.username}</h1>
                                         </div>
+                                        
                                     )}
                                     {profileType === EnumProfileType.Group && (
                                         <div>

@@ -31,6 +31,7 @@ import {useDebounceEffect} from "./useDebounceEffect";
 import {imgPreview} from "./imgPreview";
 import {useTranslation} from "react-i18next";
 import {boolean} from "yup";
+import DecryptedImg from "../../../../pages/profile/DecryptedImg";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogActions-root": {
@@ -69,8 +70,9 @@ const initialModalStates: ModalStates = {
 };
 
 
-const AddPost: FC <{username:string, id:string, type?:EnumProfileType}> = ({
+const AddPost: FC <{username:string, avatar:string, id:string, type?:EnumProfileType}> = ({
   username,
+  avatar,
   id,
   type = EnumProfileType.User
 }) => {
@@ -421,7 +423,7 @@ const AddPost: FC <{username:string, id:string, type?:EnumProfileType}> = ({
                 <div>
                   <form>
                     <div className={styles.user}>
-                      <img src={CommentWriterAvatar}/>
+                      <DecryptedImg className={styles.profile_avatar} content={avatar} borderRadius="50%"></DecryptedImg>
                       <h3>{username}</h3>
                     </div>
                     <div className={styles.title_input}>

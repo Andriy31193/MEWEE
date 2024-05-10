@@ -34,6 +34,10 @@ interface IUserStore {
         profileAvatarData: string
     ) => Promise<void>;
 
+    updateProfileFields: (callback: ResponseCallback,
+        data: any
+    ) => Promise<void>;
+
 
     getFollowers: (callback: ResponseDataCallback,
         userId: string
@@ -62,6 +66,11 @@ interface IUserStore {
         userId:string
     ) => Promise<void>;
 
+    findPeople: (callback: ResponseDataCallback,
+        searchQuery:string,
+        pagination: any
+    ) => Promise<void>;
+    
 }
 export const useUserStore = create<IUserStore>()(
     persist(
@@ -101,6 +110,27 @@ export const useUserStore = create<IUserStore>()(
                     const response = await $api.put<any>(
                         ENDPOINTS.USER.UPDATE_PROFILE_DATA,
                         { ProfileAvatar: profileAvatarData },
+                        { withCredentials: true }
+                    );
+                    if (response?.status == 200) {
+                        callback([]);
+                    } else {
+                        callback(pErrors(response.data.errors));
+                    }
+                } catch (error: any) {
+                    callback(pErrors(['unknown_error']));
+
+                }
+
+                set({ isUserStoreLoading: false });
+            },
+            updateProfileFields: async (
+                callback: ResponseCallback,
+                request: any
+            ) => {
+                try {
+                    const response = await $api.put<any>(
+                        ENDPOINTS.USER.UPDATE_PROFILE_DATA, request,
                         { withCredentials: true }
                     );
                     if (response?.status == 200) {
@@ -229,6 +259,25 @@ export const useUserStore = create<IUserStore>()(
                 try {
                     set({ isUserStoreLoading: true });
                     const response = await $api.get<any>(ENDPOINTS.USER.GET_PROFILE_GALLERY+ `/${userId}`);
+                    if (response?.status === 200) {
+                        callback(response.data, []);
+                    } else {
+                        callback(null, pErrors(response.data.errors));
+                    }
+                } catch (error: any) {
+                    callback(null, pErrors(['unknown_error']));
+
+                }
+                set((state) => ({ ...state, isUserStoreLoading: false }));
+            },
+            findPeople: async (callback: ResponseDataCallback, searchQuery: string, pagination: any) => {
+
+                try {
+                    set({ isUserStoreLoading: true });
+                    const response = await $api.post<any>(
+                        ENDPOINTS.USER.FIND_PEOPLE,
+                        { searchQuery: searchQuery, pagination: pagination },
+                    );
                     if (response?.status === 200) {
                         callback(response.data, []);
                     } else {

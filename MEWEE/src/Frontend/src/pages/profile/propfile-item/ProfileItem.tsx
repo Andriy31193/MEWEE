@@ -91,7 +91,7 @@ const ProfileItem: FC<{profileButtonsData:any,  profileData: any, photos: any, p
             }
             {profileType == EnumProfileType.Group && (
 
-              <AddPost username={profileData.username} id={profileData.id} type={EnumProfileType.Group}></AddPost>
+              <AddPost avatar={profileData.avatar} username={profileData.username} id={profileData.id} type={EnumProfileType.Group}></AddPost>
 
             )}
           </ul>

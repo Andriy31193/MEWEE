@@ -1,19 +1,28 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import styles from "./search_group_item.module.scss"
 import { ReactComponent as CloseIcon } from "../../../../../../assets/image/icons/CloseIcon.svg";
+import DecryptedImg from "../../../../../../pages/profile/DecryptedImg";
+import { useNavigate } from "react-router-dom";
 
-export const SearchGroupItem= () => {
-
+export const SearchGroupItem: FC<{ item: any, }> = ({
+    item,
+}) => {
+    const [show, setShow] = useState<boolean>(true);
+    const navigate = useNavigate();
     return (
-        <div className={styles.div}>
-            <div>
-                <img src="https://masterpiecer-images.s3.yandex.net/c352b1b9801c11ee9607720ccb3e265f:upscaled"/>
-                <h2>Group one</h2>
-            </div>
-            <div>
-                <CloseIcon />
-            </div>
-        </div>
+        <>
+            {show && (
+                <div className={styles.div} >
+                    <div onClick={() => navigate('/group/' + item.nickname)}>
+                        <DecryptedImg content={item.avatar}></DecryptedImg>
+                        <h5>@{item.nickname}</h5>
+                    </div>
+                    <div>
+                        <CloseIcon onClick={() => { setShow(false); }} />
+                    </div>
+                </div>
+            )}
+        </>
     );
 };
 

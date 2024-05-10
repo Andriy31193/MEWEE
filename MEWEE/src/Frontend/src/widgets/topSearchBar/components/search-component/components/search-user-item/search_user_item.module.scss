@@ -12,6 +12,7 @@
     padding: 0.5rem;
     align-items: center;
     > img{
+      object-fit: cover;
       width: 26px;
       height: 26px;
       border-radius: 50%;

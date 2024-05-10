@@ -1,4 +1,8 @@
 @import "src/mixins.scss";
+.profile_avatar
+{
+  object-fit: cover;
+}
 .div_add {
   cursor: pointer;
   width: 24px;

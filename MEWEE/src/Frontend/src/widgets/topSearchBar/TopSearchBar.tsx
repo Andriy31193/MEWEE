@@ -1,4 +1,4 @@
-import { useAuthStore, useErrors, usePostsStore, useSearchBar, useThemeStore } from "../../entities";
+import { useAuthStore, useErrors, usePostsStore, useSearchBar, useThemeStore, useUserStore } from "../../entities";
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
 import { ReactComponent as IconPlus } from "./images/icon_plus.svg";
@@ -14,17 +14,42 @@ import Search from "./components/search-component/Search";
 import styles from "./top_search_bar.module.scss";
 
 export const TopSearchBar = () => {
-  const { username, id } = useAuthStore();
+  const { username, avatar, id } = useAuthStore();
   const navigate = useNavigate();
   const { t } = useTranslation();
   // const { username, email, isLoggedIn, role, isEmailConfirmed } = useAuthStore();
   const [errors, setErrors, setAutoClearErrors] = useErrors();
   const { title } = useSearchBar();
+  const { findPeople } = useUserStore();
   const { currentTheme } = useThemeStore();
   const { isLoading, findPosts, getPosts } = usePostsStore();
   // const fio = username?.split(' ');
+  const [searchUsers, setSearchUsers] = useState<any>(null);
+  const [searchGroups, setSearchGroups] = useState<any>(null);
   const location = useLocation();
   const [isVisible, setIsVisible] = useState(false);
+
+  const debounce = <F extends (...args: any[]) => void>(callback: F, delay: number) => {
+    let timeoutId: NodeJS.Timeout | null = null;
+    return function(this: any, ...args: Parameters<F>) {
+      clearTimeout(timeoutId as NodeJS.Timeout);
+      timeoutId = setTimeout(() => {
+        callback.apply(this, args);
+      }, delay);
+    };
+  };
+  const onFindResponse = (data: any, errors: string[]) => {
+    
+
+    if (errors.length == 0) {
+      setSearchGroups(data.groups);
+      setSearchUsers(data.users);
+     }
+    else console.error(errors);
+  };
+  const handleInput = () => {
+    findPeople(onFindResponse, formik.values.prompt, {page: 0, pageSize: 10});
+  } 
 
   const activeIcon = (path: string) => {
     return location.pathname.includes(path);
@@ -69,20 +94,21 @@ export const TopSearchBar = () => {
             id="prompt"
             value={formik.values.prompt}
             onChange={formik.handleChange}
+            onBlur={handleInput}
             placeholder={t("search") + "..."}
           />
           <span className={`${styles.input_search_bar_icon} ${styles.search_icon_default}`}
             onClick={() => formik.handleSubmit()} />
         </div>
         {isVisible && (
-          <Search />
+          <Search users={searchUsers} groups={searchGroups} />
         )}
       </div>
       <div>
       </div>
       {isLoading && <CircularProgress size={"1rem"}></CircularProgress>}
       <div className={styles.top_search_bar_tools_container}>
-        <AddPost username={username ?? ""} id={id ?? ""} />
+        <AddPost avatar={avatar??""} username={username ?? ""} id={id ?? ""} />
         <TopSearchBarItem onClick={() => navigate('/feed')} icon={<IconFilter />}
           isActive={false} />
         <TopSearchBarItem onClick={() => navigate('/feed')} icon={<IconNothification />}
