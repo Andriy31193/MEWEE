@@ -30,8 +30,8 @@ const ProfileItem: FC<{profileButtonsData:any,  profileData: any, photos: any, p
 
   const [groupCategory, setGroupCategory] = useState('Interesting');
   const {t} = useTranslation();
-  const handleDropdownChange = (event: any) => {
-    setGroupCategory(event.target.value);
+  const handleDropdownChange = (value: string) => {
+    setGroupCategory(value);
   };
 
   const [createGroupFormEnabled, setCreateGroupFormEnabled] = useState<boolean>(false);
@@ -67,7 +67,6 @@ const ProfileItem: FC<{profileButtonsData:any,  profileData: any, photos: any, p
   }
   const handleCreateGroup = () => {
     createGroup(onGroupCreationResponse, formik.values.groupName, "", groupCategory);
-
   }
 
 
@@ -113,13 +112,13 @@ const ProfileItem: FC<{profileButtonsData:any,  profileData: any, photos: any, p
             (
               <div className={styles.groups_container}>
                 <div className={styles.groups_add_btn} onClick={() => setCreateGroupFormEnabled(!createGroupFormEnabled)}>
-                  {createGroupFormEnabled ? "▲" : "▼"} NEW GROUP {createGroupFormEnabled ? "▲" : "▼"} </div>
+                  {t('create_new_group')}</div>
                 {createGroupFormEnabled && (
                     <ProfileGroupAdd
                         formik={formik}
-                        groupCategory={groupCategory}
                         handleDropdownChange={handleDropdownChange}
                         handleCreateGroup={handleCreateGroup}
+                        setCreateGroupFormEnabled={setCreateGroupFormEnabled}
                     />
                 )}
                 {/* <Friends friendsData={friends} /> */}

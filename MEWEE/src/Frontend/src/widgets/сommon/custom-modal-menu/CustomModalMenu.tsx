@@ -79,7 +79,7 @@ export const CustomModalMenu: React.FC<Props> = ({ location }) => {
             </div>
             {complainMenu && (
                 <div className={styles.fullscreen_message}>
-                <div>{t("complain_sent")}</div>
+                    <div>{t("complain_sent")}</div>
                     <div>
                         <button onClick={() => handleAction('closeMenu')}>{t("close")}</button>
                     </div>

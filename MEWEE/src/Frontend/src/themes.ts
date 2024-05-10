@@ -7,10 +7,14 @@ declare module '@mui/material/styles' {
       white_302a37: string;
       black_white: string;
       black_b67afe: string;
+      gray_a8a8a8: string;
       b67afe_white: string;
       b67afe_25005c: string;
       _25005c_white: string;
       _25005c_b67afe: string;
+      _25005c_fba500: string;
+      d6ceffbf_53258bbf: string;
+
     },
     authPages:{
       commonElements:{
@@ -127,10 +131,13 @@ declare module '@mui/material/styles' {
       white_302a37?: string;
       black_white?: string;
       black_b67afe?: string;
+      gray_a8a8a8?: string;
       b67afe_white?: string;
       b67afe_25005c?: string;
       _25005c_white?: string;
       _25005c_b67afe?: string;
+      _25005c_fba500?: string;
+      d6ceffbf_53258bbf?: string;
 
     },
     authPages?:{
@@ -248,10 +255,13 @@ export const themes: Theme[] = [
       white_302a37: 'white',
       black_white: 'black',
       black_b67afe: 'black',
+      gray_a8a8a8: 'gray',
       b67afe_white: '#b67afe',
       b67afe_25005c: '#b67afe',
       _25005c_white: '#25005c',
       _25005c_b67afe: '#25005c',
+      _25005c_fba500: '#25005c',
+      d6ceffbf_53258bbf: '#d6ceffbf',
     },
     authPages:{
       commonElements:{
@@ -371,10 +381,13 @@ export const themes: Theme[] = [
       white_302a37: '#302a37',
       black_white: 'white',
       black_b67afe: '#b67afe',
+      gray_a8a8a8: '#a8a8a8',
       b67afe_white: 'white',
       b67afe_25005c: '#25005c',
       _25005c_white: 'white',
       _25005c_b67afe: '#b67afe',
+      _25005c_fba500: '#fba500',
+      d6ceffbf_53258bbf: '#53258bbf',
     },
     authPages:{
       commonElements:{
