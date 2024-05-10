@@ -38,7 +38,7 @@ const EventItem: FC<{ item: any }> = ({ item }) => {
                             <span>{item.title} {formatTime(item.happeningAtUtc)}</span>
                         </div>
                         <div className={styles.button_section}>
-                            <CustomButton text={text} onClick={() => {
+                            <CustomButton text={t(text)} onClick={() => {
                                 setText("subscribed");
                                 //navigate("/post/" + item.id, { replace: false });
                             }} />

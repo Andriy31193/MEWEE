@@ -11,11 +11,13 @@
     display: flex;
     padding: 0.5rem;
     align-items: center;
+    border-radius: 50% !important;
     > img{
+
       object-fit: cover;
       width: 26px;
       height: 26px;
-      border-radius: 50%;
+      border-radius: 50% !important;
       margin-right: 0.5rem;
     }
     > h2{

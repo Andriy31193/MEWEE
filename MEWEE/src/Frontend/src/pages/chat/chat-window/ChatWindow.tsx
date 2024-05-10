@@ -199,10 +199,10 @@ const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
         {speaker && (
             <div className={styles.div}>
               <div className={styles.subdiv_up}>
-                <div className={styles.subdiv_up_left}>
+                <div className={styles.subdiv_up_left} >
                   <img src={avatar} onClick={moveToProfile} />
                   <div>
-                    <div>
+                    <div style={{cursor:'pointer'}} onClick={()=>{navigate('/profile/'+speaker.username)}}>
                       <h2>{speaker.firstName} {speaker.secondName}</h2>
                       <h5>(@{speaker.username})</h5>
                     </div>
