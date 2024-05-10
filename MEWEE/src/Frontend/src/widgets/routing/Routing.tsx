@@ -17,6 +17,10 @@ import Messenger from "../../pages/messenger/Messenger";
 import Chat from "../../pages/chat/Chat";
 import Setting from "../../pages/setting/Setting";
 import Group from "../../pages/groups/group/Group";
+import SettingProfile from "../../pages/setting/components/setting-profile/SettingProfile";
+import SettingSecurity from "../../pages/setting/components/setting-security/SettingSecurity";
+import SettingAccount from "../../pages/setting/components/setting-account/SettingAccount";
+import PageDevelopment from "../сommon/page-development/PageDevelopment";
 import Events from "../../pages/groups/eventsWindow/Events";
 
 export const Routing = () => {
@@ -34,11 +38,15 @@ export const Routing = () => {
                <Route path="/post/:id" element={<PostShow />} /> 
               <Route path="/events" element={<Events />} />
               <Route path="/groups" element={<Groups />} />
+              <Route path="/jobs" element={<PageDevelopment />} />
               <Route path="/group/:id" element={<Group />} />
               <Route path="/profile/:username" element={<Profile />} />
               <Route path="/messenger" element={<Messenger />} />
               <Route path="/chat" element={<Chat />} />
               <Route path="/settings" element={<Setting />} />
+                <Route path="/settings/profile" element={<SettingProfile />} />
+                <Route path="/settings/security" element={<SettingSecurity />} />
+                <Route path="/settings/account" element={<SettingAccount />} />
               <Route
                 path="plans"
                 element={

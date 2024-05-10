@@ -72,7 +72,15 @@ declare module '@mui/material/styles' {
         secondBackgroundHover: string;
         thirdBackground: string;
         secondColorText: string;
-      }
+      },
+      settings:{
+        icon: string;
+        background: string;
+        colorText: string;
+        inputBackground: string;
+        borderColor: string;
+        hoverOption: string;
+      },
       post: {
         icon: string;
         secondIcon: string;
@@ -176,6 +184,14 @@ declare module '@mui/material/styles' {
         thirdBackground?: string;
         secondColorText?: string;
       }
+      settings?:{
+        icon?: string;
+        background?: string;
+        colorText?: string;
+        inputBackground?: string;
+        borderColor?: string;
+        hoverOption?: string;
+      },
       post?: {
         icon?: string;
         secondIcon?: string;
@@ -278,6 +294,14 @@ export const themes: Theme[] = [
         secondBackgroundHover: '#E9E4FF',
         thirdBackground: '#E9E4FF',
         secondColorText: 'gray',
+      },
+      settings:{
+        icon: '#25005C',
+        background: 'white',
+        colorText: '#25005C',
+        inputBackground: 'white',
+        borderColor: '#25005C',
+        hoverOption: '#e1dcf6',
       },
       post: {
         icon: '#25005C',
@@ -384,6 +408,15 @@ export const themes: Theme[] = [
         secondBackgroundHover: '#645e72',
         thirdBackground: '#B67AFE',
         secondColorText: 'white',
+      },
+      settings:{
+        icon: 'white',
+        background: '#302a37',
+        colorText: 'white',
+        inputBackground: '#4e4955',
+        borderColor: '#B67AFE',
+        hoverOption: '#615b6e',
+
       },
       post: {
         icon: '#B67AFE',

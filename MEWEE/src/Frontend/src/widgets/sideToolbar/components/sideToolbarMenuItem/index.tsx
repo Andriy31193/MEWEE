@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./side_toolbar_menu_item.module.scss"
-import {useLocation} from "react-router-dom";
 
 interface SideToolbarMenuItemProps {
     title: string;

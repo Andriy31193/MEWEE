@@ -39,22 +39,24 @@ const DialogItem: FC<{ chatId: string, onClick: ()=>void, userIds: any, sideBarT
     return (
         <>
             {speaker && (
-                <div key={speaker.id} className={styles.chat_div} onClick={onClick}
+                <div key={speaker.id} className={`${styles.chat_div} 
+                ${openChat && chatId === currentChatId && styles.active}`} onClick={onClick}
                      style={{
                          marginBottom: openChat ? "0" : "0.8rem",
                          borderRadius: openChat ? "0.5rem" : "1rem",
-                         ...(openChat && chatId === currentChatId && { backgroundColor: "#FBA500" }),
                      }}>
                     <img src={avatar}/>
                     <div className={styles.chat_div_item}>
                         <div className={styles.chat_div_item1}>
                             <div>
-                                <h2>{speaker.firstName} {speaker.secondName}</h2>
+                                <h2 className={`${openChat && chatId === currentChatId && styles.active_text}`}>
+                                    {speaker.firstName} {speaker.secondName}</h2>
                                 {!openChat && (
                                     <h5>(@{speaker.username})</h5>
                                 )}
                             </div>
-                            <p>Last comment...</p>
+                            <p className={`${openChat && chatId === currentChatId && styles.active_text}`}>
+                                Last comment...</p>
                         </div>
                         {!sideBarType && (
                             <>

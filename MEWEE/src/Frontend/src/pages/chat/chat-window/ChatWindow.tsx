@@ -6,6 +6,7 @@ import { smileData } from "../../../widgets/widgetData";
 import CustomModalIcon from "../../../widgets/сommon/custom-modal-icon/CustomModalIcon";
 import { modalPostDataLink } from "../../../widgets/widgetData";
 import { ReactComponent as VolumeHigh } from "../../../assets/image/icons/VolumeHigh.svg";
+import { ReactComponent as VolumeOff } from "../../../assets/image/icons/VolumeOff.svg";
 import CommentWriterAvatar from "../../../assets/image/CommentWriterAvatar.png";
 import { chatDataTypes } from "../chatData.interface";
 import { incomingMessageData } from "../chatData";
@@ -35,10 +36,11 @@ const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
   const { getProfile } = useUserStore();
   const [chatData, setChatData] = useState<any>(null);
   const { id } = useAuthStore();
-  const fileInputRef = useRef<HTMLInputElement>(null); // Создание рефа для элемента
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [visibleSmile, setVisibleSmile] = useState<boolean>(true);
   const [massageArray, setMassageArray] = useState<chatDataTypes[]>([]);
   const [inputData, setInputData] = useState<string>("");
+  const [volumeOff, setVolumeOff] = useState<boolean>(false);
   const [incomingMessage, setIncomingMessage] = useState<chatDataTypes>({
     id: "",
     content: "",
@@ -98,10 +100,10 @@ const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
     if (chat) {
 
       const chatUserIds = chat.chatUsers
-        ? chat.chatUsers
-          .map((user: any) => user.userId)
-          .filter((userId: string) => userId !== id)
-        : [];
+          ? chat.chatUsers
+              .map((user: any) => user.userId)
+              .filter((userId: string) => userId !== id)
+          : [];
 
       console.log("CHAT USERS: ", chat.chatUsers);
 
@@ -193,108 +195,112 @@ const ChatWindow: FC<ChatWindowProps> = ({ chat }) => {
   }, [outgoingMessage]);
 
   return (
-    <>
-      {speaker && (
-        <div className={styles.div}>
-          <div className={styles.subdiv_up}>
-            <div className={styles.subdiv_up_left}>
-              <img src={avatar} onClick={moveToProfile} />
-              <div>
-                <div>
-                  <h2>{speaker.firstName} {speaker.secondName}</h2>
-                  <h5>(@{speaker.username})</h5>
-                </div>
-                <p>{t('last_online_recently')}</p>
-              </div>
-            </div>
-            <div className={styles.subdiv_up_right}>
-              <VolumeHigh />
-              <div>
-                <CustomModalMenu location={["100%", "0%", "", ""]} />
-              </div>
-            </div>
-          </div>
-          <div className={styles.subdiv_down}>
-            <div ref={chatContainerRef}>
-              {chatData &&
-                chatData.map((item: any) => {
-                  const dateString = item.createdAt;
-                  const date = new Date(dateString);
-
-                  const hours = date.getHours();
-                  const minutes = date.getMinutes();
-
-                  const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-
-                  const isPost = item.content.includes("postId:");
-
-                  return (
-                    <div key={item.id} className={styles.subdiv_message}>
-                      {item.userId === id && (
-                        <div className={styles.outgoing_message}>
-                          <div>
-                            {!isPost && <p>{item.content}</p>}
-                            {isPost && (
-                              <ChatPost postId={item.content.split(':')[1]}></ChatPost>
-                            )}
-                            <span>{formattedTime}</span>
-                          </div>
-                        </div>
-                      )}
-                      {item.userId !== id && (
-                        <div className={styles.incoming_message}>
-                          <div>
-                            {!isPost && <p>{item.content}</p>}
-                            {isPost && (
-                              <ChatPost postId={item.content.split(':')[1]}></ChatPost>
-                            )}
-                            <span>{formattedTime}</span>
-                          </div>
-                        </div>
-                      )}
-
+      <>
+        {speaker && (
+            <div className={styles.div}>
+              <div className={styles.subdiv_up}>
+                <div className={styles.subdiv_up_left}>
+                  <img src={avatar} onClick={moveToProfile} />
+                  <div>
+                    <div>
+                      <h2>{speaker.firstName} {speaker.secondName}</h2>
+                      <h5>(@{speaker.username})</h5>
                     </div>
-                  );
-                })}
-            </div>
+                    <p>{t('last_online_recently')}</p>
+                  </div>
+                </div>
+                <div className={styles.subdiv_up_right}>
+                  {!volumeOff ? (
+                      <VolumeHigh onClick={() => setVolumeOff(prevVolumeOff => !prevVolumeOff)}/>
+                      ) :
+                      <VolumeOff onClick={() => setVolumeOff(prevVolumeOff => !prevVolumeOff)}/>
+                  }
+                  <div>
+                    <CustomModalMenu location={["100%", "0%", "", ""]} />
+                  </div>
+                </div>
+              </div>
+              <div className={styles.subdiv_down}>
+                <div ref={chatContainerRef}>
+                  {chatData &&
+                      chatData.map((item: any) => {
+                        const dateString = item.createdAt;
+                        const date = new Date(dateString);
 
-            <form className={styles.input_message}>
-              <input
-                type="file"
-                id="fileInput"
-                ref={fileInputRef}
-                className="hidden-input"
-                name="uploadedFile"
-                style={{ display: "none" }}
-              />
-              <div>
-                <AddCircle onClick={handleAddCircleClick} />{" "}
-                <EmojiIcon onClick={handleClickSmileVisible} />
+                        const hours = date.getHours();
+                        const minutes = date.getMinutes();
+
+                        const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+                        const isPost = item.content.includes("postId:");
+
+                        return (
+                            <div key={item.id} className={styles.subdiv_message}>
+                              {item.userId === id && (
+                                  <div className={styles.outgoing_message}>
+                                    <div>
+                                      {!isPost && <p>{item.content}</p>}
+                                      {isPost && (
+                                          <ChatPost postId={item.content.split(':')[1]}></ChatPost>
+                                      )}
+                                      <span>{formattedTime}</span>
+                                    </div>
+                                  </div>
+                              )}
+                              {item.userId !== id && (
+                                  <div className={styles.incoming_message}>
+                                    <div>
+                                      {!isPost && <p>{item.content}</p>}
+                                      {isPost && (
+                                          <ChatPost postId={item.content.split(':')[1]}></ChatPost>
+                                      )}
+                                      <span>{formattedTime}</span>
+                                    </div>
+                                  </div>
+                              )}
+
+                            </div>
+                        );
+                      })}
+                </div>
+
+                <form className={styles.input_message}>
+                  <input
+                      type="file"
+                      id="fileInput"
+                      ref={fileInputRef}
+                      className="hidden-input"
+                      name="uploadedFile"
+                      style={{ display: "none" }}
+                  />
+                  <div>
+                    <AddCircle onClick={handleAddCircleClick} />{" "}
+                    <EmojiIcon onClick={handleClickSmileVisible} />
+                  </div>
+                  <input type="text" value={inputData} onKeyDown={handleKeyDown} onChange={handlerDataInput} />
+                  <div>
+                    <SentIcon onClick={handleMessageClick} style={{ marginRight: '0' }} />
+                  </div>
+                  <div
+                      className={
+                        visibleSmile
+                            ? styles.smile_icon
+                            : `${styles.smile_icon} ${styles._smile_icon_visible}`
+                      }
+                  >
+                    <ul>
+                      {smileData.map((item, index) => (
+                          <li key={index}>
+                            <img src={item.smile} />
+                          </li>
+                      ))}
+                    </ul>
+                  </div>
+                </form>
               </div>
-              <input type="text" value={inputData} onKeyDown={handleKeyDown} onChange={handlerDataInput} />
-              <div>
-                <SentIcon onClick={handleMessageClick} style={{ marginRight: '0' }} />
-              </div>
-              <div
-                className={
-                  visibleSmile
-                    ? styles.smile_icon
-                    : `${styles.smile_icon} ${styles._smile_icon_visible}`
-                }
-              >
-                <ul>
-                  {smileData.map((item, index) => (
-                    <li key={index}>
-                      <img src={item.smile} />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-    </>
+            </div>
+        )}
+      </>
   );
 };
 

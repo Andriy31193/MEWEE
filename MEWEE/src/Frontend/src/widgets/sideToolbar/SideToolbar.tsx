@@ -160,7 +160,6 @@ export const SideToolbar = () => {
           {isVisible && <SwitchComponent />}
           <LanguageComponent />
         </div>
-        <button onClick={() => navigate("/auth/logout")}>LOGOUT</button>
       </div>
     </div>
   );

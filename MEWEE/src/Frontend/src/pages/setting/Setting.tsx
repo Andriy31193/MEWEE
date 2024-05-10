@@ -1,11 +1,11 @@
 import { FC, useEffect } from "react";
 import { Grid } from "@mui/material";
-import DropdownTabs from "./dropdown-tabs/DropdownTabs";
+import MoreTabs from "./more-tabs/MoreTabs";
 import SwitchTabs from "./switch-tabs/SwitchTabs";
-import { dropdownTabsData, switchTabsData } from "./settingData";
+import { moreTabsData, switchTabsData } from "./settingData";
 import { useSearchBar } from "../../entities";
 const Setting: FC = () => {
-  const dropdownTabs = dropdownTabsData();
+  const moreTabs = moreTabsData();
   const { setTitle } = useSearchBar();
   const switchTabs = switchTabsData();
 
@@ -17,10 +17,15 @@ const Setting: FC = () => {
     <div>
       <Grid container>
         <Grid item md={6}>
-          <DropdownTabs dropdownTabsData={dropdownTabs} />
+          <MoreTabs moreTabsData={moreTabs} />
+          {switchTabs.slice(0, 2).map((tab, index) => (
+              <SwitchTabs switchTabsData={[tab]} />
+          ))}
         </Grid>
         <Grid item md={6}>
-          <SwitchTabs switchTabsData={switchTabs} />
+          {switchTabs.slice(2).map((tab, index) => (
+              <SwitchTabs switchTabsData={[tab]} />
+          ))}
         </Grid>
       </Grid>
     </div>

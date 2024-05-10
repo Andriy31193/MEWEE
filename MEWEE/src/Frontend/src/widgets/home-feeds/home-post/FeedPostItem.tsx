@@ -81,6 +81,7 @@ export const FeedPostItem: FC<{ item: postDataTypes, appearance?: boolean, type?
       text: "modal_home_link3",
     },
   ]);
+
   const onGetPostLikesResponse = (data: any, errors: string[]) => {
 
     if (errors.length == 0 && data !== null) {
@@ -137,6 +138,7 @@ export const FeedPostItem: FC<{ item: postDataTypes, appearance?: boolean, type?
     if (errors.length == 0 && data !== null) {
       setAuthor(data.group);
       console.log(data);
+
       modalPostDataLink[0].onClick = () => navigate('/group/' + data.group.nickname),
         data.group.avatar && decryptImage(data.group.avatar).then(setAvatar).catch(console.error);
     }
@@ -170,7 +172,7 @@ export const FeedPostItem: FC<{ item: postDataTypes, appearance?: boolean, type?
     console.log(item);
     getComments(onResponse, item.id, 1, 0);
     getPostLikes(onGetPostLikesResponse, item.id);
-    console.log("category:", item.category.indexOf("User") !== -1);
+
     if (item.category.indexOf("User") !== -1)
       getProfile(onProfileResponse, item.authorId);
     else if (item.category.indexOf("Group") !== -1)

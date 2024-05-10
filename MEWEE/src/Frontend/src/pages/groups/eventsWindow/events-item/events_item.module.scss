@@ -2,6 +2,7 @@
   width: 300px;
   height: max-content;
   background-color: white;
+  border-radius: 20px;
 .imagediv
 {
   width: 100%;
@@ -9,26 +10,39 @@
 
   > img
   {
-    object-fit: contain;
+    object-fit: cover;
   }
 }
   .subdiv {
     display: flex;
+    flex-direction: column;
     height: max-content;
-    background-color: wheat;
 
 
     .titlediv
     {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      >span
+      {
+        
+        margin-left: 1rem;
+
+      }
 
     }
     .button_section
     {
       > div
       {
+padding: 2rem;
+padding-bottom: 1rem;
+padding-top: 0.5rem;
         >button
         {
-          padding: 0;
+          padding: 0.5rem;
         }
       }
     }

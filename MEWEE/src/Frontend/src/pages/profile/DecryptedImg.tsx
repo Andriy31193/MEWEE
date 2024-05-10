@@ -20,7 +20,7 @@ const DecryptedImg: FC<{ content: string, className?: string, borderRadius?: str
     };
 
     return (
-        <img className={className} style={imgStyles} src={image} alt="Decrypted Image" />
+        <img className={className} style={imgStyles} src={image} />
     );
 };
 

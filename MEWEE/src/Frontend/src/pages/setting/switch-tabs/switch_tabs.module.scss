@@ -1,13 +1,16 @@
 .div {
-  padding: 1rem;
-  color: #25005c;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+  color: var(--mainPage_settings_colorText);
+  cursor: default;
+  font-family: "Geometria", sans-serif;
   > ul {
     > li {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: white;
-      border-radius: 10px;
+      background-color: var(--mainPage_settings_background);
+      border-radius: 7px;
       padding: 1rem;
     }
   }

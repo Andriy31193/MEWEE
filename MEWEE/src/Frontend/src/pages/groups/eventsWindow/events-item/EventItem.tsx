@@ -9,7 +9,17 @@ import styles from "./events_item.module.scss";
 
 const EventItem: FC<{ item: any }> = ({ item }) => {
     const navigate = useNavigate();
-
+    function formatTime(dateString: string) {
+        const date = new Date(dateString);
+        const day = date.getDate(); // Use getDate instead of getDay for day of the month
+        const month = date.getMonth() + 1; // Months are zero-based, so add 1
+        const year = date.getFullYear(); // Use getFullYear to get the full year
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const formattedTime = `${day.toString().padStart(2, '0')}.${month.toString().padStart(2, '0')}.${year.toString()}`;
+        return formattedTime;
+    }
+    
     return (
         <Grid item md={3}>
             {item && (
@@ -21,7 +31,7 @@ const EventItem: FC<{ item: any }> = ({ item }) => {
                     </div>
                     <div className={styles.subdiv}>
                         <div className={styles.titlediv}>
-                            <h4>{item.title}</h4>
+                            <span>{item.title} {formatTime(item.happeningAtUtc)}</span>
                         </div>
                         <div className={styles.button_section}>
                             <CustomButton text={"Підписатись на подію"} onClick={() => {
