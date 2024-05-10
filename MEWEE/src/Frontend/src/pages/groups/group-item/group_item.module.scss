@@ -2,11 +2,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  > h2{
+    font-family: "Geometria", sans-serif;
+    color: var(--colorVariation_black_white);
+  }
+  >svg {
+    cursor: pointer;
+    color: var(--colorVariation_black_white);
+
+    &:hover{
+      opacity: 0.75;
+    }
+
+    &:active{
+      color: #fba500;
+    }
+  }
 }
 
 .div {
   position: relative;
-  background-color: white;
+  background-color: var(--colorVariation_white_302a37);
   border-radius: 16px;
   margin: 0.5rem;
   > img {
@@ -57,4 +73,9 @@
     top: 0;
     right: 1rem;
   }
+}
+
+.div_group_title{
+  color: var(--colorVariation_black_white);
+  font-family: "Geometria", sans-serif;
 }

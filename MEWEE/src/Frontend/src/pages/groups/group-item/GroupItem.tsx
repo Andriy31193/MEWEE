@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { Grid } from "@mui/material";
-import KubsGroupPage from "../../../assets/image/icons/KubsGroupPage.svg";
+import { ReactComponent as KubsGroupPage } from "../../../assets/image/icons/KubsGroupPage.svg";
 import CustomButton from "../../../widgets/сommon/custom-button/customButton";
 import CustomModalIcon from "../../../widgets/сommon/custom-modal-icon/CustomModalIcon";
 import {
@@ -92,7 +92,7 @@ const GroupItem: FC<dataGroupItemPropTypes> = ({ data, category }) => {
       <Grid item md={12}>
         <header className={styles.header}>
           <h2>{t("might_like_it")}</h2>
-          <img src={KubsGroupPage} />
+          <KubsGroupPage />
         </header>
       </Grid>
       {data &&
@@ -108,7 +108,7 @@ const GroupItem: FC<dataGroupItemPropTypes> = ({ data, category }) => {
                   <DecryptedImg borderRadius="20px" size="100%" content={currentGroup.avatar}></DecryptedImg>
                 )}
                 <div>
-                  <div>
+                  <div className={styles.div_group_title}>
                     <h4>{currentGroup.title}</h4>
                     {members && (
                       <p>

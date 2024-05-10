@@ -34,13 +34,14 @@ border-left: 2px dashed gray;
   width: 100%;
   height: 3rem;
   border-radius: 10px;
-  background-color: white;
+  background-color: var(--colorVariation_white_302a37);
   vertical-align: middle;
   text-align: center;
   cursor: pointer;
 }
 .div {
-  color: #25005c;
+  color: var(--colorVariation__25005c_white);
+  font-family: "Geometria", sans-serif;
   padding: 1rem;
   
   > ul {
@@ -49,7 +50,7 @@ border-left: 2px dashed gray;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: white;
+    background-color: var(--colorVariation_white_302a37);
     border-radius: 10px;
     padding: 1.5rem 4rem;
     margin: 5rem 0 2rem 0;
@@ -70,6 +71,20 @@ border-left: 2px dashed gray;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 1rem;
+      >div{
+        color: var(--colorVariation_black_b67afe);
+        > svg{
+          cursor: pointer;
+
+          &:hover{
+            opacity: 0.75;
+          }
+
+          &:active{
+            color: #fba500;
+          }
+        }
+      }
     }
   }
 }

@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from "react";
 import { CircularProgress, Grid } from "@mui/material";
 import ProfileLockal from "../../../assets/image/icons/ProfileLockal.svg";
-import PropfileAdd from "../../../assets/image/icons/PropfileAdd.svg";
+import { ReactComponent as ProfileAdd } from "../../../assets/image/icons/ProfileAdd.svg";
 import ProfilePortfolio from "../../../assets/image/icons/ProfilePortfolio.svg";
-import CommentPostIcon from "../../../assets/image/icons/CommentPostIcon.svg";
+import { ReactComponent as CommentPostIcon } from "../../../assets/image/icons/CommentPostIcon.svg";
 import ProfileLovely from "../../../assets/image/icons/ProfileLovely.svg";
 import ProfileFlash from "../../../assets/image/icons/ProfileFlash.svg";
 import { decryptImage, encryptImage } from "../../../entities/sharedStores/post-utils";
@@ -190,12 +190,11 @@ const UserInfo: FC<{
                                         {(userData.id !== id) && (
                                             <>
                                                 <button onClick={() => handleFolow(userData.id)}>{t(followingStatus)}</button>
-
-                                                <img style={{ cursor: "pointer" }} onClick={handleMessageUser} src={CommentPostIcon} />
+                                                <div><CommentPostIcon onClick={handleMessageUser}/></div>
                                             </>
                                         )}
                                         {(userData.id === id) && (
-                                            <img style={{ cursor: "pointer" }} onClick={handleAddPhoto} src={PropfileAdd} />
+                                            <div><ProfileAdd onClick={handleAddPhoto}/></div>
                                         )}
                                     </>
                                 )}
