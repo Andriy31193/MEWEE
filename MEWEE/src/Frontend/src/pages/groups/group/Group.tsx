@@ -34,11 +34,13 @@ const Group: FC = () => {
         username: group.nickname,
         website: `@${group.nickname}`,
         title: group.title,
-        members: data.members,
         followersCount: data.members.length
     };
+    console.log("fetched",fetchedData);
       setProfileData(fetchedData);
       setFriendsData(data.members);
+      console.log("group:",data);
+      //getFriends(onFriendsResponse, group.id ?? "#");
 
     }
   };
@@ -48,13 +50,9 @@ const Group: FC = () => {
     }
   };
 
-const refresh = () =>
-  {
-    console.log("ref");
-    getGroup(onGetGroupResponse, id ?? "");
-  }
+
   useEffect(() => {
-    refresh();
+    getGroup(onGetGroupResponse, id ?? "");
   }, []);
 
   return (
@@ -62,7 +60,7 @@ const refresh = () =>
       {(profileData) && (
         <Grid container sx={{ padding: "0 1rem" }}>
           <Grid item md={3} sm={12}>
-            <UserInfo onFollow={() => {refresh();}} profileType={EnumProfileType.Group} userData={profileData} gallery={[]} onPhotoUploaded={()=>{}} />
+            <UserInfo profileType={EnumProfileType.Group} userData={profileData} gallery={[]} onPhotoUploaded={()=>{}} />
           </Grid>
           <Grid item md={8} sm={12}>
             <ProfileItem  profileButtonsData={profileButtonsData} photos={[]} profileType={EnumProfileType.Group} profileData={profileData} friends={friends} />

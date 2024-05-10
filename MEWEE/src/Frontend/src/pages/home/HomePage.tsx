@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { CircularProgress, Grid, LinearProgress } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useAuthStore, usePostsStore, useSearchBar } from "../../entities";
@@ -10,13 +10,18 @@ import { Navigate } from "react-router-dom";
 export const HomePage: React.FC = () => {
   const { isLoggedIn, role } = useAuthStore();
   const { setTitle } = useSearchBar();
+  const [posts, setPosts] = useState<any>(null);
+  const [news, setNews] = useState<any>(null);
   if (!isLoggedIn)
     return <Navigate to='/auth/login' />
 
-  const { posts, findPosts } = usePostsStore();
+  const { findPosts } = usePostsStore();
 
   const onResponse = (data: any, errors: string[]) => {
-    if (errors.length == 0) { }
+    if (errors.length == 0 && data != null) {
+      setPosts(data.filter((x: any) => x.type == "User"));
+      setNews(data.filter((x: any) => x.type == "News"));
+    }
   };
 
   useEffect(() => {
@@ -24,13 +29,18 @@ export const HomePage: React.FC = () => {
     findPosts(onResponse, "", { page: 0, pageSize: 10 });
   }, []);
   return (
-    <Grid container direction="row">
-      <Grid item sm={8}>
-        <HomeFeed posts={posts} />
-      </Grid>
-      <Grid item sm={4}>
-        <HomeNews posts={posts} />
-      </Grid>
-    </Grid>
+    <>
+
+      {(posts && news) && (
+        <Grid container direction="row">
+          <Grid item sm={8}>
+            <HomeFeed posts={posts} />
+          </Grid>
+          <Grid item sm={4}>
+            <HomeNews posts={news} />
+          </Grid>
+        </Grid>
+      )}
+    </>
   );
 };

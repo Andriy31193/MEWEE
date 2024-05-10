@@ -23,7 +23,7 @@ const Events: FC<{}> = () => {
   const onResponse = (data:any, errors: string[]) => {
     if (errors.length == 0 && data != null) {
       //fetchAvatars();
-      setData(data);
+      setData(data.filter((x:any)=>x.type == "Event"));
       console.log(data);
     } else
       console.error(errors);

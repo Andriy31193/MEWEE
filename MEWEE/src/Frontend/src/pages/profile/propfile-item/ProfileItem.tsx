@@ -10,7 +10,7 @@ import ProfilePost from "./profile-post/ProfilePost";
 import Portfilio from "./portfilio/Portfilio";
 import Friends from "./friends/Friends";
 import PhotoVideoSliders from "../../../widgets/photo-video-sliders/PhotoVideoSliders";
-import { ReactComponent as ProfileItemFilter } from "../../../assets/image/icons/ProfileItemFilter.svg";
+import ProfileItemFilter from "../../../assets/image/icons/ProfileItemFilter.svg";
 import styles from "./profile_item.module.scss";
 import { EnumProfileType, useGroupsStore, usePostsStore, useUserStore } from "../../../entities";
 import { Input } from "@mui/material";
@@ -19,7 +19,6 @@ import { GROUP_NAME_VALIDATION, LOGIN_SCHEMA } from "../../../shared/exportShare
 import { useNavigate } from "react-router-dom";
 import AddPost from "../../../widgets/topSearchBar/components/add-post/AddPost";
 import { useTranslation } from "react-i18next";
-import styles from "./profile_item.module.scss";
 const ProfileItem: FC<{profileButtonsData:any,  profileData: any, photos: any, profileType: EnumProfileType, friends: any }> = ({
   profileButtonsData,
   profileData,
@@ -145,7 +144,7 @@ const ProfileItem: FC<{profileButtonsData:any,  profileData: any, photos: any, p
             <div className={styles.sliders_div}>
               <div className={styles.div_title}>
                 <h1>Недавні</h1>
-                <div><ProfileItemFilter /></div>
+                <img src={ProfileItemFilter} />
               </div>
               <PhotoVideoSliders sliderData={photos} />
               <PhotoVideoSliders retouch={true} title={"Ретуш"} sliderData={photos} />
@@ -155,7 +154,7 @@ const ProfileItem: FC<{profileButtonsData:any,  profileData: any, photos: any, p
             <div className={styles.sliders_div}>
               <div className={styles.div_title}>
                 <h1>Недавні</h1>
-                <div><ProfileItemFilter/></div>
+                <img src={ProfileItemFilter} />
               </div>
               <PhotoVideoSliders sliderData={photos} />
               <PhotoVideoSliders retouch={true} title={"Ретуш"} sliderData={photos} />
