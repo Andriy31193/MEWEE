@@ -105,7 +105,9 @@ const GroupItem: FC<dataGroupItemPropTypes> = ({ data, category }) => {
                 className={` ${index < 6 ? styles.div : styles._div_horizont}`}
               >
                 {currentGroup.avatar && (
-                  <DecryptedImg borderRadius="20px" size="100%" content={currentGroup.avatar}></DecryptedImg>
+                  <DecryptedImg borderRadius="20px" size="100%" content={currentGroup.avatar}
+                                className={` ${index < 6 ? '' : styles.img}`}
+                  ></DecryptedImg>
                 )}
                 <div>
                   <div className={styles.div_group_title}>

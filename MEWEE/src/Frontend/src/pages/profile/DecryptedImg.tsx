@@ -5,7 +5,7 @@ const DecryptedImg: FC<{ content: string, className?: string, borderRadius?: str
     content,
     className,
     borderRadius= "10px",
-    size = '50px'
+    size = '50px',
 }) => {
     const [image, setImage] = useState<any>(null);
 
@@ -14,10 +14,9 @@ const DecryptedImg: FC<{ content: string, className?: string, borderRadius?: str
     }, []);
 
     const imgStyles = {
-        width: "auto",
-        height: "auto",
-        maxHeight: "70px",
-        maxWidth: "100%",
+
+        width: size !== "noset" ? size : undefined,
+        height: size !== "noset" ? size : undefined,
         borderRadius: borderRadius ?? undefined,
     };
 

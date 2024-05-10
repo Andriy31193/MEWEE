@@ -110,7 +110,7 @@
     height: 100%;
     cursor: default;
     > h2 {
-      margin-bottom: 1rem;
+
       font-size: 1.7rem;
     }
     > div {
@@ -147,4 +147,12 @@
   &:active{
     color: #fba500;
   }
+}
+
+.gallery_image{
+  width: 110px !important;
+  height: 110px !important;
+  min-width: 110px !important;
+  min-height: 110px !important;
+  object-fit: cover;
 }

@@ -7,8 +7,7 @@
   background-color: transparent;
   color: #b67afe;
   width: 100%;
-  padding: 4rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  max-width: 8rem;
+  padding: 0.4rem 1rem;
   @include hover-scale;
 }

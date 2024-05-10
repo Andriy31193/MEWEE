@@ -272,7 +272,7 @@ const UserInfo: FC<{
                             <Grid container>
                                 {visibleGallery.map((item: any, index: number) => (
                                     <Grid item md={6} key={index} className={styles.gallery_img}>
-                                        <DecryptedImg content={item.content} />
+                                        <DecryptedImg content={item.content} className={styles.gallery_image} />
                                     </Grid>
                                 ))}
                                 {!showAll && gallery && gallery.length > 4 && (

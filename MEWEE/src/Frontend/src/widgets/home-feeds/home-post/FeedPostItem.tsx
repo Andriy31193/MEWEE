@@ -238,7 +238,10 @@ export const FeedPostItem: FC<{ item: postDataTypes, appearance?: boolean, type?
                     </div>
                   </div>
                 </div>
-                <CustomModalIcon id={0} links={modalPostDataLink} />
+                <div style={{padding: "1.5rem 0.3rem"}}>
+                  <CustomModalIcon id={0} links={modalPostDataLink} />
+                </div>
+
               </header>
             )}
             <main className={styles.main}>
