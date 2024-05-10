@@ -53,7 +53,6 @@
         }
       }
       > div:first-child {
-        margin-right: 1rem;
       }
     }
     .folow_button {
@@ -104,13 +103,48 @@
   }
   .gallery {
     background-color: var(--colorVariation_white_302a37);
-    padding: 1rem 2rem;
+    padding: 1rem 0;
+    text-align: center;
+    max-height: 330px;
+    overflow-y: scroll;
+    height: 100%;
+    cursor: default;
     > h2 {
       margin-bottom: 1rem;
+      font-size: 1.7rem;
     }
     > div {
       display: flex;
       justify-content: center;
     }
+  }
+}
+
+.gallery_img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem !important;
+  max-width: 40% !important;
+  background-color: var(--colorVariation_e1dcf670_615b6e30);
+  border-radius: 10px;
+}
+
+.gallery_button{
+  border: none;
+  outline: none;
+  background: none;
+  margin: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: "Geometria", sans-serif;
+  cursor: pointer;
+  color: var(--colorVariation__25005c_white);
+  &:hover{
+    opacity: 0.75;
+  }
+
+  &:active{
+    color: #fba500;
   }
 }

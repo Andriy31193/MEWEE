@@ -20,16 +20,19 @@
   max-width: 11.3rem;
   border-radius: 10px;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-  background-color: white;
-  padding: 1rem;
+  background-color: var(--colorVariation_white_302a37);
   padding-bottom: 0rem;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.5s ease, visibility 0s linear 0.5s;
   z-index: 999;
   > li {
+    padding: 1rem;
     cursor: pointer;
-    margin-bottom: 1rem;
+    border-radius: 14px;
+    &:hover{
+      background-color: var(--mainPage_settings_hoverOption);
+    }
     > a {
       > div {
         display: flex;
@@ -39,7 +42,8 @@
         }
         > h5
         {
-          color: #B67AFE;
+          font-family: "Geometria", sans-serif;
+          color: var(--colorVariation_b67afe_white);
           font-size: 0.8rem;
           font-weight: 550;
         }

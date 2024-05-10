@@ -4,7 +4,7 @@ import { decryptImage } from "../../entities/sharedStores/post-utils";
 const DecryptedImg: FC<{ content: string, className?: string, borderRadius?: string, size?: string }> = ({
     content,
     className,
-    borderRadius,
+    borderRadius= "10px",
     size = '50px'
 }) => {
     const [image, setImage] = useState<any>(null);
@@ -14,8 +14,10 @@ const DecryptedImg: FC<{ content: string, className?: string, borderRadius?: str
     }, []);
 
     const imgStyles = {
-        width: size !== "noset" ? size : undefined,
-        height: size !== "noset" ? size : undefined,
+        width: "auto",
+        height: "auto",
+        maxHeight: "70px",
+        maxWidth: "100%",
         borderRadius: borderRadius ?? undefined,
     };
 

@@ -14,7 +14,7 @@ declare module '@mui/material/styles' {
       _25005c_b67afe: string;
       _25005c_fba500: string;
       d6ceffbf_53258bbf: string;
-
+      e1dcf670_615b6e30: string;
     },
     authPages:{
       commonElements:{
@@ -138,6 +138,7 @@ declare module '@mui/material/styles' {
       _25005c_b67afe?: string;
       _25005c_fba500?: string;
       d6ceffbf_53258bbf?: string;
+      e1dcf670_615b6e30?: string;
 
     },
     authPages?:{
@@ -262,6 +263,7 @@ export const themes: Theme[] = [
       _25005c_b67afe: '#25005c',
       _25005c_fba500: '#25005c',
       d6ceffbf_53258bbf: '#d6ceffbf',
+      e1dcf670_615b6e30: '#e1dcf670',
     },
     authPages:{
       commonElements:{
@@ -388,6 +390,7 @@ export const themes: Theme[] = [
       _25005c_b67afe: '#b67afe',
       _25005c_fba500: '#fba500',
       d6ceffbf_53258bbf: '#53258bbf',
+      e1dcf670_615b6e30: '#615b6e30',
     },
     authPages:{
       commonElements:{

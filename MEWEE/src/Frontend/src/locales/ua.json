@@ -127,6 +127,7 @@
   "group_create": "Створити",
   "group_name_placeholder": "Назва групи...",
   "create_new_group": "Створити нову групу...",
+  "show_all": "Показати все",
   "confirmationCode_does_not_exist": "Код підтвердження не існує",
   "confirmationCode_invalid": "Недійсний код підтвердження",
   "confirmationCode_expired": "Термін дії коду підтвердження закінчився",
