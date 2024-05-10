@@ -63,7 +63,7 @@ const Events: FC<{}> = () => {
     <>
     <Grid container className={styles.eventsContainer}>
       {/* Sidebar */}
-      <Grid item md={3}>
+      <Grid item md={3} sx={{ paddingRight: "1rem", paddingLeft: "1rem" }}>
       <Sidebar data={sideBarData} onCategoryChanged={onCategoryChanged} />
       </Grid>
 

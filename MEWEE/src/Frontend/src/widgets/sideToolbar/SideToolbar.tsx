@@ -126,8 +126,8 @@ export const SideToolbar = () => {
               isVisible={isVisible}
               icon={<IconJobs />}
               title={t("jobs")}
-              onNavigate={() => {}}
-              isActive={false}
+              onNavigate={() => navigate('/jobs')}
+              isActive={activeIcon("/jobs")}
               />
             <SideToolbarMenuItem
               isVisible={isVisible}

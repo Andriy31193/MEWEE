@@ -19,6 +19,7 @@ import { GROUP_NAME_VALIDATION, LOGIN_SCHEMA } from "../../../shared/exportShare
 import { useNavigate } from "react-router-dom";
 import AddPost from "../../../widgets/topSearchBar/components/add-post/AddPost";
 import { useTranslation } from "react-i18next";
+import ProfileGroupAdd from "./profile-group-add/ProfileGroupAdd";
 const ProfileItem: FC<{profileButtonsData:any,  profileData: any, photos: any, profileType: EnumProfileType, friends: any }> = ({
   profileButtonsData,
   profileData,
@@ -114,30 +115,14 @@ const ProfileItem: FC<{profileButtonsData:any,  profileData: any, photos: any, p
                 <div className={styles.groups_add_btn} onClick={() => setCreateGroupFormEnabled(!createGroupFormEnabled)}>
                   {createGroupFormEnabled ? "▲" : "▼"} NEW GROUP {createGroupFormEnabled ? "▲" : "▼"} </div>
                 {createGroupFormEnabled && (
-                  <div>
-                    <input
-                      required
-                      autoComplete="groupName"
-                      name="groupName"
-                      id="groupName"
-                      placeholder={"Group name..." + "*"}
-                      autoFocus
-                      value={formik.values.groupName}
-                      onChange={formik.handleChange}
-                    ></input>
-                    <select value={groupCategory} onChange={handleDropdownChange}>
-                      <option value="">Select an option</option>
-                      <option value="Entertainment">Entertainment</option>
-                      <option value="Policy">Policy</option>
-                      <option value="Music">Music</option>
-                      <option value="Union">Union</option>
-                      <option value="Education">Education</option>
-                    </select>
-                    <button onClick={() => handleCreateGroup()}>CREATE</button>
-                  </div>
+                    <ProfileGroupAdd
+                        formik={formik}
+                        groupCategory={groupCategory}
+                        handleDropdownChange={handleDropdownChange}
+                        handleCreateGroup={handleCreateGroup}
+                    />
                 )}
                 {/* <Friends friendsData={friends} /> */}
-
               </div>
             )}
           {(activeItemId === 5 && photos) && (
