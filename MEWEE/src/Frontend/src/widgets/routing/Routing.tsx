@@ -22,6 +22,8 @@ import SettingSecurity from "../../pages/setting/components/setting-security/Set
 import SettingAccount from "../../pages/setting/components/setting-account/SettingAccount";
 import PageDevelopment from "../сommon/page-development/PageDevelopment";
 import Events from "../../pages/groups/eventsWindow/Events";
+import Announcement from "../../pages/groups/announcementWindow/Announcement";
+import NewsWindow from "../../pages/groups/newsWindow/NewsWindow";
 
 export const Routing = () => {
   return (
@@ -37,6 +39,8 @@ export const Routing = () => {
               <Route path="/feed" element={<HomePage />} />
                <Route path="/post/:id" element={<PostShow />} /> 
               <Route path="/events" element={<Events />} />
+              <Route path="/announcements" element={<Announcement />} />
+              <Route path="/news" element={<NewsWindow />} />
               <Route path="/groups" element={<Groups />} />
               <Route path="/jobs" element={<PageDevelopment />} />
               <Route path="/group/:id" element={<Group />} />

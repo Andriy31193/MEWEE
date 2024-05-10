@@ -7,6 +7,7 @@ import { ReactComponent as CloseIcon } from "../../assets/image/icons/CloseIcon.
 import CloseIcon2 from "../../assets/image/icons/CloseIcon.svg";
 import { useCommentStore } from "../../entities/sharedStores/useCommentStore";
 import { EMPTY_GUID } from "../../shared/exportSharedMorules";
+import { useTranslation } from "react-i18next";
 
 const CommentBarComponents: FC<CommentBarPropsTypes> = ({
   id,
@@ -15,6 +16,7 @@ const CommentBarComponents: FC<CommentBarPropsTypes> = ({
   commentDataRender,
   onUpdated,
 }) => {
+  const {t} = useTranslation(); 
   const [replyTo, setReplyTo] = useState<any>(null);
   const [replyToId, setReplyToId] = useState<string>("");
   const { createComment } = useCommentStore();
@@ -89,7 +91,8 @@ const CommentBarComponents: FC<CommentBarPropsTypes> = ({
             )}
           {replyTo !== null && (
             <div className={styles.reply}>
-              <span>Replying to... {replyTo.username}</span>
+              <span>{t("replying_to")}</span>
+              <span style={{color:'gray'}}>{replyTo.username}</span>
               <div>
                 <CloseIcon onClick={resetReplyTo} />
               </div>

@@ -119,8 +119,8 @@ export const SideToolbar = () => {
               isVisible={isVisible}
               icon={<IconAnnouncements />}
               title={t("announcements")}
-              onNavigate={() => navigate('/groups')}
-              isActive={false}
+              onNavigate={() => navigate('/announcements')}
+              isActive={activeIcon("/announcements")}
               />
             <SideToolbarMenuItem
               isVisible={isVisible}
@@ -133,8 +133,8 @@ export const SideToolbar = () => {
               isVisible={isVisible}
               icon={<IconNews />}
               title={t("news")}
-              onNavigate={() => navigate('/groups')}
-              isActive={false}
+              onNavigate={() => navigate('/news')}
+              isActive={activeIcon("/news")}
               />
             <SideToolbarMenuItem
               isVisible={isVisible}

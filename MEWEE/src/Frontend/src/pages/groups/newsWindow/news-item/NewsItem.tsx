@@ -1,17 +1,15 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
 import DecryptedImg from "../../../profile/DecryptedImg";
 import CustomButton from "../../../../widgets/сommon/custom-button/customButton";
 import CustomModalIcon from "../../../../widgets/сommon/custom-modal-icon/CustomModalIcon";
 import { modalPostDataLink } from "../../../../widgets/widgetData";
-import styles from "./events_item.module.scss";
-import { useTranslation } from "react-i18next";
+import styles from "./news_item.module.scss";
+import { t } from "i18next";
 
-const EventItem: FC<{ item: any }> = ({ item }) => {
+const NewsItem: FC<{ item: any }> = ({ item }) => {
     const navigate = useNavigate();
-    const [text, setText] = useState<string>("subscribe_to_event")
-    const { t} = useTranslation();
     function formatTime(dateString: string) {
         const date = new Date(dateString);
         const day = date.getDate(); // Use getDate instead of getDay for day of the month
@@ -35,12 +33,11 @@ const EventItem: FC<{ item: any }> = ({ item }) => {
                     </div>
                     <div className={styles.subdiv}>
                         <div className={styles.titlediv}>
-                            <span>{item.title} {formatTime(item.happeningAtUtc)}</span>
+                            <span>{item.title}</span>
                         </div>
                         <div className={styles.button_section}>
-                            <CustomButton text={text} onClick={() => {
-                                setText("subscribed");
-                                //navigate("/post/" + item.id, { replace: false });
+                            <CustomButton text={t('more')} onClick={() => {
+                                navigate("/post/" + item.id, { replace: false });
                             }} />
                         </div>
                     </div>
@@ -53,4 +50,4 @@ const EventItem: FC<{ item: any }> = ({ item }) => {
     );
 };
 
-export default EventItem;
+export default NewsItem;

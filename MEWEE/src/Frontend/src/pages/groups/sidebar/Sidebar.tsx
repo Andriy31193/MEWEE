@@ -29,7 +29,7 @@ const Sidebar: FC<groupDataPropTypes> = ({ data, onCategoryChanged }) => {
 
                 onClick={() => handleLiClick(item.id, item.category)}
               >
-                <a href={item.url}>
+                <a>
                   <h5>{item.text}</h5>
                 </a>
               </li>

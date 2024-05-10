@@ -8,8 +8,8 @@ import { ReactComponent as IconMessages } from "./images/icon_messages.svg";
 import { TopSearchBarItem } from "./components/topSearchBarItem/TopSearchBarItem";
 import AddPost from "./components/add-post/AddPost";
 import { CircularProgress } from "@mui/material";
-import {useLocation, useNavigate} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import Search from "./components/search-component/Search";
 import styles from "./top_search_bar.module.scss";
 
@@ -50,8 +50,8 @@ export const TopSearchBar = () => {
   const onResponse = (data: any, errors: string[]) => {
     setAutoClearErrors(errors);
 
-    console.log(errors);
-    if (errors.length == 0) console.log("all good");
+    if (errors.length == 0) { }
+    else console.error(errors);
   };
 
   return (
@@ -62,33 +62,33 @@ export const TopSearchBar = () => {
       <div className={styles.input_search_container}>
         <div className={styles.label_search_bar_style}>
           <input
-              className={styles.input_search_bar}
-              style={{borderRadius: isVisible ? "10px 10px 0 0" : "10px"}}
-              type="text"
-              name="prompt"
-              id="prompt"
-              value={formik.values.prompt}
-              onChange={formik.handleChange}
-              placeholder={t("search") + "..."}
+            className={styles.input_search_bar}
+            style={{ borderRadius: isVisible ? "10px 10px 0 0" : "10px" }}
+            type="text"
+            name="prompt"
+            id="prompt"
+            value={formik.values.prompt}
+            onChange={formik.handleChange}
+            placeholder={t("search") + "..."}
           />
           <span className={`${styles.input_search_bar_icon} ${styles.search_icon_default}`}
-                onClick={() => formik.handleSubmit()} />
+            onClick={() => formik.handleSubmit()} />
         </div>
-        {isVisible &&(
-            <Search />
+        {isVisible && (
+          <Search />
         )}
       </div>
       <div>
       </div>
       {isLoading && <CircularProgress size={"1rem"}></CircularProgress>}
       <div className={styles.top_search_bar_tools_container}>
-        <AddPost username={username??""} id={id??""} />
-        <TopSearchBarItem onClick={() => navigate('/feed')} icon={<IconFilter/>}
-                          isActive={false}/>
-        <TopSearchBarItem onClick={() => navigate('/feed')} icon={<IconNothification/>}
-                          isActive={false}/>
-        <TopSearchBarItem onClick={() => navigate('/chat')} icon={<IconMessages/>}
-                          isActive={activeIcon("/chat")}/>
+        <AddPost username={username ?? ""} id={id ?? ""} />
+        <TopSearchBarItem onClick={() => navigate('/feed')} icon={<IconFilter />}
+          isActive={false} />
+        <TopSearchBarItem onClick={() => navigate('/feed')} icon={<IconNothification />}
+          isActive={false} />
+        <TopSearchBarItem onClick={() => navigate('/chat')} icon={<IconMessages />}
+          isActive={activeIcon("/chat")} />
       </div>
     </div>
   );
