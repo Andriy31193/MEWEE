@@ -95,8 +95,8 @@ export const FeedPostItem: FC<{ item: postDataTypes, appearance?: boolean, type?
 
     if (errors.length == 0) {
       setComments(data);
-      if (!appearance)
-        handleCommentClick(item.id)
+      // if (!appearance)
+      //   handleCommentClick(item.id)
     }
   }
   const onPostSaveResponse = (data: boolean, errors: string[]) => {
@@ -189,6 +189,9 @@ export const FeedPostItem: FC<{ item: postDataTypes, appearance?: boolean, type?
   }
   useEffect(() => {
 
+    if(appearance === false)
+      setCommentsHiden(item.id);
+
     updatePost();
 
   }, []);
@@ -222,7 +225,7 @@ export const FeedPostItem: FC<{ item: postDataTypes, appearance?: boolean, type?
                   className={commentsHiden === null ? styles.sub_div : `${styles.sub_div} ${styles._sub_div_box_shadow}`}
                   style={{ width: appearance ? '100%' : '60%' }}
               >
-                {type === EnumPostType.News && <span>{item.title}</span>}
+                {type === EnumPostType.News && <span style={{margin:'1rem', marginLeft:0}}>{item.title}</span>}
                 {type !== EnumPostType.News && (
                     <header>
                       <div className={styles.header_div}>
