@@ -10,7 +10,8 @@ import ProfilePost from "./profile-post/ProfilePost";
 import Portfilio from "./portfilio/Portfilio";
 import Friends from "./friends/Friends";
 import PhotoVideoSliders from "../../../widgets/photo-video-sliders/PhotoVideoSliders";
-import ProfileItemFilter from "../../../assets/image/icons/ProfileItemFilter.svg";
+import { ReactComponent as ProfileItemFilter } from "../../../assets/image/icons/ProfileItemFilter.svg";
+import styles from "./profile_item.module.scss";
 import { EnumProfileType, useGroupsStore, usePostsStore, useUserStore } from "../../../entities";
 import { Input } from "@mui/material";
 import { useFormik } from "formik";
@@ -144,7 +145,7 @@ const ProfileItem: FC<{profileButtonsData:any,  profileData: any, photos: any, p
             <div className={styles.sliders_div}>
               <div className={styles.div_title}>
                 <h1>Недавні</h1>
-                <img src={ProfileItemFilter} />
+                <div><ProfileItemFilter /></div>
               </div>
               <PhotoVideoSliders sliderData={photos} />
               <PhotoVideoSliders retouch={true} title={"Ретуш"} sliderData={photos} />
@@ -154,7 +155,7 @@ const ProfileItem: FC<{profileButtonsData:any,  profileData: any, photos: any, p
             <div className={styles.sliders_div}>
               <div className={styles.div_title}>
                 <h1>Недавні</h1>
-                <img src={ProfileItemFilter} />
+                <div><ProfileItemFilter/></div>
               </div>
               <PhotoVideoSliders sliderData={photos} />
               <PhotoVideoSliders retouch={true} title={"Ретуш"} sliderData={photos} />

@@ -3,6 +3,15 @@
 import { Theme, createTheme } from '@mui/material/styles';
 declare module '@mui/material/styles' {
   interface Theme {
+    colorVariation:{
+      white_302a37: string;
+      black_white: string;
+      black_b67afe: string;
+      b67afe_white: string;
+      b67afe_25005c: string;
+      _25005c_white: string;
+      _25005c_b67afe: string;
+    },
     authPages:{
       commonElements:{
         logoColorText: string;
@@ -114,6 +123,16 @@ declare module '@mui/material/styles' {
   }
 
   interface ThemeOptions {
+    colorVariation?:{
+      white_302a37?: string;
+      black_white?: string;
+      black_b67afe?: string;
+      b67afe_white?: string;
+      b67afe_25005c?: string;
+      _25005c_white?: string;
+      _25005c_b67afe?: string;
+
+    },
     authPages?:{
       commonElements?:{
         logoColorText?: string;
@@ -225,6 +244,15 @@ declare module '@mui/material/styles' {
 }
 export const themes: Theme[] = [
   createTheme({
+    colorVariation:{
+      white_302a37: 'white',
+      black_white: 'black',
+      black_b67afe: 'black',
+      b67afe_white: '#b67afe',
+      b67afe_25005c: '#b67afe',
+      _25005c_white: '#25005c',
+      _25005c_b67afe: '#25005c',
+    },
     authPages:{
       commonElements:{
         logoColorText: '#25005C',
@@ -339,6 +367,15 @@ export const themes: Theme[] = [
     },
   }),
   createTheme({
+    colorVariation:{
+      white_302a37: '#302a37',
+      black_white: 'white',
+      black_b67afe: '#b67afe',
+      b67afe_white: 'white',
+      b67afe_25005c: '#25005c',
+      _25005c_white: 'white',
+      _25005c_b67afe: '#b67afe',
+    },
     authPages:{
       commonElements:{
         logoColorText: '#B67AFE',
