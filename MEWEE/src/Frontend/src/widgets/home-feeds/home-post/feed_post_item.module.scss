@@ -48,6 +48,7 @@
   flex-direction: column;
   padding: 0.9rem;
   gap: 10px;
+
   .sub_div {
     position: relative;
     display: flex;
@@ -55,8 +56,8 @@
     border-radius: 20px;
     padding: 2rem;
     padding-top: 0.5rem;
+    justify-content: space-between;
     width: 100%;
-
     z-index: 5;
     background-color: var(--mainPage_post_background);
     > span
